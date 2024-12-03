@@ -1,0 +1,51 @@
+package com.byron.components;
+
+import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.byron.renderers.strategy.DefaultRenderPositionStrategy;
+import com.byron.renderers.strategy.RenderPositionStrategy;
+import com.byron.renderers.strategy.RenderPriority;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RenderComponent implements Component {
+
+    List<Sprite> sprites;
+    RenderPriority priority;
+    int width = 1;
+    int height = 1;
+    RenderPositionStrategy renderPositionStrategy;
+
+    {
+        this.renderPositionStrategy = new DefaultRenderPositionStrategy();
+    }
+
+    public RenderComponent(Sprite sprite, RenderPriority priority) {
+        this.width = (int) sprite.getWidth();
+        this.height = (int) sprite.getHeight();
+        this.sprites = new ArrayList();
+        this.sprites.add(sprite);
+        this.priority = priority;
+    }
+
+    public List<Sprite> getSprites() {
+        return sprites;
+    }
+
+    public RenderPriority getPriority() {
+        return priority;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public RenderPositionStrategy getRenderPositionStrategy() {
+        return renderPositionStrategy;
+    }
+}
