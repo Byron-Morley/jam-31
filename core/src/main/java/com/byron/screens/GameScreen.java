@@ -7,11 +7,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.byron.engine.GameResources;
-import com.byron.interfaces.ICameraManager;
-import com.byron.interfaces.IMapManager;
-import com.byron.interfaces.IRenderable;
-import com.byron.managers.CameraManager;
-import com.byron.managers.MapManager;
+import com.byron.interfaces.*;
+import com.byron.managers.*;
 import com.byron.managers.ui.UIManager;
 import com.byron.systems.RenderSystem;
 
@@ -25,12 +22,17 @@ public class GameScreen implements Screen {
     ICameraManager cameraManager;
     IRenderable uiManager;
     IMapManager mapManager;
+    ISoundManager soundManager;
+    IAgentManager agentManager;
+    IPlayerInputManager playerInputManager;
+    LevelManager levelManager;
 
     public GameScreen() {
         this.resources = GameResources.get();
         initializeLogs();
         initializeStage();
         initializeManagers();
+        initGame();
     }
 
 
@@ -56,13 +58,21 @@ public class GameScreen implements Screen {
 
     private void initializeManagers() {
         this.cameraManager = new CameraManager();
+        this.soundManager = new SoundManager();
         this.mapManager = new MapManager();
+        this.agentManager = new AgentManager();
+        this.playerInputManager = new PlayerInputManager();
         this.uiManager = new UIManager();
+        this.levelManager = new LevelManager(agentManager.getAgentService());
     }
 
     private void initializeSystems() {
         Engine engine = resources.getEngine();
         engine.addSystem(new RenderSystem());
+    }
+
+    private void initGame() {
+        levelManager.init();
     }
 
     @Override
@@ -89,17 +99,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override

@@ -12,4 +12,7 @@ dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api "com.github.raeleus.TenPatch:tenpatch:$tenPatchVersion"
   api "com.kotcrab.vis:vis-ui:$visUiVersion"
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.7.5'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.7.5'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
 }

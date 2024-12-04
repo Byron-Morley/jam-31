@@ -1,6 +1,7 @@
 package com.byron.engine;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -13,12 +14,14 @@ public class GameResources {
     ShapeRenderer shapeRenderer;
     OrthographicCamera camera;
     Stage stage;
+    AssetManager assetManager;
 
     public GameResources(Engine engine, SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.engine = engine;
         this.batch = batch;
         this.shapeRenderer = shapeRenderer;
         this.camera = new OrthographicCamera();
+        this.assetManager = new AssetManager();
 
         if (instance == null) {
             instance = this;
@@ -51,5 +54,9 @@ public class GameResources {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 }

@@ -1,0 +1,12 @@
+{
+  "player": {
+    "name": "Player",
+    "factionId": "player",
+    "velocityX": 0,
+    "velocityY": 0,
+    "animationModel": "DEFAULT",
+    "body": {
+      "BODY": "sprites/player/2 Owlet_Monster/owl_spritesheet.png"
+    }
+  }
+}

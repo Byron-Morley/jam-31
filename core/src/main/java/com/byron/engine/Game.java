@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.byron.managers.ScreenManager;
@@ -16,7 +15,6 @@ import com.kotcrab.vis.ui.VisUI;
 public class Game extends ApplicationAdapter {
     Engine engine;
     SpriteBatch batch;
-    Texture image;
     ScreenManager screenManager;
     ShapeRenderer shapeRenderer;
 
@@ -25,6 +23,7 @@ public class Game extends ApplicationAdapter {
         engine = new Engine();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
+
         VisUI.load();
         screenManager = new ScreenManager(new GameResources(engine, batch, shapeRenderer));
         screenManager.loadGameScreen();
@@ -57,6 +56,5 @@ public class Game extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        image.dispose();
     }
 }

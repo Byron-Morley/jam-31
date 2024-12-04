@@ -1,6 +1,7 @@
 package com.byron.components;
 
 import com.badlogic.ashley.core.Component;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.byron.renderers.strategy.DefaultRenderPositionStrategy;
 import com.byron.renderers.strategy.RenderPositionStrategy;
@@ -10,22 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RenderComponent implements Component {
-
-    List<Sprite> sprites;
-    RenderPriority priority;
-    int width = 1;
-    int height = 1;
-    RenderPositionStrategy renderPositionStrategy;
+    private List<Sprite> sprites;
+    private RenderPriority priority;
+    private RenderPositionStrategy renderPositionStrategy;
 
     {
         this.renderPositionStrategy = new DefaultRenderPositionStrategy();
     }
 
-    public RenderComponent(Sprite sprite, RenderPriority priority) {
-        this.width = (int) sprite.getWidth();
-        this.height = (int) sprite.getHeight();
+    public RenderComponent(RenderPositionStrategy renderPositionStrategy, RenderPriority priority) {
+        this.renderPositionStrategy = renderPositionStrategy;
         this.sprites = new ArrayList();
-        this.sprites.add(sprite);
         this.priority = priority;
     }
 
@@ -37,15 +33,19 @@ public class RenderComponent implements Component {
         return priority;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    public void setPriority(RenderPriority priority) {
+        this.priority = priority;
     }
 
     public RenderPositionStrategy getRenderPositionStrategy() {
         return renderPositionStrategy;
+    }
+
+    public void clear() {
+        this.sprites.clear();
+    }
+
+    public void add(Sprite sprite){
+        this.sprites.add(sprite);
     }
 }

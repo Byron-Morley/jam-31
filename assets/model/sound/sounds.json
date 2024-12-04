@@ -1,0 +1,8 @@
+{
+  "explosion": {
+    "id": "explosion",
+    "path": "sounds/effect.ogg",
+    "priority": 3,
+    "volume": 0.1
+  }
+}
