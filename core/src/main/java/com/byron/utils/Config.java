@@ -9,8 +9,8 @@ public class Config {
     public final static int WORLD_HEIGHT = 30;
     public static final float PX_PER_METER = 32f;
     public static final float METERS_PER_PX = 1 / 32f;
-    public static final float PLAYER_START_X = 2;
-    public static final float PLAYER_START_Y = 1;
+    public static final float PLAYER_START_X = 1;
+    public static final float PLAYER_START_Y = 10;
     public static final float PLAYER_SPRITE_WIDTH = 32;
     public static final float PLAYER_SPRITE_HEIGHT = 32;
     public static final float PLAYER_CELL_WIDTH = PLAYER_SPRITE_WIDTH / PX_PER_METER;

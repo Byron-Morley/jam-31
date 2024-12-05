@@ -9,6 +9,7 @@ import com.byron.components.player.WearComponent;
 import com.byron.components.sprite.AnimableSpriteComponent;
 import com.byron.components.sprite.RefreshSpriteRequirementComponent;
 import com.byron.components.sprite.StackedSpritesComponent;
+import com.byron.factories.PhysicsFactory;
 import com.byron.models.equip.EquipSlot;
 import com.byron.models.sprite.RawAnimationModel;
 import com.byron.renderers.strategy.RenderPriority;
@@ -52,11 +53,19 @@ public class AgentBuilder {
             .add(new StackedSpritesComponent(rawAnimationModel))
             .add(new RefreshSpriteRequirementComponent());
 
+
         return this;
     }
 
     public AgentBuilder withEquipment(Map<EquipSlot, Entity> equipment) {
         entity.add(new WearComponent(equipment));
+        return this;
+    }
+
+    public AgentBuilder withBody(float x, float y, float width, float height) {
+        BodyComponent bodyComponent = new BodyComponent(PhysicsFactory.get().createPlayerBody(x, y, width, height));
+        entity.add(bodyComponent);
+
         return this;
     }
 

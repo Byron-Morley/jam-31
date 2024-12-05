@@ -5,13 +5,16 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.byron.engine.GameResources;
 import com.byron.interfaces.*;
 import com.byron.managers.*;
-import com.byron.managers.ui.UIManager;
+import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.MovementSystem;
+import com.byron.systems.PhysicsSystem;
+import com.byron.systems.PlayerInputSystem;
 import com.byron.systems.render.RenderSystem;
 import com.byron.systems.sprite.AnimableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
@@ -25,18 +28,19 @@ public class GameScreen implements Screen {
 
     //Managers
     ICameraManager cameraManager;
-    IRenderable uiManager;
     IMapManager mapManager;
     ISoundManager soundManager;
     IAgentManager agentManager;
     IPlayerInputManager playerInputManager;
     LevelManager levelManager;
+    UserInterfaceManager userInterfaceManager;
 
     public GameScreen() {
         this.resources = GameResources.get();
         initializeLogs();
         initializeStage();
         initializeManagers();
+        initializeListeners();
         initializeSystems();
         initGame();
     }
@@ -60,6 +64,7 @@ public class GameScreen implements Screen {
         viewport.setUnitsPerPixel(1f);
         this.stage = new Stage(viewport);
         GameResources.get().setStage(stage);
+        Gdx.input.setInputProcessor(stage);
     }
 
     private void initializeManagers() {
@@ -68,8 +73,12 @@ public class GameScreen implements Screen {
         this.mapManager = new MapManager();
         this.agentManager = new AgentManager();
         this.playerInputManager = new PlayerInputManager();
-        this.uiManager = new UIManager();
+        this.userInterfaceManager = new UserInterfaceManager();
         this.levelManager = new LevelManager(agentManager.getAgentService());
+    }
+
+    private void initializeListeners() {
+        this.stage.addListener((ClickListener) playerInputManager);
     }
 
     private void initializeSystems() {
@@ -77,10 +86,11 @@ public class GameScreen implements Screen {
         engine.addSystem(new StackableSpriteSystem());
         engine.addSystem(new StackedSpritesSystem());
         engine.addSystem(new AnimableSpriteSystem());
-        engine.addSystem(new RenderSystem());
+        engine.addSystem(new PlayerInputSystem(playerInputManager));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
+        engine.addSystem(new PhysicsSystem());
         engine.addSystem(new MovementSystem());
-
+        engine.addSystem(new RenderSystem());
     }
 
     private void initGame() {
@@ -88,8 +98,7 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void show() {
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
@@ -100,7 +109,7 @@ public class GameScreen implements Screen {
         resources.getEngine().update(delta);
         resources.getBatch().end();
 
-        uiManager.render(delta);
+        userInterfaceManager.render(delta);
     }
 
     @Override

@@ -1,4 +1,9 @@
 package com.byron.interfaces;
 
-public interface  IPlayerInputManager {
+import com.byron.models.status.Direction;
+
+public interface IPlayerInputManager {
+    Direction getPlayersNewDirection();
+
+    boolean isPressingJump();
 }

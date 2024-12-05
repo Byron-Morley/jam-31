@@ -11,8 +11,7 @@ import com.byron.models.sprite.RawAnimationModel;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.byron.utils.Config.PLAYER_START_X;
-import static com.byron.utils.Config.PLAYER_START_Y;
+import static com.byron.utils.Config.*;
 
 public class AgentFactory {
     private AnimationsFactory animationsFactory;
@@ -28,10 +27,12 @@ public class AgentFactory {
         RawAnimationModel rawAnimationModel = animationsFactory.get(agent.getAnimationModel());
         Map<EquipSlot, Entity> equipment = buildEquipment(agent.getBody());
         AgentBuilder builder = new AgentBuilder(agentId)
-            .withKeyboardControl().at(PLAYER_START_X, PLAYER_START_Y)
+            .at(PLAYER_START_X, PLAYER_START_Y)
+            .withKeyboardControl()
             .withVelocity(new Vector2(agent.getVelocityX(), agent.getVelocityY()))
             .withAnimations(rawAnimationModel)
             .withEquipment(equipment)
+            .withBody(PLAYER_START_X, PLAYER_START_Y, PLAYER_CELL_WIDTH, PLAYER_CELL_HEIGHT)
             .isPlayer();
         return builder;
     }
