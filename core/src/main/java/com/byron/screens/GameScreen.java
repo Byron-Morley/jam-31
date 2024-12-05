@@ -10,7 +10,12 @@ import com.byron.engine.GameResources;
 import com.byron.interfaces.*;
 import com.byron.managers.*;
 import com.byron.managers.ui.UIManager;
-import com.byron.systems.RenderSystem;
+import com.byron.systems.CameraFocusSystem;
+import com.byron.systems.MovementSystem;
+import com.byron.systems.render.RenderSystem;
+import com.byron.systems.sprite.AnimableSpriteSystem;
+import com.byron.systems.sprite.StackableSpriteSystem;
+import com.byron.systems.sprite.StackedSpritesSystem;
 
 public class GameScreen implements Screen {
 
@@ -32,6 +37,7 @@ public class GameScreen implements Screen {
         initializeLogs();
         initializeStage();
         initializeManagers();
+        initializeSystems();
         initGame();
     }
 
@@ -68,7 +74,13 @@ public class GameScreen implements Screen {
 
     private void initializeSystems() {
         Engine engine = resources.getEngine();
+        engine.addSystem(new StackableSpriteSystem());
+        engine.addSystem(new StackedSpritesSystem());
+        engine.addSystem(new AnimableSpriteSystem());
         engine.addSystem(new RenderSystem());
+        engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
+        engine.addSystem(new MovementSystem());
+
     }
 
     private void initGame() {

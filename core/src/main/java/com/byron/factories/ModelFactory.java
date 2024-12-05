@@ -10,16 +10,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ModelFactory {
     private static final String AGENTS_MODEL_PATH = "model/entities/agents.json";
     private static final String ITEMS_MODEL_PATH = "model/entities/items.json";
     private static final String ANIMATIONS_MODEL_PATH = "model/entities/animations.json";
     private static final String SOUNDS_MODEL_PATH = "model/sound/sounds.json";
+    private static final String ATLAS_MODEL_PATH = "model/textures/atlas.json";
 
     private static Map<String, Object> cache = new HashMap<>();
     private static ObjectMapper mapper = new ObjectMapper();
+
+    public static Set<String> getAtlasSpriteModels() {
+        TypeReference<HashSet<String>> typeRef = new TypeReference<HashSet<String>>() {
+        };
+        return (Set<String>) readModel(ATLAS_MODEL_PATH, typeRef);
+    }
 
     public static Map<String, Agent> getAgentsModel() {
         TypeReference<HashMap<String, Agent>> typeRef = new TypeReference<>() {

@@ -22,7 +22,13 @@ public class AgentService extends Service implements IAgentService {
         AgentBuilder agentBuilder = agentManager.getAgentFactory().create(type).at(location.x, location.y);
         Entity agentEntity = agentBuilder.build();
 
+        // Print all components
+        agentEntity.getComponents().forEach(component -> {
+            System.out.println("Component: " + component.getClass().getSimpleName());
+        });
+
         getEngine().addEntity(agentEntity);
         return agentEntity;
     }
+
 }

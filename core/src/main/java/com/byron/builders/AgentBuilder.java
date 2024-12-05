@@ -3,12 +3,18 @@ package com.byron.builders;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.*;
+import com.byron.components.player.KeyboardComponent;
+import com.byron.components.player.PlayerComponent;
+import com.byron.components.player.WearComponent;
 import com.byron.components.sprite.AnimableSpriteComponent;
 import com.byron.components.sprite.RefreshSpriteRequirementComponent;
 import com.byron.components.sprite.StackedSpritesComponent;
+import com.byron.models.equip.EquipSlot;
 import com.byron.models.sprite.RawAnimationModel;
 import com.byron.renderers.strategy.RenderPriority;
 import com.byron.renderers.strategy.SpriteRenderPositionStrategy;
+
+import java.util.Map;
 
 public class AgentBuilder {
 
@@ -46,6 +52,11 @@ public class AgentBuilder {
             .add(new StackedSpritesComponent(rawAnimationModel))
             .add(new RefreshSpriteRequirementComponent());
 
+        return this;
+    }
+
+    public AgentBuilder withEquipment(Map<EquipSlot, Entity> equipment) {
+        entity.add(new WearComponent(equipment));
         return this;
     }
 

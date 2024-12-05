@@ -60,5 +60,10 @@ public class CameraManager implements ICameraManager {
     public void setPosition(float x, float y) {
         this.position = new Vector3(x, y, Z);
     }
+
+    @Override
+    public ICameraService getCameraService() {
+        return cameraService;
+    }
 }
 

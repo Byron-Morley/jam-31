@@ -9,4 +9,9 @@ public class CameraService extends Service implements ICameraService {
     public CameraService(ICameraManager cameraManager) {
         this.cameraManager = cameraManager;
     }
+
+    public void setPosition(float x, float y){
+        cameraManager.setPosition(x, y);
+    }
+
 }

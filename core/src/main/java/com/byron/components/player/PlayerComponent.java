@@ -1,4 +1,4 @@
-package com.byron.components;
+package com.byron.components.player;
 
 import com.badlogic.ashley.core.Component;
 
