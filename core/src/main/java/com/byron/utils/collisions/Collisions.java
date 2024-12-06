@@ -1,11 +1,13 @@
-package com.byron.utils.collisions;
+package com.mygdx.game.utils.collisions;
 
 import com.badlogic.gdx.math.Vector2;
-import com.byron.utils.collisions.interfaces.RectangleCollider;
-import com.byron.utils.shape.Line;
-import com.byron.utils.shape.Shape;
+import com.mygdx.game.utils.collisions.interfaces.Collider;
+import com.mygdx.game.utils.collisions.interfaces.RectangleCollider;
+import com.mygdx.game.utils.shape.Shape;
+import com.mygdx.shape.shape.Line;
 
 public class Collisions {
+
 
     public static boolean futureCollision(RectangleCollider c1, RectangleCollider c2, float deltaTime) {
 
@@ -87,7 +89,7 @@ public class Collisions {
         return false;
     }
 
-    public static boolean lineLine(Line line1, Line line2) {
+    public static boolean lineLine(com.mygdx.shape.shape.Line line1, com.mygdx.shape.shape.Line line2) {
         return Collisions.lineLine(line1.getX(), line1.getY(), line1.getX2(), line1.getY2(), line2.getX(), line2.getY(), line2.getX2(), line2.getY2());
     }
 

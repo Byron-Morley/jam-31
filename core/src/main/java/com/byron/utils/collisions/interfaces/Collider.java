@@ -1,4 +1,4 @@
-package com.byron.utils.collisions.interfaces;
+package com.mygdx.game.utils.collisions.interfaces;
 
 public interface Collider {
     float getX();

@@ -1,14 +1,13 @@
-package com.byron.utils.collisions;
+package com.mygdx.game.utils.collisions;
 
 import com.badlogic.gdx.math.Vector2;
-import com.byron.utils.collisions.interfaces.Collider;
-import com.byron.utils.shape.CurveShape;
-import com.byron.utils.shape.Line;
-import com.byron.utils.shape.RectangleShape;
+import com.mygdx.game.utils.collisions.interfaces.Collider;
+import com.mygdx.game.utils.shape.CurveShape;
+import com.mygdx.game.utils.shape.RectangleShape;
+import com.mygdx.shape.shape.Line;
 
-import static com.byron.utils.collisions.Collisions.collision;
-import static com.byron.utils.collisions.Collisions.futureCollision;
-
+import static com.mygdx.game.utils.collisions.Collisions.collision;
+import static com.mygdx.game.utils.collisions.Collisions.futureCollision;
 
 public class CollisionSimulation {
 
