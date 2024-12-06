@@ -6,7 +6,7 @@
     "velocityY": 0,
     "animationModel": "DEFAULT",
     "body": {
-      "BODY": "Owlet_Monster"
+      "BODY": "agent/owlet"
     }
   }
 }

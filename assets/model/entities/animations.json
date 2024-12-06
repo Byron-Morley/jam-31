@@ -1,8 +1,6 @@
 {
   "DEFAULT": {
     "frameDuration": 0.1,
-    "sheetWidth": 16,
-    "sheetHeight": 16,
     "subAnimations": {
       "STANDING_LEFT": {
         "cells": [
@@ -27,11 +25,6 @@
       "WALKING_LEFT": {
         "cells": [
           {
-            "cell": 1,
-            "flipX": true,
-            "flipY": false
-          },
-          {
             "cell": 2,
             "flipX": true,
             "flipY": false
@@ -53,6 +46,11 @@
           },
           {
             "cell": 6,
+            "flipX": true,
+            "flipY": false
+          },
+          {
+            "cell": 7,
             "flipX": true,
             "flipY": false
           }
@@ -62,11 +60,6 @@
       "WALKING_RIGHT": {
         "cells": [
           {
-            "cell": 1,
-            "flipX": false,
-            "flipY": false
-          },
-          {
             "cell": 2,
             "flipX": false,
             "flipY": false
@@ -88,6 +81,11 @@
           },
           {
             "cell": 6,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 7,
             "flipX": false,
             "flipY": false
           }
