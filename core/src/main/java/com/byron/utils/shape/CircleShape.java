@@ -1,8 +1,10 @@
-package com.byron.utils.shape;
+package com.mygdx.game.utils.shape;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 public class CircleShape extends Shape {
     public static final int CIRCLE_SEGMENTS = 30;
     private float radius;

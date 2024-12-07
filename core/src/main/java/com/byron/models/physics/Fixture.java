@@ -1,9 +1,9 @@
-package com.byron.models.physics;
+package com.mygdx.game.dto.physics;
 
+import com.mygdx.game.utils.shape.RectangleShape;
+import com.mygdx.game.utils.shape.Shape;
 
-import com.byron.utils.shape.Shape;
-
-public class Fixture {
+public class Fixture implements Collider {
 
     public String id;
     private Shape shape;
@@ -39,55 +39,56 @@ public class Fixture {
         this.body = body;
     }
 
+    @Override
     public float getX() {
         return body.position.x + shape.getX();
     }
 
+    @Override
     public float getY() {
         return body.position.y + shape.getY();
     }
 
+    @Override
+    public float getWidth() {
+        RectangleShape rectangleShape = (RectangleShape) shape;
+        return rectangleShape.getWidth();
+    }
+
+    @Override
+    public float getHeight() {
+        RectangleShape rectangleShape = (RectangleShape) shape;
+        return rectangleShape.getHeight();
+    }
+
+    @Override
+    public float getBottom() {
+        return this.getY();
+    }
+
+    @Override
+    public float getTop() {
+        return this.getY() + getHeight();
+    }
+
+    @Override
+    public float getLeft() {
+        return this.getX();
+    }
+
+    @Override
+    public float getRight() {
+        return this.getX() + getWidth();
+    }
+
+    @Override
     public float getPreviousX() {
         return body.getPreviousX() + shape.getX();
     }
 
+    @Override
     public float getPreviousY() {
         return body.getPreviousY() + shape.getY();
     }
-
-//
-//    @Override
-//    public float getWidth() {
-//        RectangleShape rectangleShape = (RectangleShape) shape;
-//        return rectangleShape.getWidth();
-//    }
-//
-//    @Override
-//    public float getHeight() {
-//        RectangleShape rectangleShape = (RectangleShape) shape;
-//        return rectangleShape.getHeight();
-//    }
-//
-//    @Override
-//    public float getBottom() {
-//        return this.getY();
-//    }
-//
-//    @Override
-//    public float getTop() {
-//        return this.getY() + getHeight();
-//    }
-//
-//    @Override
-//    public float getLeft() {
-//        return this.getX();
-//    }
-//
-//    @Override
-//    public float getRight() {
-//        return this.getX() + getWidth();
-//    }
-//
-
 
 }

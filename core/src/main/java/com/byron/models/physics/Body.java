@@ -1,16 +1,14 @@
-package com.byron.models.physics;
+package com.mygdx.game.dto.physics;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.byron.utils.collisions.interfaces.Collider;
-import com.byron.utils.shape.Shape;
+import com.mygdx.game.utils.shape.Shape;
 
 public class Body implements Collider {
 
     public Vector2 position;
     public float width;
     public float height;
-    private BodyType bodyType;
     public Vector2 offset = new Vector2(Vector2.Zero);
     public Vector2 previous;
     private Array<Fixture> fixtures = new Array<>();
@@ -20,7 +18,6 @@ public class Body implements Collider {
         position = new Vector2(x, y);
         this.width = width;
         this.height = height;
-        this.bodyType = BodyType.STATIC;
     }
 
     public void setPosition(Vector2 position) {
@@ -84,17 +81,50 @@ public class Body implements Collider {
     }
 
     @Override
+    public float getBottom() {
+        return position.y;
+    }
+
+    @Override
+    public float getTop() {
+        return position.y + height;
+    }
+
+    @Override
+    public float getLeft() {
+        return position.x;
+    }
+
+    @Override
+    public float getRight() {
+        return position.x + width;
+    }
+
+    @Override
     public float getX() {
         return position.x;
     }
+
     @Override
     public float getY() {
         return position.y;
     }
+
+    @Override
+    public float getWidth() {
+        return width;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
+
     @Override
     public float getPreviousX() {
         return previous.x;
     }
+
     @Override
     public float getPreviousY() {
         return previous.y;

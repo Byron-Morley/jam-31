@@ -1,24 +1,26 @@
-package com.byron.utils.shape;
+package com.mygdx.game.utils.shape;
 
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.utils.collisions.interfaces.CurveCollider;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-public class CurveShape extends Shape implements CurveCollider {
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
+public class CurveShape extends Shape {
     private Bezier bezier;
     private float segmentCount = 100f;
 
     public CurveShape(float x, float y, float width, float height) {
 
-        int points = 4;
+        int points = 3;
 
         Vector2[] controlPoints = new Vector2[points];
 
         controlPoints[0] = new Vector2(x, y);
-        controlPoints[1] = new Vector2(x + width * 0.25f, height+y);
-        controlPoints[2] = new Vector2(x + width * 0.75f, height+y);
-        controlPoints[3] = new Vector2(x + width, y);
+        controlPoints[1] = new Vector2(x + width / 2f, height+y);
+        controlPoints[2] = new Vector2(x + width, y);
 
         bezier = new Bezier<Vector2>(controlPoints);
     }
@@ -46,7 +48,6 @@ public class CurveShape extends Shape implements CurveCollider {
 
     @Override
     public void render(ShapeRenderer shapeRenderer) {
-        this.render(shapeRenderer, x, y);
     }
 
     @Override
@@ -56,8 +57,7 @@ public class CurveShape extends Shape implements CurveCollider {
 
     @Override
     public void render(ShapeRenderer shapeRenderer, float x, float y) {
-        shapeRenderer.setColor(this.getColor());
-        for (int i = 1; i <= segmentCount; ++i) {
+        for (int i = 0; i <= segmentCount; ++i) {
             Line line = this.calculateLine(i);
             shapeRenderer.line(line.getX(), line.getY(), line.getX2(), line.getY2());
         }
@@ -77,15 +77,5 @@ public class CurveShape extends Shape implements CurveCollider {
 
     public void setSegmentCount(float segmentCount) {
         this.segmentCount = segmentCount;
-    }
-
-    @Override
-    public float getPreviousX() {
-        return 0;
-    }
-
-    @Override
-    public float getPreviousY() {
-        return 0;
     }
 }

@@ -1,12 +1,25 @@
 {
-    "activeFile": "",
+    "activeFile": "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/GrassTileSet.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 388,
+                "y": 2975.333333333333
+            }
+        }
     },
     "openFiles": [
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx"
     ],
     "project": "jam-tiled.tiled-project",
     "recentFiles": [
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx"
     ]
 }

@@ -1,47 +1,34 @@
-package com.byron.utils.shape;
+package com.mygdx.game.utils.shape;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.byron.utils.collisions.Collisions;
-import com.byron.utils.collisions.interfaces.LineCollider;
+public class Line {
 
-public class Line extends Shape implements LineCollider {
+    public float x;
+
+    public float y;
     public float x2;
     public float y2;
 
     public Line(float x, float y, float x2, float y2) {
-        super();
         this.x = x;
         this.y = y;
         this.x2 = x2;
         this.y2 = y2;
     }
 
-    @Override
-    public void setPosition(Vector2 position) {
-        setX(position.x);
-        setY(position.y);
+    public float getX() {
+        return x;
     }
 
-    @Override
-    public boolean contains(float x, float y) {
-        return false;
+    public void setX(float x) {
+        this.x = x;
     }
 
-    @Override
-    public void render(ShapeRenderer shapeRenderer) {
-        this.render(shapeRenderer, x, y);
+    public float getY() {
+        return y;
     }
 
-    @Override
-    public void render(ShapeRenderer shapeRenderer, Vector2 position) {
-        this.render(shapeRenderer, position.x, position.y);
-    }
-
-    @Override
-    public void render(ShapeRenderer shapeRenderer, float x, float y) {
-        shapeRenderer.setColor(this.getColor());
-        shapeRenderer.line(x, y, x2, y2);
+    public void setY(float y) {
+        this.y = y;
     }
 
     public float getX2() {
@@ -59,24 +46,4 @@ public class Line extends Shape implements LineCollider {
     public void setY2(float y2) {
         this.y2 = y2;
     }
-
-    @Override
-    public float getPreviousX() {
-        return 0;
-    }
-
-    @Override
-    public float getPreviousY() {
-        return 0;
-    }
-
-    public boolean isSlope() {
-        float gradient = Collisions.getGradient(this);
-        return (gradient != 0);
-    }
-
-    public float getGradient(){
-        return Collisions.getGradient(this);
-    }
-
 }

@@ -1,10 +1,11 @@
-package com.byron.utils.shape;
+package com.mygdx.game.utils.shape;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.utils.collisions.interfaces.RectangleCollider;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-public class RectangleShape extends Shape implements RectangleCollider {
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
+public class RectangleShape extends Shape {
     private float width;
     private float height;
 
@@ -34,26 +35,6 @@ public class RectangleShape extends Shape implements RectangleCollider {
         return height;
     }
 
-    @Override
-    public float getBottom() {
-        return this.getY();
-    }
-
-    @Override
-    public float getTop() {
-        return this.getY() + height;
-    }
-
-    @Override
-    public float getLeft() {
-        return this.getX();
-    }
-
-    @Override
-    public float getRight() {
-        return this.getX() + width;
-    }
-
     public void setWidth(float width) {
         this.width = width;
     }
@@ -68,7 +49,6 @@ public class RectangleShape extends Shape implements RectangleCollider {
         setY(position.y - height / 2);
     }
 
-    @Override
     public void setExactPosition(Vector2 position) {
         setX(position.x);
         setY(position.y);
@@ -81,29 +61,16 @@ public class RectangleShape extends Shape implements RectangleCollider {
 
     @Override
     public void render(ShapeRenderer shapeRenderer) {
-        shapeRenderer.setColor(this.getColor());
         shapeRenderer.rect(x, y, width, height);
     }
 
     @Override
     public void render(ShapeRenderer shapeRenderer, Vector2 position) {
-        shapeRenderer.setColor(this.getColor());
         shapeRenderer.rect(position.x, position.y, width, height);
     }
 
     @Override
     public void render(ShapeRenderer shapeRenderer, float x, float y) {
-        shapeRenderer.setColor(this.getColor());
         shapeRenderer.rect(x, y, width, height);
-    }
-
-    @Override
-    public float getPreviousX() {
-        return this.getX();
-    }
-
-    @Override
-    public float getPreviousY() {
-        return this.getY();
     }
 }
