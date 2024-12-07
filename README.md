@@ -31,3 +31,12 @@ Useful Gradle tasks and flags:
 
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+
+
+## Animations
+
+Animations for an agents need to be prepared in a certain way.
+ALL animations asscoiated with a single agent needs to be individual png images that are the same size and same name. 
+The only difference is the index numbers on the end of the file name.
+If you wish to layer animations on top of each other, you need to make sure the index numbers are the same.
+

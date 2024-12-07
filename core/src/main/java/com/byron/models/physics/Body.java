@@ -1,8 +1,8 @@
-package com.mygdx.game.dto.physics;
+package com.byron.models.physics;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.utils.shape.Shape;
+import com.byron.utils.shape.Shape;
 
 public class Body implements Collider {
 

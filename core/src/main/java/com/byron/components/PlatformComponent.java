@@ -1,4 +1,8 @@
 package com.byron.components;
 
-public class PlatformComponent {
+import com.badlogic.ashley.core.Component;
+
+public class PlatformComponent implements Component {
+    public PlatformComponent() {
+    }
 }

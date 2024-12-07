@@ -124,6 +124,6 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 //BODY
 task createBodyTextureAtlas(description: "Bulids the Sprites Atlas", group: "BODY") {
   doLast {
-//    TexturePacker.process('jam/assets/raw/sprites/64x64/body', 'core/assets/sprites/body', 'body.atlas')
+    TexturePacker.process('assets/raw/sprites/32x32/body', 'assets/sprites/body', 'body.atlas')
   }
 }

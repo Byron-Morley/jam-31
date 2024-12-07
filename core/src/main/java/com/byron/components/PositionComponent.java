@@ -28,20 +28,6 @@ public class PositionComponent implements Component {
         this.y = v.y;
     }
 
-    public void set(float x, float y){
-        overridePhysicsSystem = true;
-        this.x = x;
-        this.y = y;
-    }
-    public void setX(float x){
-        overridePhysicsSystem = true;
-        this.x = x;
-    }
-    public void setY(float y){
-        overridePhysicsSystem = true;
-        this.y = y;
-    }
-
     public void setPosition(Vector2 vector2) {
         overridePhysicsSystem = true;
         this.x = vector2.x;
@@ -58,5 +44,13 @@ public class PositionComponent implements Component {
 
     public float getY() {
         return y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.byron.interfaces.IUIService;
 import com.byron.ui.view.debug.TopRightDebugUI;
+import com.byron.utils.Messages;
 
 import static com.byron.utils.ui.Panels.TOP_RIGHT_DEBUG;
 
@@ -19,15 +20,28 @@ public class OverlayUIController implements Telegraph {
     @Override
     public boolean handleMessage(Telegram msg) {
         switch (msg.message) {
-//            case Messages.CURSOR_TILE_POSITION:
-//                topRightDebugUI.setPositionLabel((GridPoint2) msg.extraInfo);
-//                break;
-//            case Messages.IS_WALKABLE:
-//                topRightDebugUI.setLabelThree((String) msg.extraInfo);
-//                break;
-//            case Messages.CONNECTION_COUNT:
-//                topRightDebugUI.setLabelFour((String) msg.extraInfo);
-//                break;
+            case Messages.PLAYER_POSITION:
+                topRightDebugUI.setPositionLabel((String) msg.extraInfo);
+                break;
+            case Messages.PLAYER_STATUS:
+                topRightDebugUI.setLabelThree((String) msg.extraInfo);
+                break;
+            case Messages.VELOCITY:
+                topRightDebugUI.setLabelFour((String) msg.extraInfo);
+                break;
+            case Messages.ACCELERATION:
+                topRightDebugUI.setLabelFive((String) msg.extraInfo);
+                break;
+            case Messages.BODY_POSITION:
+                topRightDebugUI.setLabelSix((String) msg.extraInfo);
+                break;
+            case Messages.PREVIOUS_POSITION:
+                topRightDebugUI.setLabelSeven((String) msg.extraInfo);
+                break;
+            case Messages.SPEED:
+                topRightDebugUI.setLabelEight((String) msg.extraInfo);
+                break;
+
         }
         return false;
     }

@@ -1,6 +1,7 @@
 package com.byron.ui.view.debug;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -11,7 +12,7 @@ import java.text.DecimalFormat;
 class DebugLabel extends VisLabel {
     public DebugLabel(String text) {
         super(text);
-        this.setFontScale(1.5f);
+        this.setFontScale(1f);
     }
 }
 
@@ -24,6 +25,7 @@ public class DebugUI extends VisTable {
     private Label labelFive;
     private Label labelSix;
     private Label labelSeven;
+    private Label labelEight;
     DecimalFormat df;
 
     public DebugUI() {
@@ -36,24 +38,27 @@ public class DebugUI extends VisTable {
         this.labelFive = new DebugLabel("");
         this.labelSix = new DebugLabel("");
         this.labelSeven = new DebugLabel("");
+        this.labelEight = new DebugLabel("");
 
         df = new DecimalFormat("#.##");
 
         pad(5);
-        align(Align.topRight);
-        add(fpsLabel).right();
+        align(Align.topLeft);
+        add(fpsLabel).left();
         row();
-        add(positionLabel).right();
+        add(positionLabel).left();
         row();
-        add(labelThree).right();
+        add(labelThree).left();
         row();
-        add(labelFour).right();
+        add(labelFour).left();
         row();
-        add(labelFive).right();
+        add(labelFive).left();
         row();
-        add(labelSix).right();
+        add(labelSix).left();
         row();
-        add(labelSeven).right();
+        add(labelSeven).left();
+        row();
+        add(labelEight).left();
         row();
 
     }
@@ -62,8 +67,8 @@ public class DebugUI extends VisTable {
         this.fpsLabel.setText("FPS: " + fps);
     }
 
-    public void setPositionLabel(GridPoint2 vector) {
-        this.positionLabel.setText("Current Position: (" + df.format(vector.x) + " , " + df.format(vector.y) + ")");
+    public void setPositionLabel(String text) {
+        this.positionLabel.setText(text);
     }
 
     public void setLabelThree(String text) {
@@ -84,5 +89,9 @@ public class DebugUI extends VisTable {
 
     public void setLabelSeven(String text) {
         this.labelSeven.setText(text);
+    }
+
+    public void setLabelEight(String text) {
+        this.labelEight.setText(text);
     }
 }

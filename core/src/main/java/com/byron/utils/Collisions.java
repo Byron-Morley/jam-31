@@ -1,9 +1,9 @@
-package com.mygdx.game.utils;
+package com.byron.utils;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.dto.physics.Body;
-import com.mygdx.game.dto.physics.Collider;
-import com.mygdx.game.dto.physics.Fixture;
+import com.byron.models.physics.Body;
+import com.byron.models.physics.Collider;
+import com.byron.models.physics.Fixture;
 
 public class Collisions {
 

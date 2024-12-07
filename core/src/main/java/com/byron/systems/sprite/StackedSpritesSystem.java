@@ -7,6 +7,8 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.byron.components.RenderComponent;
 import com.byron.components.sprite.AnimableSpriteComponent;
@@ -17,6 +19,7 @@ import com.byron.models.sprite.ComplexSprite;
 import com.byron.models.sprite.RawAnimationModel;
 import com.byron.models.sprite.SubAnimationModel;
 import com.byron.models.status.Status;
+import com.byron.utils.Dimensions;
 import com.byron.utils.Mappers;
 import com.byron.utils.Position;
 
@@ -53,40 +56,34 @@ public class StackedSpritesSystem extends IteratingSystem {
         entity.remove(RefreshSpriteRequirementComponent.class);
     }
 
-    private Array<Position> createPositionLookup(int sheetWidth, int sheetHeight) {
-        Array<Position> positions = new Array();
-        for (int y = 0; y < sheetHeight; y++) {
-            for (int x = 0; x < sheetWidth; x++) {
-                positions.add(new Position(x, y));
-            }
-        }
-        return positions;
-    }
-
     private Map<Status, Animation> createAnimations(ComplexSprite complexSprite, RawAnimationModel model) {
         Map<Status, SubAnimationModel> animationsModels = model.getSubAnimations();
         Map<Status, Animation> animations = new HashMap<>();
 
-        Texture texture = complexSprite.getTexture();
-        int width = complexSprite.getSize();
-        int height = complexSprite.getSize();
-        Array<Position> positions = createPositionLookup(model.getSheetWidth(), model.getSheetHeight());
+        TextureAtlas atlas = complexSprite.getAtlas();
+        String name = complexSprite.getName();
 
         for (Status status : animationsModels.keySet()) {
             Array<Sprite> segments = new Array();
             SubAnimationModel subAnimation = animationsModels.get(status);
 
             CellModel[] cells = subAnimation.getCells();
-            float frameDuration = (subAnimation.hasFrameRate()) ? subAnimation.getFrameDuration():model.getFrameDuration();
+            float frameDuration = (subAnimation.hasFrameRate()) ? subAnimation.getFrameDuration() : model.getFrameDuration();
 
             for (int i = 0; i < cells.length; i++) {
 
                 CellModel cell = cells[i];
-
                 int index = cell.getCell();
-                int x = (int) positions.get(index).getX();
-                int y = (int) positions.get(index).getY();
-                Sprite sprite = new Sprite(texture, x * width, y * height, width, height);
+
+                TextureRegion textureRegion = atlas.findRegion(name, index);
+
+                float width = Dimensions.toMeters(textureRegion.getRegionWidth());
+                float height = Dimensions.toMeters(textureRegion.getRegionHeight());
+
+                Sprite sprite = new Sprite(textureRegion);
+                sprite.setSize(width, height);
+//                sprite.setOriginCenter();
+
                 sprite.flip(cell.isFlipX(), cell.isFlipY());
                 segments.add(sprite);
 

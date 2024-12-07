@@ -14,7 +14,6 @@ import com.byron.utils.Mappers;
 
 import static com.byron.utils.Config.*;
 
-
 public class MovementSystem extends IteratingSystem {
     private Action lastAction = Action.STANDING;
     private ComponentMapper<VelocityComponent> vm = Mappers.velocity;
@@ -22,14 +21,9 @@ public class MovementSystem extends IteratingSystem {
     private ComponentMapper<BodyComponent> bm = Mappers.body;
     private ComponentMapper<PlayerComponent> playm = Mappers.player;
 
+
     public MovementSystem() {
-        super(Family.all(
-            PlayerComponent.class,
-            StatusComponent.class,
-            PositionComponent.class,
-            VelocityComponent.class,
-            BodyComponent.class
-        ).get());
+        super(Family.all(PlayerComponent.class, StatusComponent.class, PositionComponent.class, VelocityComponent.class, BodyComponent.class).get());
     }
 
     @Override
@@ -37,6 +31,10 @@ public class MovementSystem extends IteratingSystem {
         VelocityComponent velocityComponent = vm.get(entity);
         StatusComponent status = sm.get(entity);
         BodyComponent bodyComponent = bm.get(entity);
+
+        velocityComponent.acceleration.y = GRAVITY;
+//        velocityComponent.acceleration.scl(deltaTime);
+//        velocityComponent.velocity.add(velocityComponent.acceleration.x, velocityComponent.acceleration.y);
 
         //slows the player down when not accelerating
         if (velocityComponent.acceleration.x == 0) velocityComponent.velocity.x *= DAMP;
@@ -56,21 +54,21 @@ public class MovementSystem extends IteratingSystem {
         bodyComponent.body.position.add(velocityComponent.velocity.x * deltaTime, velocityComponent.velocity.y * deltaTime);
 
 
-        if (velocityComponent.velocity.x == 0) {
-            if (!(status.getAction() == Action.JUMPING || status.getAction() == Action.FALLING)) {
+        if (bodyComponent.body.position.y < 0) {
+            bodyComponent.body.position.y = 0f;
+            if (status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING)) {
                 status.setAction(Action.STANDING);
             }
         }
 
-        if (velocityComponent.velocity.y == 0 && status.getAction() == Action.JUMPING) {
-            status.setAction(Action.FALLING);
+        if (bodyComponent.body.position.x < 0) {
+            bodyComponent.body.position.x = 0f;
+            if (status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING)) {
+                status.setAction(Action.STANDING);
+            }
         }
 
         if (bodyComponent.body.getSpeed().y < -0.03f) {
-            status.setAction(Action.FALLING);
-        }
-
-        if (bodyComponent.body.getSpeed().y < 0f) {
             status.setAction(Action.FALLING);
         }
     }

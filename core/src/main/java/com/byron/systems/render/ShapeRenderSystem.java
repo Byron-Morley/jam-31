@@ -1,22 +1,20 @@
-package com.mygdx.game.systems.render;
+package com.byron.systems.render;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.components.PositionComponent;
-import com.mygdx.game.components.ShapeComponent;
-import com.mygdx.game.engine.GameResources;
-import com.mygdx.game.managers.world.CameraManager;
-import com.mygdx.game.utils.Mappers;
-import com.mygdx.game.utils.PhasedIteratingSystem;
-import com.mygdx.game.utils.shape.Shape;
+import com.byron.components.PositionComponent;
+import com.byron.components.ShapeComponent;
+import com.byron.engine.GameResources;
+import com.byron.utils.Mappers;
+import com.byron.utils.PhasedIteratingSystem;
+import com.byron.utils.shape.Shape;
 
 public class ShapeRenderSystem extends PhasedIteratingSystem {
     private ComponentMapper<ShapeComponent> sm = Mappers.shape;
@@ -25,11 +23,11 @@ public class ShapeRenderSystem extends PhasedIteratingSystem {
     private ShapeRenderer renderer;
     private SpriteBatch spriteBatch;
 
-    public ShapeRenderSystem(CameraManager cameraManager, GameResources gameResources) {
+    public ShapeRenderSystem() {
         super(Family.all(ShapeComponent.class, PositionComponent.class).get());
         this.renderer = new ShapeRenderer();
-        this.spriteBatch = gameResources.getBatch();
-        this.camera = cameraManager.getCamera();
+        this.spriteBatch = GameResources.get().getBatch();
+        this.camera = GameResources.get().getCamera();
     }
 
     @Override

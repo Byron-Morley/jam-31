@@ -11,11 +11,11 @@ import com.byron.engine.GameResources;
 import com.byron.interfaces.*;
 import com.byron.managers.*;
 import com.byron.managers.ui.UserInterfaceManager;
-import com.byron.systems.CameraFocusSystem;
-import com.byron.systems.MovementSystem;
-import com.byron.systems.PhysicsSystem;
-import com.byron.systems.PlayerInputSystem;
+import com.byron.systems.*;
+import com.byron.systems.debug.DebugOverlaySystem;
+import com.byron.systems.debug.DebugSystem;
 import com.byron.systems.render.RenderSystem;
+import com.byron.systems.render.ShapeRenderSystem;
 import com.byron.systems.sprite.AnimableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
@@ -88,9 +88,13 @@ public class GameScreen implements Screen {
         engine.addSystem(new AnimableSpriteSystem());
         engine.addSystem(new PlayerInputSystem(playerInputManager));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
-        engine.addSystem(new PhysicsSystem());
-        engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem());
+        engine.addSystem(new MovementSystem());
+        engine.addSystem(new ShapeRenderSystem());
+        engine.addSystem(new PhysicsSystem());
+        engine.addSystem(new CollisionSystem());
+        engine.addSystem(new DebugSystem());
+        engine.addSystem(new DebugOverlaySystem());
     }
 
     private void initGame() {
@@ -98,13 +102,14 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void render(float delta) {
         cameraManager.render(delta);
 
-        mapManager.render(delta);
+        ((IRenderable) mapManager).render(delta);
         resources.getBatch().begin();
         resources.getEngine().update(delta);
         resources.getBatch().end();

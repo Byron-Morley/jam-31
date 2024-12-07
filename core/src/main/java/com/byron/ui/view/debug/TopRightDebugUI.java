@@ -1,7 +1,6 @@
 package com.byron.ui.view.debug;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -16,9 +15,9 @@ public class TopRightDebugUI implements UI<Group>, IUpdatable {
     public TopRightDebugUI() {
         this.table = new VisTable();
         this.table.setFillParent(true);
-        this.table.align(Align.topRight);
+        this.table.align(Align.topLeft);
         this.debugUI = new DebugUI();
-        this.table.add(debugUI).top().right();
+        this.table.add(debugUI).top().left();
         this.table.row();
     }
 
@@ -26,8 +25,8 @@ public class TopRightDebugUI implements UI<Group>, IUpdatable {
         this.debugUI.setFPS(fps);
     }
 
-    public void setPositionLabel(GridPoint2 position) {
-        this.debugUI.setPositionLabel(position);
+    public void setPositionLabel(String text) {
+        this.debugUI.setPositionLabel(text);
     }
 
     public void setLabelThree(String text) {
@@ -48,6 +47,10 @@ public class TopRightDebugUI implements UI<Group>, IUpdatable {
 
     public void setLabelSeven(String text) {
         this.debugUI.setLabelSeven(text);
+    }
+
+    public void setLabelEight(String text) {
+        this.debugUI.setLabelEight(text);
     }
 
     @Override

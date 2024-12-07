@@ -1,4 +1,4 @@
-package com.byron.systems;
+package com.byron.systems.debug;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -39,43 +39,43 @@ public class DebugSystem extends PhasedIteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-//        if (DEBUG) {
-//            BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
-//            renderer.setProjectionMatrix(camera.combined);
-//            renderer.begin(ShapeRenderer.ShapeType.Line);
-//            renderer.setColor(new Color(Color.RED));
-//
-////            System.out.println(bodyComponent.body.position.x + " " + bodyComponent.body.position.y);
-////            System.out.println(bodyComponent.body.width + " " + bodyComponent.body.height);
-//
-//            renderer.rect(bodyComponent.body.getX(), bodyComponent.body.getY(), bodyComponent.body.width, bodyComponent.body.height);
-//
-//            renderer.setColor(new Color(Color.BLUE));
-//
-//            for (Fixture fixture : bodyComponent.body.getFixtures()) {
-//                if (fixture.getShape() instanceof RectangleShape) {
-//                    RectangleShape rect = (RectangleShape) fixture.getShape();
-//
-//                    float x = bodyComponent.body.getPosition().x + rect.getX();
-//                    float y = bodyComponent.body.getPosition().y + rect.getY();
-//                    float w = rect.getWidth();
-//                    float h = rect.getHeight();
-//
-//                    renderer.rect(x, y, w, h);
-//                } else if (fixture.getShape() instanceof CircleShape) {
-//
-//                    CircleShape circle = (CircleShape) fixture.getShape();
-//
-//                    float x = bodyComponent.body.getPosition().x + circle.getX() + bodyComponent.body.width / 2;
-//                    float y = bodyComponent.body.getPosition().y + circle.getY() + bodyComponent.body.height / 2;
-//                    float r = circle.getRadius();
-//
-//                    renderer.circle(x, y, r, 80);
-//                }
-//            }
-//
-//            renderer.end();
-//        }
+        if (DEBUG) {
+            BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
+            renderer.setProjectionMatrix(camera.combined);
+            renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.setColor(new Color(Color.RED));
+
+//            System.out.println(bodyComponent.body.position.x + " " + bodyComponent.body.position.y);
+//            System.out.println(bodyComponent.body.width + " " + bodyComponent.body.height);
+
+            renderer.rect(bodyComponent.body.getX(), bodyComponent.body.getY(), bodyComponent.body.width, bodyComponent.body.height);
+
+            renderer.setColor(new Color(Color.BLUE));
+
+            for (Fixture fixture : bodyComponent.body.getFixtures()) {
+                if (fixture.getShape() instanceof RectangleShape) {
+                    RectangleShape rect = (RectangleShape) fixture.getShape();
+
+                    float x = bodyComponent.body.getPosition().x + rect.getX();
+                    float y = bodyComponent.body.getPosition().y + rect.getY();
+                    float w = rect.getWidth();
+                    float h = rect.getHeight();
+
+                    rect.render(renderer);
+                } else if (fixture.getShape() instanceof CircleShape) {
+
+                    CircleShape circle = (CircleShape) fixture.getShape();
+
+                    float x = bodyComponent.body.getPosition().x + circle.getX() + bodyComponent.body.width / 2;
+                    float y = bodyComponent.body.getPosition().y + circle.getY() + bodyComponent.body.height / 2;
+                    float r = circle.getRadius();
+
+                    circle.render(renderer);
+                }
+            }
+
+            renderer.end();
+        }
     }
 
     @Override

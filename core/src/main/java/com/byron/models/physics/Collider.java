@@ -1,4 +1,4 @@
-package com.mygdx.game.dto.physics;
+package com.byron.models.physics;
 
 public interface Collider {
     float getX();

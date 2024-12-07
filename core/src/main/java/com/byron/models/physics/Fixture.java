@@ -1,7 +1,8 @@
-package com.mygdx.game.dto.physics;
+package com.byron.models.physics;
 
-import com.mygdx.game.utils.shape.RectangleShape;
-import com.mygdx.game.utils.shape.Shape;
+
+import com.byron.utils.shape.RectangleShape;
+import com.byron.utils.shape.Shape;
 
 public class Fixture implements Collider {
 

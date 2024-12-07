@@ -7,27 +7,9 @@ import java.util.Map;
 
 public class RawAnimationModel {
     private float frameDuration;
-    private int sheetWidth;
-    private int sheetHeight;
     private Map<Status, SubAnimationModel> subAnimations;
 
     public RawAnimationModel() {}
-
-    public int getSheetWidth() {
-        return sheetWidth;
-    }
-
-    public void setSheetWidth(int sheetWidth) {
-        this.sheetWidth = sheetWidth;
-    }
-
-    public int getSheetHeight() {
-        return sheetHeight;
-    }
-
-    public void setSheetHeight(int sheetHeight) {
-        this.sheetHeight = sheetHeight;
-    }
 
     public void setSubAnimations(Map<Status, SubAnimationModel> subAnimations) {
         this.subAnimations = subAnimations;
@@ -50,8 +32,6 @@ public class RawAnimationModel {
         return "RawAnimationModel{" +
                 "frameDuration=" + frameDuration +
                 ", subAnimations=" + subAnimations +
-                ", sheetWidth=" + sheetWidth +
-                ", sheetHeight=" + sheetHeight +
                 '}';
     }
 }

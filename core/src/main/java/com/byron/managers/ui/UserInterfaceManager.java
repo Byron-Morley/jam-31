@@ -1,5 +1,7 @@
 package com.byron.managers.ui;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.byron.engine.GameResources;
@@ -13,6 +15,7 @@ import com.byron.ui.view.debug.TopRightDebugUI;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.byron.utils.Messages.*;
 import static com.byron.utils.ui.Panels.TOP_RIGHT_DEBUG;
 
 
@@ -41,6 +44,7 @@ public class UserInterfaceManager implements IRenderable, IWindowManager, IUpdat
         initializeManagers();
         initializeViews();
         initializeControllers();
+        subscribeListeners();
     }
 
     private void initializeManagers() {
@@ -62,6 +66,20 @@ public class UserInterfaceManager implements IRenderable, IWindowManager, IUpdat
 
     public void initializeControllers() {
         overlayUIController = new OverlayUIController(uiService);
+    }
+
+    private void subscribeListeners() {
+        MessageDispatcher messageDispatcher = MessageManager.getInstance();
+        messageDispatcher.addListeners(this.overlayUIController,
+            PLAYER_POSITION,
+            PLAYER_STATUS,
+            PLAYER_DIRECTION,
+            VELOCITY,
+            ACCELERATION,
+            BODY_POSITION,
+            PREVIOUS_POSITION,
+            SPEED
+        );
     }
 
     @Override

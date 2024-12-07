@@ -68,6 +68,7 @@ public class PlayerInputSystem extends IteratingSystem {
             if (!(status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING))) {
 
                 status.setAction(Action.JUMPING);
+
                 jumpingPressed = true;
                 jumpPressedTime = System.currentTimeMillis();
                 velocityComponent.velocity.y = MAX_JUMP_SPEED;

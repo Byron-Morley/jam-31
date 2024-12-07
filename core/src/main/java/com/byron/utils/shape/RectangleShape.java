@@ -1,4 +1,4 @@
-package com.mygdx.game.utils.shape;
+package com.byron.utils.shape;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;

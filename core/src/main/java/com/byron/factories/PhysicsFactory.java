@@ -24,6 +24,8 @@ public class PhysicsFactory {
 
     public Body createPlayerBody(float x, float y, float width, float height) {
 
+        System.out.println("Creating player body");
+
         float leftMargin = width * 0.3f / 2f;
         float rightMargin = width * 0.3f / 2f;
         float bottomMargin = height * 0.0f / 2f;

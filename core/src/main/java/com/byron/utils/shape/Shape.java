@@ -1,9 +1,9 @@
-package com.mygdx.game.utils.shape;
+package com.byron.utils.shape;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.model.status.Direction;
+import com.byron.models.status.Direction;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")

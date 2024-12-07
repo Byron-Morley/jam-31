@@ -56,7 +56,6 @@ public class PlayerInputManager extends ClickListener implements IPlayerInputMan
 
     @Override
     public boolean keyDown(InputEvent event, int keycode) {
-        System.out.println("key down");
         handleActionKeys(keycode);
         handleMovementKeys(keycode);
         return super.keyDown(event, keycode);

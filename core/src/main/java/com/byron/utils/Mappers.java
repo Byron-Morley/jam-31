@@ -21,4 +21,5 @@ public class Mappers {
     public static final ComponentMapper<StackableSpriteComponent> stackableSprite = ComponentMapper.getFor(StackableSpriteComponent.class);
     public static final ComponentMapper<PlayerComponent> player = ComponentMapper.getFor(PlayerComponent.class);
     public static final ComponentMapper<WearComponent> wear = ComponentMapper.getFor(WearComponent.class);
+    public static final ComponentMapper<ShapeComponent> shape = ComponentMapper.getFor(ShapeComponent.class);
 }

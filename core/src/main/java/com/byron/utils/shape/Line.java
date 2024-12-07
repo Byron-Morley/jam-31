@@ -1,4 +1,4 @@
-package com.mygdx.game.utils.shape;
+package com.byron.utils.shape;
 
 public class Line {
 

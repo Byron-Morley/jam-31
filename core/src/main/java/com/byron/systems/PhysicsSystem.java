@@ -29,10 +29,8 @@ public class PhysicsSystem extends IteratingSystem {
         } else {
             Body body = bodyComponent.body;
 
-            positionComponent.setPosition(new Vector2(body.getPosition()));
-
-//            positionComponent.setX(body.calculateXPosition());
-//            positionComponent.setY(body.calculateYPosition());
+            positionComponent.setX(body.calculateXPosition());
+            positionComponent.setY(body.calculateYPosition());
         }
     }
 }
