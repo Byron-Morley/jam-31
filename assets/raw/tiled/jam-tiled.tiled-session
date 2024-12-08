@@ -3,11 +3,43 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx",
+    "activeFile": "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tmx",
     "expandedProjectPaths": [
         "C:/Users/byron/Documents/work/games/jam/assets/map/level_01"
     ],
     "fileStates": {
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 263.75,
+                "y": 114
+            }
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/floor.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/tilea1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/tilea4.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/walls.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/water.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx": {
             "scale": 1.5,
             "selectedLayer": 2,
@@ -68,28 +100,35 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/sheets",
+    "last.imagePath": "C:/Users/byron/Documents/work/art/tiled/tilesets/images",
     "map.height": 16,
     "map.lastUsedFormat": "tmx",
     "map.width": 18,
     "openFiles": [
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/custom_set.tsx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/grass_set.tsx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/stone_set.tsx"
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tmx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/floor.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/walls.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/water.tsx"
     ],
     "project": "jam-tiled.tiled-project",
     "recentFiles": [
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/stone_set.tsx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/grass_set.tsx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/custom_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/water.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/walls.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/floor.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tmx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/tilea4.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/tilea1.tsx",
         "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/level01.tmx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/rockSet.tsx",
-        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/platform grass.tsx",
-        "C:/Users/byron/My Drive/Digital art/jam-31/Objects.tsx"
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/custom_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/grass_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/stone_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
     "tileset.type": 0
 }

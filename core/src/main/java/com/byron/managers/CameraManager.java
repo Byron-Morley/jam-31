@@ -8,6 +8,7 @@ import com.byron.engine.GameResources;
 import com.byron.interfaces.ICameraManager;
 import com.byron.interfaces.ICameraService;
 import com.byron.services.CameraService;
+import com.byron.utils.Config;
 
 import static com.byron.utils.Config.VIEWPORT_WIDTH_IN_METERS;
 
@@ -27,9 +28,13 @@ public class CameraManager implements ICameraManager {
 
         this.position = new Vector3(0, 0, Z);
         this.shakeManager = new ScreenShakeManager();
-        this.camera = GameResources.get().getCamera();
-        this.camera.setToOrtho(false, VIEWPORT_WIDTH_IN_METERS,
-            VIEWPORT_WIDTH_IN_METERS * (height / width));
+        camera = GameResources.get().getCamera();
+        camera.setToOrtho(false, Config.VIEWPORT_WIDTH, Config.VIEWPORT_HEIGHT);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
+        System.out.println("Screen dimensions (px): " + Config.SCREEN_WIDTH + " x " + Config.SCREEN_HEIGHT);
+System.out.println("Viewport dimensions (m): " + camera.viewportWidth + " x " + camera.viewportHeight);
+System.out.println("Camera center: " + camera.position.x + "," + camera.position.y);
     }
 
     public void shake(float power, float duration, Vector2 epicenter) {
@@ -42,9 +47,9 @@ public class CameraManager implements ICameraManager {
     }
 
     public void resize(int width, int height) {
-        camera.viewportWidth = VIEWPORT_WIDTH_IN_METERS;
-        camera.viewportHeight = VIEWPORT_WIDTH_IN_METERS * height / width;
-        camera.update();
+//        camera.viewportWidth = VIEWPORT_WIDTH_IN_METERS;
+//        camera.viewportHeight = VIEWPORT_WIDTH_IN_METERS * height / width;
+//        camera.update();
     }
 
     public void render(float delta) {

@@ -38,58 +38,36 @@ public class MovementSystem extends IteratingSystem {
         StatusComponent status = sm.get(entity);
         BodyComponent bodyComponent = bm.get(entity);
 
-        //slows the player down when not accelerating
-        if (velocityComponent.acceleration.x == 0) velocityComponent.velocity.x *= DAMP;
 
-        //calculate velocity and set position
-        velocityComponent.velocity.add(velocityComponent.acceleration.x, velocityComponent.acceleration.y);
-
-        //control the jumping height
-        if (velocityComponent.velocity.y > MAX_JUMP_SPEED) velocityComponent.velocity.y = MAX_JUMP_SPEED;
-
-        //prevent player from exceeding maximum velocity
-        if (velocityComponent.velocity.x > MAX_VELOCITY) velocityComponent.velocity.x = MAX_VELOCITY;
-        if (velocityComponent.velocity.x < -MAX_VELOCITY) velocityComponent.velocity.x = -MAX_VELOCITY;
-
-
-        bodyComponent.body.previous.set(bodyComponent.body.position.x, bodyComponent.body.position.y);
-        bodyComponent.body.position.add(velocityComponent.velocity.x * deltaTime, velocityComponent.velocity.y * deltaTime);
-
-
-        if (bodyComponent.body.position.y < 0) {
-            bodyComponent.body.position.y = 0f;
-            if (status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING)) {
-                status.setAction(Action.STANDING);
-            }
-        }
-
-        if (bodyComponent.body.position.x < 0) {
-            bodyComponent.body.position.x = 0f;
-            if (status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING)) {
-                status.setAction(Action.STANDING);
-            }
-        }
-
-        if (bodyComponent.body.getSpeed().y < -0.03f) {
-            status.setAction(Action.FALLING);
-        }
-
-        if (velocityComponent.velocity.x == 0) {
-            if (!(status.getAction() == Action.JUMPING || status.getAction() == Action.FALLING)) {
-                status.setAction(Action.STANDING);
-            }
-        }
+//        // Apply damping when not accelerating
+//        if (velocityComponent.acceleration.x == 0) velocityComponent.velocity.x *= DAMP;
+//        if (velocityComponent.acceleration.y == 0) velocityComponent.velocity.y *= DAMP;
 //
-//        if (velocityComponent.velocity.y == 0 && status.getAction() == Action.JUMPING) {
-//            status.setAction(Action.FALLING);
-//        }
+//        // Add acceleration to velocity
+//        velocityComponent.velocity.add(velocityComponent.acceleration.x, velocityComponent.acceleration.y);
 //
-//        if (bodyComponent.body.getSpeed().y < -0.03f) {
-//            status.setAction(Action.FALLING);
-//        }
+//        // Clamp velocity to maximum speed
+//        if (velocityComponent.velocity.x > MAX_VELOCITY) velocityComponent.velocity.x = MAX_VELOCITY;
+//        if (velocityComponent.velocity.x < -MAX_VELOCITY) velocityComponent.velocity.x = -MAX_VELOCITY;
+//        if (velocityComponent.velocity.y > MAX_VELOCITY) velocityComponent.velocity.y = MAX_VELOCITY;
+//        if (velocityComponent.velocity.y < -MAX_VELOCITY) velocityComponent.velocity.y = -MAX_VELOCITY;
 //
-//        if (bodyComponent.body.getSpeed().y < 0f) {
-//            status.setAction(Action.FALLING);
+//        // Store previous position and update current position
+//        bodyComponent.body.previous.set(bodyComponent.body.position);
+//        bodyComponent.body.position.add(
+//            velocityComponent.velocity.x * deltaTime,
+//            velocityComponent.velocity.y * deltaTime
+//        );
+//
+//        // Prevent moving outside boundaries (if needed)
+//        if (bodyComponent.body.position.x < 0) bodyComponent.body.position.x = 0;
+//        if (bodyComponent.body.position.y < 0) bodyComponent.body.position.y = 0;
+//
+//        // Update status based on movement
+//        if (velocityComponent.velocity.x == 0 && velocityComponent.velocity.y == 0) {
+//            status.setAction(Action.STANDING);
+//        } else {
+//            status.setAction(Action.WALKING);
 //        }
     }
 }

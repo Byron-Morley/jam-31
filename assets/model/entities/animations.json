@@ -22,6 +22,51 @@
         ],
         "playMode": "LOOP"
       },
+      "STANDING_UP": {
+        "cells": [
+          {
+            "cell": 0,
+            "flipX": false,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
+      },
+      "STANDING_DOWN": {
+        "cells": [
+          {
+            "cell": 0,
+            "flipX": false,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
+      }
+    }
+  },
+  "EXTRA": {
+    "frameDuration": 0.1,
+    "subAnimations": {
+      "STANDING_LEFT": {
+        "cells": [
+          {
+            "cell": 0,
+            "flipX": true,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
+      },
+      "STANDING_RIGHT": {
+        "cells": [
+          {
+            "cell": 0,
+            "flipX": false,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
+      },
       "WALKING_LEFT": {
         "cells": [
           {

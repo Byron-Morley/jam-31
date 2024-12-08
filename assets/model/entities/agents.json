@@ -6,7 +6,7 @@
     "velocityY": 0,
     "animationModel": "DEFAULT",
     "body": {
-      "BODY": "agent/owlet"
+      "BODY": "agent/black-knight"
     }
   }
 }

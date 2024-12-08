@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -33,7 +34,6 @@ public class RenderSystem extends SortedIteratingSystem {
         super.forceSort();
         PositionComponent positionComponent = pm.get(entity);
         RenderComponent renderComponent = rm.get(entity);
-        StatusComponent statusComponent = sm.get(entity);
 
         List<Sprite> sprites = renderComponent.getSprites();
 
@@ -42,7 +42,7 @@ public class RenderSystem extends SortedIteratingSystem {
         }
 
         for (Sprite sprite : sprites) {
-            Vector2 pos = renderComponent.getRenderPositionStrategy().process(positionComponent.getX(), positionComponent.getY(), statusComponent.getDirection());
+            Vector2 pos = renderComponent.getRenderPositionStrategy().process(positionComponent.getX(), positionComponent.getY());
 
             float x = pos.x - Dimensions.toMeters(sprite.getOriginX());
             float y = pos.y - Dimensions.toMeters(sprite.getOriginY());

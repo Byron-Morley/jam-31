@@ -37,7 +37,7 @@ public class MapManager implements IMapManager, IRenderable {
 
     @Override
     public void render(float delta) {
-        batch.setProjectionMatrix(camera.combined);
+//        batch.setProjectionMatrix(camera.combined);
         mapRenderer.setView(camera);
         mapRenderer.render();
     }

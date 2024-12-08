@@ -12,11 +12,22 @@ import java.util.List;
 
 public class RenderComponent implements Component {
     private List<Sprite> sprites;
+    int width = 1;
+    int height = 1;
     private RenderPriority priority;
     private RenderPositionStrategy renderPositionStrategy;
 
     {
         this.renderPositionStrategy = new DefaultRenderPositionStrategy();
+    }
+
+    public RenderComponent(Sprite sprite, RenderPriority priority) {
+
+        this.width = (int) sprite.getWidth();
+        this.height = (int) sprite.getHeight();
+        this.sprites = new ArrayList();
+        this.sprites.add(sprite);
+        this.priority = priority;
     }
 
     public RenderComponent(RenderPositionStrategy renderPositionStrategy, RenderPriority priority) {
@@ -45,7 +56,7 @@ public class RenderComponent implements Component {
         this.sprites.clear();
     }
 
-    public void add(Sprite sprite){
+    public void add(Sprite sprite) {
         this.sprites.add(sprite);
     }
 }

@@ -4,7 +4,12 @@ public enum Direction {
     UP("UP"),
     LEFT("LEFT"),
     DOWN("DOWN"),
-    RIGHT("RIGHT");
+    RIGHT("RIGHT"),
+    UP_LEFT("UP_LEFT"),
+    UP_RIGHT("UP_RIGHT"),
+    DOWN_LEFT("DOWN_LEFT"),
+    DOWN_RIGHT("DOWN_RIGHT"),
+    CENTER("CENTER");
     private String name;
 
     Direction(String name) {
@@ -15,8 +20,8 @@ public enum Direction {
         return name;
     }
 
-    public static Direction fromString(String name){
-        if(name != null){
+    public static Direction fromString(String name) {
+        if (name != null) {
             for (Direction d : Direction.values()) {
                 if (name.endsWith(d.name)) {
                     return d;
@@ -27,11 +32,11 @@ public enum Direction {
         return null;
     }
 
-    public boolean isVertical(){
+    public boolean isVertical() {
         return this == UP || this == DOWN;
     }
 
-    public boolean isHorizontal(){
+    public boolean isHorizontal() {
         return this == LEFT || this == RIGHT;
     }
 }

@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -25,6 +27,7 @@ public class GameScreen implements Screen {
     //Core
     Stage stage;
     GameResources resources;
+    OrthographicCamera camera;
 
     //Managers
     ICameraManager cameraManager;
@@ -32,6 +35,8 @@ public class GameScreen implements Screen {
     ISoundManager soundManager;
     IAgentManager agentManager;
     IPlayerInputManager playerInputManager;
+    IDungeonManager dungeonManager;
+    IItemManager itemManager;
     LevelManager levelManager;
     UserInterfaceManager userInterfaceManager;
 
@@ -43,6 +48,7 @@ public class GameScreen implements Screen {
         initializeListeners();
         initializeSystems();
         initGame();
+        camera = GameResources.get().getCamera();
     }
 
 
@@ -70,11 +76,12 @@ public class GameScreen implements Screen {
     private void initializeManagers() {
         this.cameraManager = new CameraManager();
         this.soundManager = new SoundManager();
-        this.mapManager = new MapManager();
+        this.itemManager = new ItemManager();
+        this.dungeonManager = new DungeonManager();
         this.agentManager = new AgentManager();
-        this.playerInputManager = new PlayerInputManager();
         this.userInterfaceManager = new UserInterfaceManager();
-        this.levelManager = new LevelManager(agentManager.getAgentService());
+        this.playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
+        this.levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService());
     }
 
     private void initializeListeners() {
@@ -109,7 +116,9 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         cameraManager.render(delta);
 
-        ((IRenderable) mapManager).render(delta);
+         ((IRenderable) dungeonManager).render(delta);
+
+        resources.getBatch().setProjectionMatrix(camera.combined);
         resources.getBatch().begin();
         resources.getEngine().update(delta);
         resources.getBatch().end();

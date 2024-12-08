@@ -1,7 +1,7 @@
 # !/usr/bin/python
 
 SPRITE_FOLDER = "./raw/sprites/body/"
-OUTPUT_FOLDER = "./raw/sprites/32x32/body/"
+OUTPUT_FOLDER = "./raw/sprites/48x64/body/"
 
 import os
 
@@ -11,11 +11,11 @@ import os
 for root, dirs, files in os.walk(SPRITE_FOLDER, topdown=False):
     for name in files:
 
-        DIR = root.replace("/body/", "/32x32/body/")
+        DIR = root.replace("/body/", "/48x64/body/")
 
         if not os.path.exists(DIR):
             os.makedirs(DIR)
 
-        cmd = 'magick "' + root + "/" + name + '" -crop 32x32 "' + DIR + "/" + name.replace(".png", "") + '_%02d.png"'
+        cmd = 'magick "' + root + "/" + name + '" -crop 48x64 "' + DIR + "/" + name.replace(".png", "") + '_%02d.png"'
         print(cmd)
         os.system(cmd)

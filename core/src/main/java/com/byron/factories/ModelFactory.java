@@ -3,7 +3,7 @@ package com.byron.factories;
 import com.badlogic.gdx.Gdx;
 import com.byron.models.SoundAsset;
 import com.byron.models.Agent;
-import com.byron.models.Item;
+import com.byron.models.item.Item;
 import com.byron.models.sprite.RawAnimationModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

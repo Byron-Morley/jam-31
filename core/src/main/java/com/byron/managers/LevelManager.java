@@ -3,20 +3,24 @@ package com.byron.managers;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.GridPoint2;
 import com.byron.interfaces.IAgentService;
+import com.byron.interfaces.IItemService;
 
-import static com.byron.utils.Config.PLAYER_START_X;
-import static com.byron.utils.Config.PLAYER_START_Y;
 
 public class LevelManager {
 
     IAgentService agentService;
+    IItemService itemService;
 
-    public LevelManager(IAgentService agentService) {
+    public LevelManager(IAgentService agentService, IItemService itemService) {
         this.agentService = agentService;
+        this.itemService = itemService;
     }
 
     public void init(){
         System.out.println("LevelManager: init()");
-        Entity player  = agentService.spawnPlayer(new GridPoint2(PLAYER_START_X, PLAYER_START_Y));
+        itemService.spawnItem(itemService.getItem("stone-floor").build(), new GridPoint2(10, 10));
+        Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
+
+
     }
 }

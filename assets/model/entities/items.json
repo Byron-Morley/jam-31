@@ -1,1 +1,6 @@
-{}
+{
+  "stone-floor": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-1"
+  }
+}
