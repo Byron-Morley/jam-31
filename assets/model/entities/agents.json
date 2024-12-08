@@ -1,12 +1,43 @@
 {
   "player": {
     "name": "player",
+    "player": true,
     "factionId": "player",
-    "velocityX": 0,
-    "velocityY": 0,
     "animationModel": "DEFAULT",
     "body": {
       "BODY": "agent/black-knight"
+    }
+  },
+  "snake": {
+    "name": "snake",
+    "factionId": "enemy",
+    "animationModel": "DEFAULT",
+    "body": {
+      "BODY": "agent/snake"
+    }
+  },
+  "blue-ooze": {
+    "name": "Blue Ooze",
+    "factionId": "enemy",
+    "animationModel": "DEFAULT",
+    "body": {
+      "BODY": "agent/blue-ooze"
+    }
+  },
+  "red-dragon": {
+    "name": "Red Dragon",
+    "factionId": "enemy",
+    "animationModel": "DEFAULT",
+    "body": {
+      "BODY": "agent/red-dragon"
+    }
+  },
+  "goblin": {
+    "name": "Goblin",
+    "factionId": "enemy",
+    "animationModel": "DEFAULT",
+    "body": {
+      "BODY": "agent/goblin"
     }
   }
 }
