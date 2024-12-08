@@ -19,8 +19,9 @@ import com.byron.utils.shape.Shape;
 
 import java.util.Iterator;
 
+import static com.byron.utils.Layers.COLLISIONS;
+
 public class MapService extends Service implements IMapService {
-    public static final String COLLISION_LAYER = "collisions";
     IMapManager mapManager;
 
     public MapService(IMapManager mapManager) {
@@ -29,8 +30,8 @@ public class MapService extends Service implements IMapService {
 //        createObstacle(1, 8f, 1, 1);
     }
 
-  private void populateObstacles() {
-        MapLayer layer = mapManager.getMap().getLayers().get(COLLISION_LAYER);
+    private void populateObstacles() {
+        MapLayer layer = mapManager.getMap().getLayers().get(COLLISIONS);
         MapObjects objects = layer.getObjects();
         Iterator<MapObject> objectIt = objects.iterator();
 
@@ -55,9 +56,8 @@ public class MapService extends Service implements IMapService {
 
         Body body = new Body(x, y, width, height);
 
-        Shape shape = new RectangleShape(body.width, body.height);
-        shape.setColor(Color.BLUE);
-        body.createFixture("STATIC", shape);
+//        Shape shape = new RectangleShape(body.width, body.height);
+//        body.createFixture("STATIC", shape);
 
         Entity entity = new Entity();
         BodyComponent bodyComponent = new BodyComponent(body);

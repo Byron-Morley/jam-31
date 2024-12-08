@@ -19,7 +19,7 @@ import java.util.List;
 public class MapManager implements IMapManager, IRenderable {
 
     private List<Rectangle> obstacles;
-    public static final String PATH_TO_TILE_MAP = "map/test/test_map_32.tmx";
+    public static final String PATH_TO_TILE_MAP = "map/level_01/level_01.tmx";
     TiledMap map;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;

@@ -4,7 +4,7 @@ public class Config {
     public static boolean DEBUG = true;
     public static int SCREEN_WIDTH = 640;
     public static int SCREEN_HEIGHT = 480;
-    public final static float VIEWPORT_WIDTH_IN_METERS = 18;
+    public final static float VIEWPORT_WIDTH_IN_METERS = 24;
     public final static int WORLD_WIDTH = 30;
     public final static int WORLD_HEIGHT = 30;
     public static final float PX_PER_METER = 32f;

@@ -1,25 +1,95 @@
 {
-    "activeFile": "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx",
     "expandedProjectPaths": [
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01"
     ],
     "fileStates": {
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx": {
+            "scale": 2.3453125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 285.6762158560959,
+                "y": 255.4030646235843
+            }
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/custom_set.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/grass_set.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/stone_set.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
         "C:/Users/byron/Documents/work/games/jam/assets/map/test/GrassTileSet.tsx": {
             "scaleInDock": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/iron stone wall gate 64x48.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/level01.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 2,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 281,
+                "y": 399.5
+            }
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/platform grass.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/rockSet.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 2
         },
         "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx": {
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 388,
-                "y": 2975.333333333333
+                "x": 386.66666666666663,
+                "y": 2974
             }
+        },
+        "C:/Users/byron/My Drive/Digital art/jam-31/Objects.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
+    "last.imagePath": "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/sheets",
+    "map.height": 16,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 18,
     "openFiles": [
-        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx"
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/custom_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/grass_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/stone_set.tsx"
     ],
     "project": "jam-tiled.tiled-project",
     "recentFiles": [
-        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx"
-    ]
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/stone_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/grass_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/tsx/custom_set.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/level_01/level_01.tmx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/test_map_32.tmx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/level01.tmx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/rockSet.tsx",
+        "C:/Users/byron/Documents/work/games/jam/assets/map/test/level01/platform grass.tsx",
+        "C:/Users/byron/My Drive/Digital art/jam-31/Objects.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 0
 }
