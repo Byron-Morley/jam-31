@@ -18,9 +18,15 @@ public class LevelManager {
 
     public void init(){
         System.out.println("LevelManager: init()");
-        itemService.spawnItem(itemService.getItem("stone-floor").build(), new GridPoint2(10, 10));
+
+
+//        itemService.spawnItem(itemService.getItem("building/tile").build(), new GridPoint2(11, 12));
+
+        Entity snake  = agentService.spawnAgent(new GridPoint2(12, 12), "snake");
+        Entity dragon  = agentService.spawnAgent(new GridPoint2(13, 12), "red-dragon");
+        Entity ooze  = agentService.spawnAgent(new GridPoint2(14, 12), "blue-ooze");
+        Entity goblin  = agentService.spawnAgent(new GridPoint2(15, 12), "goblin");
         Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
-
-
     }
+
 }

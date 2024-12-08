@@ -27,11 +27,16 @@ public class AgentFactory {
         RawAnimationModel rawAnimationModel = animationsFactory.get(agent.getAnimationModel());
         Map<EquipSlot, Entity> equipment = buildEquipment(agent.getBody());
         AgentBuilder builder = new AgentBuilder(agentId)
-            .withKeyboardControl()
             .withVelocity(new Vector2(agent.getVelocityX(), agent.getVelocityY()))
             .withAnimations(rawAnimationModel)
-            .withEquipment(equipment)
-            .isPlayer();
+            .withEquipment(equipment);
+
+
+        if (agent.isPlayer()) {
+            builder.withKeyboardControl().isPlayer();
+        }
+
+
         return builder;
     }
 

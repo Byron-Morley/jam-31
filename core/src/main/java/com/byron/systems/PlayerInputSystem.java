@@ -14,6 +14,7 @@ import com.byron.components.player.KeyboardComponent;
 import com.byron.engine.GameResources;
 import com.byron.interfaces.IPlayerInputManager;
 import com.byron.models.player.PlayerAction;
+import com.byron.models.status.Action;
 import com.byron.utils.Mappers;
 import com.byron.models.status.Direction;
 
@@ -36,11 +37,32 @@ public class PlayerInputSystem extends IteratingSystem {
     protected void processEntity(Entity player, float deltaTime) {
 
         StatusComponent status = sm.get(player);
-        PositionComponent position = Mappers.position.get(player);
+        BodyComponent bodyComponent = bm.get(player);
 
         Stack<Direction> movementKeysPressed = playerInputManager.getMovementKeysPressed();
         Stack<PlayerAction> actionKeysPressed = playerInputManager.getActionKeyPressed();
 
+        if (movementKeysPressed.size() > 0) {
+            status.setAction(Action.WALKING);
 
+            if (movementKeysPressed.contains(Direction.UP)) {
+                status.setDirection(Direction.UP);
+                bodyComponent.body.position.y += 0.05f;
+            }
+            if (movementKeysPressed.contains(Direction.DOWN)) {
+                status.setDirection(Direction.DOWN);
+                bodyComponent.body.position.y -= 0.05f;
+            }
+            if (movementKeysPressed.contains(Direction.LEFT)) {
+                status.setDirection(Direction.LEFT);
+                bodyComponent.body.position.x -= 0.05f;
+            }
+            if (movementKeysPressed.contains(Direction.RIGHT)) {
+                status.setDirection(Direction.RIGHT);
+                bodyComponent.body.position.x += 0.05f;
+            }
+        } else {
+            status.setAction(Action.STANDING);
+        }
     }
 }

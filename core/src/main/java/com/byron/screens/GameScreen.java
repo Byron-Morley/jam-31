@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
         this.cameraManager = new CameraManager();
         this.soundManager = new SoundManager();
         this.itemManager = new ItemManager();
-        this.dungeonManager = new DungeonManager();
+        this.dungeonManager = new DungeonManager(itemManager.getItemService());
         this.agentManager = new AgentManager();
         this.userInterfaceManager = new UserInterfaceManager();
         this.playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
@@ -116,7 +116,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         cameraManager.render(delta);
 
-         ((IRenderable) dungeonManager).render(delta);
+//         ((IRenderable) dungeonManager).render(delta);
 
         resources.getBatch().setProjectionMatrix(camera.combined);
         resources.getBatch().begin();

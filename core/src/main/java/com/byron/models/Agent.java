@@ -9,8 +9,10 @@ public class Agent {
     String factionId;
     float velocityX;
     float velocityY;
+    boolean player = false;
     String animationModel;
     Map<EquipSlot, String> body;
+
 
     public Agent() {
     }
@@ -61,5 +63,9 @@ public class Agent {
 
     public void setBody(Map<EquipSlot, String> body) {
         this.body = body;
+    }
+
+    public boolean isPlayer() {
+        return player;
     }
 }

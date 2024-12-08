@@ -37,49 +37,49 @@ public class CollisionSystem extends EntitySystem {
 
 
     private void checkStandardCollisions() {
-        for (Entity player : players) {
-            BodyComponent playerBody = bm.get(player);
-            StatusComponent status = sm.get(player);
-
-            for (Entity collider : colliders) {
-                BodyComponent colliderBody = bm.get(collider);
-                VelocityComponent playerVelocity = player.getComponent(VelocityComponent.class);
-                Fixture hitbox = playerBody.body.getFixture("HITBOX");
-
-                //COLLISION
-                if (collision(hitbox, colliderBody.body)
-                ) {
-
-                    //BOTTOM
-                    if (bottomCollision(hitbox, colliderBody.body)) {
-                        playerBody.body.position.y = colliderBody.body.position.y + colliderBody.body.height;
-                        playerVelocity.velocity.y = 0;
-
-                        if (status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING)) {
-                            status.setAction(Action.STANDING);
-                        }
-
-                        //TOP
-                    } else if (topCollision(hitbox, colliderBody.body)) {
-                        playerBody.body.position.y = colliderBody.body.position.y - hitbox.getHeight();
-                        playerVelocity.velocity.y = 0;
-
-                        //LEFT
-                    } else if (leftCollision(hitbox, colliderBody.body)) {
-                        playerBody.body.position.x = colliderBody.body.position.x + colliderBody.body.width - (playerBody.body.width - hitbox.getWidth()) / 2;
-                        playerVelocity.velocity.x = 0;
-
-                        //RIGHT
-                    } else if (rightCollision(hitbox, colliderBody.body)) {
-                        playerBody.body.position.x = colliderBody.body.position.x - (playerBody.body.width + hitbox.getWidth()) / 2;
-                        playerVelocity.velocity.x = 0;
-                    }
-                }
-
-                if (!(playerBody.body.getBottom() <= colliderBody.body.getTop() &&
-                        playerBody.body.previous.x > colliderBody.body.getTop())) {
-                }
-            }
-        }
+//        for (Entity player : players) {
+//            BodyComponent playerBody = bm.get(player);
+//            StatusComponent status = sm.get(player);
+//
+//            for (Entity collider : colliders) {
+//                BodyComponent colliderBody = bm.get(collider);
+//                VelocityComponent playerVelocity = player.getComponent(VelocityComponent.class);
+//                Fixture hitbox = playerBody.body.getFixture("HITBOX");
+//
+//                //COLLISION
+//                if (collision(hitbox, colliderBody.body)
+//                ) {
+//
+//                    //BOTTOM
+//                    if (bottomCollision(hitbox, colliderBody.body)) {
+//                        playerBody.body.position.y = colliderBody.body.position.y + colliderBody.body.height;
+//                        playerVelocity.velocity.y = 0;
+//
+//                        if (status.getAction().equals(Action.JUMPING) || status.getAction().equals(Action.FALLING)) {
+//                            status.setAction(Action.STANDING);
+//                        }
+//
+//                        //TOP
+//                    } else if (topCollision(hitbox, colliderBody.body)) {
+//                        playerBody.body.position.y = colliderBody.body.position.y - hitbox.getHeight();
+//                        playerVelocity.velocity.y = 0;
+//
+//                        //LEFT
+//                    } else if (leftCollision(hitbox, colliderBody.body)) {
+//                        playerBody.body.position.x = colliderBody.body.position.x + colliderBody.body.width - (playerBody.body.width - hitbox.getWidth()) / 2;
+//                        playerVelocity.velocity.x = 0;
+//
+//                        //RIGHT
+//                    } else if (rightCollision(hitbox, colliderBody.body)) {
+//                        playerBody.body.position.x = colliderBody.body.position.x - (playerBody.body.width + hitbox.getWidth()) / 2;
+//                        playerVelocity.velocity.x = 0;
+//                    }
+//                }
+//
+//                if (!(playerBody.body.getBottom() <= colliderBody.body.getTop() &&
+//                        playerBody.body.previous.x > colliderBody.body.getTop())) {
+//                }
+//            }
+//        }
     }
 }
