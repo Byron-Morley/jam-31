@@ -19,7 +19,6 @@ import com.byron.utils.dungeon.DungeonUtils;
 
 import static com.byron.utils.Config.MAP_HEIGHT;
 import static com.byron.utils.Config.MAP_WIDTH;
-import static com.byron.utils.dungeon.DungeonUtils.mapToString;
 
 public class DungeonManager implements IDungeonManager {
     private final int TILE_SCALE = 1;
@@ -33,7 +32,7 @@ public class DungeonManager implements IDungeonManager {
 
     public DungeonManager(IItemService itemService) {
         this.itemService = itemService;
-        dungeon = DungeonUtils.createDungeon(MAP_WIDTH, MAP_HEIGHT, 8, 20, 2, 6, 96);
+        dungeon = DungeonUtils.createDungeon(MAP_WIDTH, MAP_HEIGHT, 12, 20, 2, 6, 96);
 //        dungeon = DungeonUtils.createSimpleDungeon(MAP_WIDTH, MAP_HEIGHT);
         dungeonService = new DungeonService(this);
         bitmap = new int[MAP_WIDTH * 2][MAP_HEIGHT * 2];
@@ -127,7 +126,36 @@ public class DungeonManager implements IDungeonManager {
 
         // Calculate index with new bit positions:
         // NW(8) + SW(4) + SE(2) + NE(1)
-        return (nw << 3) | (sw << 2) | (se << 1) | ne;
+
+        int index = (nw << 3) | (sw << 2) | (se << 1) | ne;
+
+        if (index == 8) {
+            if (isValidPosition(x, y + 1) && bitmap[x][y + 1] == 1) {
+                index = 9;
+            } else if (isValidPosition(x - 1, y) && bitmap[x - 1][y] == 1) {
+                index = 12;
+            }
+        }else if (index == 4) {
+            if (isValidPosition(x -1, y) && bitmap[x -1][y] == 1) {
+                index = 12;
+            } else if (isValidPosition(x, y - 1) && bitmap[x][y - 1] == 1) {
+                index = 6;
+            }
+        }else if (index == 2) {
+            if (isValidPosition(x, y - 1) && bitmap[x][y - 1] == 1) {
+                index = 6;
+            } else if (isValidPosition(x + 1, y) && bitmap[x + 1][y] == 1) {
+                index = 3;
+            }
+        }else if (index == 1) {
+            if (isValidPosition(x + 1, y) && bitmap[x + 1][y] == 1) {
+                index = 3;
+            } else if (isValidPosition(x, y + 1) && bitmap[x][y + 1] == 1) {
+                index = 9;
+            }
+        }
+
+        return index;
     }
 
 
