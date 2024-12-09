@@ -28,6 +28,7 @@ public class CameraManager implements ICameraManager {
         camera = GameResources.get().getCamera();
         camera.setToOrtho(false, Config.VIEWPORT_WIDTH, Config.VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.zoom = 0.25f;
         camera.update();
         System.out.println("Screen dimensions (px): " + Config.SCREEN_WIDTH + " x " + Config.SCREEN_HEIGHT);
         System.out.println("Viewport dimensions (m): " + camera.viewportWidth + " x " + camera.viewportHeight);
