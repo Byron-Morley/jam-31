@@ -134,3 +134,10 @@ task createItemTextureAtlas(description: "Builds the Sprites Atlas", group: "SPR
     TexturePacker.process('assets/raw/sprites/32x32/items', 'assets/sprites/items', '32x32_items.atlas')
   }
 }
+
+task createTILESTextureAtlas(description: "Builds the Sprites Atlas", group: "TILES") {
+  doLast {
+    TexturePacker.process('assets/raw/sprites/32x32/tiles', 'assets/sprites/tiles', '32x32_tiles.atlas')
+  }
+}
+

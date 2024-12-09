@@ -1,17 +1,17 @@
 package com.byron.systems;
 
-import static com.byron.constants.GeneralConstants.PLAYER_SPEED;
-
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.byron.components.BodyComponent;
+import com.byron.components.PositionComponent;
 import com.byron.components.StatusComponent;
 import com.byron.components.VelocityComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.engine.GameResources;
+import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IPlayerInputManager;
 import com.byron.models.player.PlayerAction;
 import com.byron.models.status.Action;
@@ -27,10 +27,12 @@ public class PlayerInputSystem extends IteratingSystem {
     private final ComponentMapper<VelocityComponent> vm = Mappers.velocity;
     private final IPlayerInputManager playerInputManager;
     OrthographicCamera camera;
+    IDungeonService dungeonService;
 
-    public PlayerInputSystem(IPlayerInputManager playerInputManager) {
+    public PlayerInputSystem(IPlayerInputManager playerInputManager, IDungeonService dungeonService) {
         super(Family.all(KeyboardComponent.class).get());
         this.playerInputManager = playerInputManager;
+        this.dungeonService = dungeonService;
         camera = GameResources.get().getCamera();
     }
 
@@ -39,6 +41,7 @@ public class PlayerInputSystem extends IteratingSystem {
 
         StatusComponent status = sm.get(player);
         BodyComponent bodyComponent = bm.get(player);
+        PositionComponent positionComponent = Mappers.position.get(player);
 
         Stack<Direction> movementKeysPressed = playerInputManager.getMovementKeysPressed();
         Stack<PlayerAction> actionKeysPressed = playerInputManager.getActionKeyPressed();
@@ -46,21 +49,31 @@ public class PlayerInputSystem extends IteratingSystem {
         if (movementKeysPressed.size() > 0) {
             status.setAction(Action.WALKING);
 
-            if (movementKeysPressed.contains(Direction.UP)) {
+            Direction direction = movementKeysPressed.pop();
+
+            if (direction.equals(Direction.UP)) {
                 status.setDirection(Direction.UP);
-                bodyComponent.body.position.y += PLAYER_SPEED * deltaTime;
+                if (dungeonService.isWalkable((int) positionComponent.getPosition().x, (int) (positionComponent.getPosition().y + 1))) {
+                    positionComponent.setY(positionComponent.getPosition().y + 1);
+                }
             }
-            if (movementKeysPressed.contains(Direction.DOWN)) {
+            if (direction.equals(Direction.DOWN)) {
                 status.setDirection(Direction.DOWN);
-                bodyComponent.body.position.y -= PLAYER_SPEED * deltaTime;
+                if (dungeonService.isWalkable((int) positionComponent.getPosition().x, (int) (positionComponent.getPosition().y - 1))) {
+                    positionComponent.setY(positionComponent.getPosition().y - 1);
+                }
             }
-            if (movementKeysPressed.contains(Direction.LEFT)) {
+            if (direction.equals(Direction.LEFT)) {
                 status.setDirection(Direction.LEFT);
-                bodyComponent.body.position.x -= PLAYER_SPEED * deltaTime;
+                if (dungeonService.isWalkable((int) (positionComponent.getPosition().x - 1), (int) positionComponent.getPosition().y)) {
+                    positionComponent.setX(positionComponent.getPosition().x - 1);
+                }
             }
-            if (movementKeysPressed.contains(Direction.RIGHT)) {
+            if (direction.equals(Direction.RIGHT)) {
                 status.setDirection(Direction.RIGHT);
-                bodyComponent.body.position.x += PLAYER_SPEED * deltaTime;
+                if (dungeonService.isWalkable((int) (positionComponent.getPosition().x + 1), (int) positionComponent.getPosition().y)) {
+                    positionComponent.setX(positionComponent.getPosition().x + 1);
+                }
             }
         } else {
             status.setAction(Action.STANDING);

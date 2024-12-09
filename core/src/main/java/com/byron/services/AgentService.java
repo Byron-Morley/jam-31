@@ -21,8 +21,8 @@ public class AgentService extends Service implements IAgentService {
     public Entity spawnAgent(GridPoint2 location, String type) {
         AgentBuilder agentBuilder = agentManager.getAgentFactory()
             .create(type)
-            .at(location.x, location.y)
-            .withBody(location.x, location.y, 1, 1);
+            .at(location.x, location.y);
+//            .withBody(location.x, location.y, 1, 1);
         Entity agentEntity = agentBuilder.build();
 
         // Print all components

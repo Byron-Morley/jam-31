@@ -9,13 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.byron.engine.GameResources;
-import com.byron.interfaces.IAgentManager;
-import com.byron.interfaces.ICameraManager;
-import com.byron.interfaces.IDungeonManager;
-import com.byron.interfaces.IItemManager;
-import com.byron.interfaces.IMapManager;
-import com.byron.interfaces.IPlayerInputManager;
-import com.byron.interfaces.ISoundManager;
+import com.byron.interfaces.*;
 import com.byron.managers.AgentManager;
 import com.byron.managers.CameraManager;
 import com.byron.managers.DungeonManager;
@@ -24,6 +18,7 @@ import com.byron.managers.LevelManager;
 import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
+import com.byron.renderers.GridRenderer;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.MovementSystem;
@@ -36,6 +31,9 @@ import com.byron.systems.render.ShapeRenderSystem;
 import com.byron.systems.sprite.AnimableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
+
+import static com.byron.utils.Config.MAP_HEIGHT;
+import static com.byron.utils.Config.MAP_WIDTH;
 
 public class GameScreen implements Screen {
 
@@ -55,15 +53,23 @@ public class GameScreen implements Screen {
     LevelManager levelManager;
     UserInterfaceManager userInterfaceManager;
 
+    IRenderable gridRenderer;
+
+
     public GameScreen() {
         this.resources = GameResources.get();
         initializeLogs();
         initializeStage();
+        initiliseRenderers();
         initializeManagers();
         initializeListeners();
         initializeSystems();
         initGame();
         camera = GameResources.get().getCamera();
+    }
+
+    private void initiliseRenderers() {
+        gridRenderer = new GridRenderer();
     }
 
     private void initializeLogs() {
@@ -106,12 +112,12 @@ public class GameScreen implements Screen {
         engine.addSystem(new StackableSpriteSystem());
         engine.addSystem(new StackedSpritesSystem());
         engine.addSystem(new AnimableSpriteSystem());
-        engine.addSystem(new PlayerInputSystem(playerInputManager));
+        engine.addSystem(new PhysicsSystem());
+        engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService()));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
         engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new ShapeRenderSystem());
-        engine.addSystem(new PhysicsSystem());
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new DebugSystem());
         engine.addSystem(new DebugOverlaySystem());
@@ -134,8 +140,10 @@ public class GameScreen implements Screen {
         resources.getEngine().update(delta);
         resources.getBatch().end();
 
+        gridRenderer.render(delta);
         userInterfaceManager.render(delta);
     }
+
 
     @Override
     public void resize(int width, int height) {

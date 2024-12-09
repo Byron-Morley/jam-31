@@ -14,7 +14,7 @@ public class SpriteRenderPositionStrategy implements RenderPositionStrategy {
 
     @Override
     public Vector2 process(float x, float y) {
-        return new Vector2(x, y);
+        return new Vector2(x + 0.5f, y + 0.5f);
     }
 
     public Vector2 process(float x, float y, Direction direction) {

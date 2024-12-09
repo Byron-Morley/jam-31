@@ -36,8 +36,8 @@ public class DebugOverlaySystem extends IteratingSystem {
         MessageManager.getInstance().dispatchMessage(Messages.ACCELERATION, "Acceleration: " + decimalFormat.format(velocityComponent.acceleration.x) + ", " + decimalFormat.format(velocityComponent.acceleration.y));
 
         BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
-        MessageManager.getInstance().dispatchMessage(Messages.BODY_POSITION, "Position: " + decimalFormat.format(bodyComponent.body.position.x) + ", " + decimalFormat.format(bodyComponent.body.position.y));
-        MessageManager.getInstance().dispatchMessage(Messages.PREVIOUS_POSITION, "Previous: " + decimalFormat.format(bodyComponent.body.previous.x) + ", " + decimalFormat.format(bodyComponent.body.previous.y));
-        MessageManager.getInstance().dispatchMessage(Messages.SPEED, "Speed: " + decimalFormat.format(bodyComponent.body.getSpeed().x) + ", " + decimalFormat.format(bodyComponent.body.getSpeed().y));
+//        MessageManager.getInstance().dispatchMessage(Messages.BODY_POSITION, "Position: " + decimalFormat.format(bodyComponent.body.position.x) + ", " + decimalFormat.format(bodyComponent.body.position.y));
+//        MessageManager.getInstance().dispatchMessage(Messages.PREVIOUS_POSITION, "Previous: " + decimalFormat.format(bodyComponent.body.previous.x) + ", " + decimalFormat.format(bodyComponent.body.previous.y));
+//        MessageManager.getInstance().dispatchMessage(Messages.SPEED, "Speed: " + decimalFormat.format(bodyComponent.body.getSpeed().x) + ", " + decimalFormat.format(bodyComponent.body.getSpeed().y));
     }
 }
