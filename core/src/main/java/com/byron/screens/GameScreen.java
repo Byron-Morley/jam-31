@@ -5,15 +5,30 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.byron.engine.GameResources;
-import com.byron.interfaces.*;
-import com.byron.managers.*;
+import com.byron.interfaces.IAgentManager;
+import com.byron.interfaces.ICameraManager;
+import com.byron.interfaces.IDungeonManager;
+import com.byron.interfaces.IItemManager;
+import com.byron.interfaces.IMapManager;
+import com.byron.interfaces.IPlayerInputManager;
+import com.byron.interfaces.ISoundManager;
+import com.byron.managers.AgentManager;
+import com.byron.managers.CameraManager;
+import com.byron.managers.DungeonManager;
+import com.byron.managers.ItemManager;
+import com.byron.managers.LevelManager;
+import com.byron.managers.PlayerInputManager;
+import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
-import com.byron.systems.*;
+import com.byron.systems.CameraFocusSystem;
+import com.byron.systems.CollisionSystem;
+import com.byron.systems.MovementSystem;
+import com.byron.systems.PhysicsSystem;
+import com.byron.systems.PlayerInputSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
 import com.byron.systems.render.RenderSystem;
@@ -51,9 +66,7 @@ public class GameScreen implements Screen {
         camera = GameResources.get().getCamera();
     }
 
-
     private void initializeLogs() {
-
         //    int LOG_NONE = 0;
         //    int LOG_DEBUG = 3;
         //    int LOG_INFO = 2;

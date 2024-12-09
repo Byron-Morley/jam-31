@@ -1,6 +1,7 @@
 package com.byron.managers;
 
-import com.badlogic.gdx.Gdx;
+import static com.byron.utils.Config.PX_PER_METER;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -10,21 +11,17 @@ import com.byron.interfaces.ICameraService;
 import com.byron.services.CameraService;
 import com.byron.utils.Config;
 
-import static com.byron.utils.Config.VIEWPORT_WIDTH_IN_METERS;
-
 public class CameraManager implements ICameraManager {
     static final float MAXIMUM_DISTANCE_FROM_SHAKE = 12;
     static final int Z = 0;
 
-    ScreenShakeManager shakeManager;
-    OrthographicCamera camera;
-    Vector3 position;
-    ICameraService cameraService;
+    private final ScreenShakeManager shakeManager;
+    private final OrthographicCamera camera;
+    private final Vector3 position;
+    private final ICameraService cameraService;
 
     public CameraManager() {
         cameraService = new CameraService(this);
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
 
         this.position = new Vector3(0, 0, Z);
         this.shakeManager = new ScreenShakeManager();
@@ -33,8 +30,8 @@ public class CameraManager implements ICameraManager {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
         System.out.println("Screen dimensions (px): " + Config.SCREEN_WIDTH + " x " + Config.SCREEN_HEIGHT);
-System.out.println("Viewport dimensions (m): " + camera.viewportWidth + " x " + camera.viewportHeight);
-System.out.println("Camera center: " + camera.position.x + "," + camera.position.y);
+        System.out.println("Viewport dimensions (m): " + camera.viewportWidth + " x " + camera.viewportHeight);
+        System.out.println("Camera center: " + camera.position.x + "," + camera.position.y);
     }
 
     public void shake(float power, float duration, Vector2 epicenter) {
@@ -47,9 +44,9 @@ System.out.println("Camera center: " + camera.position.x + "," + camera.position
     }
 
     public void resize(int width, int height) {
-//        camera.viewportWidth = VIEWPORT_WIDTH_IN_METERS;
-//        camera.viewportHeight = VIEWPORT_WIDTH_IN_METERS * height / width;
-//        camera.update();
+        camera.viewportWidth = width / PX_PER_METER;
+        camera.viewportHeight = height / PX_PER_METER;
+        camera.update();
     }
 
     public void render(float delta) {
@@ -63,7 +60,7 @@ System.out.println("Camera center: " + camera.position.x + "," + camera.position
     }
 
     public void setPosition(float x, float y) {
-        this.position = new Vector3(x, y, Z);
+        position.set(x, y, Z);
     }
 
     @Override
@@ -71,4 +68,3 @@ System.out.println("Camera center: " + camera.position.x + "," + camera.position
         return cameraService;
     }
 }
-
