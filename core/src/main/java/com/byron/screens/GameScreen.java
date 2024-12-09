@@ -32,8 +32,6 @@ import com.byron.systems.sprite.AnimableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
 
-import static com.byron.utils.Config.MAP_HEIGHT;
-import static com.byron.utils.Config.MAP_WIDTH;
 
 public class GameScreen implements Screen {
 

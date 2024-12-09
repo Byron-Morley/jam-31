@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
@@ -12,8 +13,11 @@ import com.byron.factories.SpriteFactory;
 import com.byron.interfaces.IDungeonManager;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IItemService;
+import com.byron.models.Spawn;
 import com.byron.renderers.strategy.RenderPriority;
 import com.byron.utils.dungeon.DungeonUtils;
+
+import java.util.List;
 
 import static com.byron.utils.Config.MAP_HEIGHT;
 import static com.byron.utils.Config.MAP_WIDTH;
@@ -30,27 +34,55 @@ public class DungeonService implements IDungeonService {
         engine = GameResources.get().getEngine();
         createFloorsAndWalls(dungeonManager.getDungeon());
         createEdges();
+        spawnSceneryItems(dungeonManager.getDungeon());
     }
 
+    public void spawnSceneryItems(int[][] dungeon) {
+        List<Spawn> spawns = dungeonManager.getSpawns();
+
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                if (dungeon[x][y] == 1) {
+                    for (Spawn spawn : spawns) {
+                        float frequency = spawn.getFrequency();
+                        String itemName = spawn.getName();
+
+                        if (MathUtils.random() < frequency) {
+                            spawn(itemName, x, y);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     private void createFloorsAndWalls(int[][] map) {
+        // Create a Random object for generating random numbers
+        java.util.Random random = new java.util.Random();
+
         for (int x = 0; x < MAP_WIDTH; x++) {
             for (int y = 0; y < MAP_HEIGHT; y++) {
                 if (map[x][y] == DungeonUtils.TILE_FLOOR) {
-                    spawn("stone-floor", x, y);
+                    // Generate random number between 0-100
+                    // If number is less than 2 (2% chance), spawn broken floor
+                    if (random.nextInt(100) < 2) {
+                        spawn("stone-floor-broken", x, y);
+                    } else {
+                        spawn("stone-floor", x, y);
+                    }
                     addToBitmap(x, y);
 
                     if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
-
                         if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                             spawn("stone-wall-right", x, y + 1);
                             addToBitmap(x, y + 1);
                             addToBitmap(x, y + 2);
-
                         } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                             spawn("stone-wall-left", x, y + 1);
                             addToBitmap(x, y + 1);
                             addToBitmap(x, y + 2);
-
                         } else {
                             addToBitmap(x, y + 1);
                             addToBitmap(x, y + 2);
@@ -61,6 +93,7 @@ public class DungeonService implements IDungeonService {
             }
         }
     }
+
 
     private void createEdges() {
         int[][] bitmap = dungeonManager.getBitmap();
