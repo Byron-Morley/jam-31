@@ -13,19 +13,16 @@ import com.kotcrab.vis.ui.VisUI;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class Game extends ApplicationAdapter {
-    Engine engine;
-    SpriteBatch batch;
-    ScreenManager screenManager;
-    ShapeRenderer shapeRenderer;
+
+    private SpriteBatch batch;
+    private ScreenManager screenManager;
 
     @Override
     public void create() {
-        engine = new Engine();
         batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
 
         VisUI.load();
-        screenManager = new ScreenManager(new GameResources(engine, batch, shapeRenderer));
+        screenManager = new ScreenManager(new GameResources(new Engine(), batch, new ShapeRenderer()));
         screenManager.loadGameScreen();
     }
 
