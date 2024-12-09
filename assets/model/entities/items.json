@@ -2,5 +2,17 @@
   "stone-floor": {
     "label": "Stone Floor",
     "sprite": "building/stone-tile-1"
+  },
+  "stone-wall": {
+    "label": "Stone Wall",
+    "sprite": "building/wall"
+  },
+  "stone-wall-left": {
+    "label": "Stone Wall Left",
+    "sprite": "building/wall-left"
+  },
+  "stone-wall-right": {
+    "label": "Stone Wall Right",
+    "sprite": "building/wall-right"
   }
 }

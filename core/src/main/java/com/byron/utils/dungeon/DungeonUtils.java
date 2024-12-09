@@ -98,9 +98,9 @@ public final class DungeonUtils {
         return map;
     }
 
-    static final int TILE_EMPTY = 0;
-    static final int TILE_FLOOR = 1;
-    static final int TILE_WALL = 2;
+    public static final int TILE_EMPTY = 0;
+    public static final int TILE_FLOOR = 1;
+    public static final int TILE_WALL = 2;
 
     private DungeonUtils() {
     }

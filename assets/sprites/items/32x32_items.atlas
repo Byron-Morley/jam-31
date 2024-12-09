@@ -1,20 +1,153 @@
 
 32x32_items.png
-size: 128, 64
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-building/stone-tile-1
+building/dungeon-wall
   rotate: false
   xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+building/dungeon-wall
+  rotate: false
+  xy: 104, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+building/dungeon-wall
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+building/dungeon-wall
+  rotate: false
+  xy: 138, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+building/dungeon-wall
+  rotate: false
+  xy: 70, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+building/dungeon-wall
+  rotate: false
+  xy: 104, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+building/dungeon-wall
+  rotate: false
+  xy: 172, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+building/dungeon-wall
+  rotate: false
+  xy: 138, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+building/dungeon-wall
+  rotate: false
+  xy: 206, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 8
+building/dungeon-wall
+  rotate: false
+  xy: 172, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+building/dungeon-wall
+  rotate: false
+  xy: 240, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 10
+building/dungeon-wall
+  rotate: false
+  xy: 206, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 11
+building/dungeon-wall
+  rotate: false
+  xy: 274, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 12
+building/dungeon-wall
+  rotate: false
+  xy: 240, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 13
+building/dungeon-wall
+  rotate: false
+  xy: 308, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 14
+building/dungeon-wall
+  rotate: false
+  xy: 274, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 15
+building/stone-tile-1
+  rotate: false
+  xy: 342, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 building/stone-tile-1-broken
   rotate: false
-  xy: 36, 2
+  xy: 308, 34
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+building/wall
+  rotate: false
+  xy: 2, 36
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+building/wall-left
+  rotate: false
+  xy: 36, 36
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+building/wall-right
+  rotate: false
+  xy: 70, 36
+  size: 32, 64
+  orig: 32, 64
   offset: 0, 0
   index: -1

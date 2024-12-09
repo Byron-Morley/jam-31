@@ -1,6 +1,8 @@
 package com.byron.utils;
 
 public class Config {
+    public static final int MAP_WIDTH = 64;
+    public static final int MAP_HEIGHT = 64;
     public static boolean DEBUG = true;
     public final static float VIEWPORT_WIDTH_IN_METERS = 18;
     public static final float SCREEN_WIDTH = 640;

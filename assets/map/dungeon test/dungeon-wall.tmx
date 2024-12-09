@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.1" orientation="orthogonal" renderorder="right-down" width="32" height="2" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="walls.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="32" height="2">
+  <data encoding="csv">
+766,767,799,672,767,767,767,768,767,767,767,672,799,799,799,800,671,799,734,735,671,799,735,736,765,766,733,734,797,798,669,670,
+798,799,799,799,767,704,767,800,703,767,703,767,830,831,831,832,799,799,766,767,799,704,767,768,797,798,765,766,829,830,701,702
+</data>
+ </layer>
+</map>

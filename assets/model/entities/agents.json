@@ -5,7 +5,7 @@
     "factionId": "player",
     "animationModel": "DEFAULT",
     "body": {
-      "BODY": "agent/black-knight"
+      "BODY": "agent/snake"
     }
   },
   "snake": {
