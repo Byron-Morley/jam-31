@@ -12,8 +12,8 @@
             "scale": 2,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 207.75,
-                "y": 256.25
+                "x": 256,
+                "y": 187
             }
         },
         "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon test.tsx": {
@@ -22,9 +22,9 @@
         },
         "C:/Users/byron/Documents/work/games/jam/assets/map/dungeon test/dungeon-wall.tmx": {
             "scale": 2.39541015625,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 303.91455012434255,
+                "x": 153.83586774837946,
                 "y": 73.05638224142851
             }
         },

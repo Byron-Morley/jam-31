@@ -40,15 +40,48 @@ public final class DungeonUtils {
         System.out.println(mapToString(map));
     }
 
+    public static int[][] createSimpleDungeon(int width, int height) {
+        int[][] dungeon = new int[width][height];
+
+        // Fill with walls
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                dungeon[x][y] = TILE_WALL;
+            }
+        }
+
+        // Create left room (4x4)
+        for (int x = 1; x < 5; x++) {
+            for (int y = 1; y < 5; y++) {
+                dungeon[x][y] = TILE_FLOOR;
+            }
+        }
+
+        // Create right room (4x4)
+        for (int x = 7; x < 11; x++) {
+            for (int y = 1; y < 5; y++) {
+                dungeon[x][y] = TILE_FLOOR;
+            }
+        }
+
+        // Create corridor
+        for (int x = 5; x < 7; x++) {
+            dungeon[x][2] = TILE_FLOOR;
+        }
+
+        return dungeon;
+    }
+
+
     public static int[][] createDungeon(
-            int mapSizeX, int mapSizeY,
-            int roomCountMin, int roomCountMax,
-            int roomMinSize, int roomMaxSize,
-            int squashIterations
+        int mapSizeX, int mapSizeY,
+        int roomCountMin, int roomCountMax,
+        int roomMinSize, int roomMaxSize,
+        int squashIterations
     ) {
-        int map[][] = new int[mapSizeX][mapSizeY];
-        int submapSizeX = mapSizeX / 2;
-        int submapSizeY = mapSizeY / 3;
+        int map[][] = new int[mapSizeX / 2][mapSizeY / 2];
+        int submapSizeX = mapSizeX / 4;
+        int submapSizeY = mapSizeY / 6;
 
         for (int x = 0; x < 2; x++) {
             for (int y = 0; y < 3; y++) {
@@ -95,8 +128,39 @@ public final class DungeonUtils {
             }
         }
         addMissingWalls(map);
-        return map;
+
+        int[][] enlargedMap = enLargeMap(map, 2);
+
+
+        return enlargedMap;
     }
+
+    private static int[][] enLargeMap(int[][] originalMap, int scale) {
+        int padding = 5;
+        int newWidth = (originalMap.length * scale) + (padding * 2);
+        int newHeight = (originalMap[0].length * scale) + (padding * 2);
+        int[][] enlargedMap = new int[newWidth][newHeight];
+
+        // Fill entire array with TILE_EMPTY (0) first
+        for (int x = 0; x < newWidth; x++) {
+            for (int y = 0; y < newHeight; y++) {
+                enlargedMap[x][y] = TILE_EMPTY;
+            }
+        }
+
+        // Copy and scale original map contents, offset by padding
+        for (int x = 0; x < originalMap.length; x++) {
+            for (int y = 0; y < originalMap[0].length; y++) {
+                for (int dx = 0; dx < scale; dx++) {
+                    for (int dy = 0; dy < scale; dy++) {
+                        enlargedMap[padding + (x * scale) + dx][padding + (y * scale) + dy] = originalMap[x][y];
+                    }
+                }
+            }
+        }
+        return enlargedMap;
+    }
+
 
     public static final int TILE_EMPTY = 0;
     public static final int TILE_FLOOR = 1;
@@ -287,7 +351,7 @@ public final class DungeonUtils {
             if (i == ignore) continue;
             Room check = rooms.get(i);
             if (!((room.x + room.w < check.x) || (room.x > check.x + check.w) || (room.y + room.h < check.y) || (room.y > check.y
-                    + check.h))) return true;
+                + check.h))) return true;
         }
 
         return false;
@@ -324,7 +388,7 @@ public final class DungeonUtils {
             float checkMidX = check.x + (check.w / 2f);
             float checkMidY = check.y + (check.h / 2f);
             float distance = Math.min(Math.abs(midX - checkMidX) - (room.w / 2f) - (check.w / 2f), Math.abs(midY - checkMidY)
-                    - (room.h / 2f) - (check.h / 2f));
+                - (room.h / 2f) - (check.h / 2f));
             if (distance < closestDistance) {
                 closestDistance = distance;
                 closest = check;

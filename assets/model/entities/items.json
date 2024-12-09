@@ -14,5 +14,9 @@
   "stone-wall-right": {
     "label": "Stone Wall Right",
     "sprite": "building/wall-right"
+  },
+  "stone-brick-dungeon": {
+    "label": "Stone Brick Dungeon",
+    "sprite": "building/dungeon-wall"
   }
 }

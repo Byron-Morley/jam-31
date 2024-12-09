@@ -130,6 +130,7 @@ task createBodyTextureAtlas(description: "Builds the Sprites Atlas", group: "BOD
 
 task createItemTextureAtlas(description: "Builds the Sprites Atlas", group: "SPRITES") {
   doLast {
+    TexturePacker.process('assets/raw/sprites/16x16/items', 'assets/sprites/items', '16x16_items.atlas')
     TexturePacker.process('assets/raw/sprites/32x32/items', 'assets/sprites/items', '32x32_items.atlas')
   }
 }
