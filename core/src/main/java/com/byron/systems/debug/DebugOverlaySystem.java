@@ -14,6 +14,7 @@ import com.byron.utils.Messages;
 import java.text.DecimalFormat;
 
 public class DebugOverlaySystem extends IteratingSystem {
+
     DecimalFormat decimalFormat;
 
     public DebugOverlaySystem() {
@@ -25,15 +26,24 @@ public class DebugOverlaySystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
 
         PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
-        MessageManager.getInstance().dispatchMessage(Messages.PLAYER_POSITION, "Position: " + decimalFormat.format(positionComponent.getPosition().x) + ", " + decimalFormat.format(positionComponent.getPosition().y));
+        MessageManager.getInstance().dispatchMessage(
+            Messages.PLAYER_POSITION,
+            "Position: " + decimalFormat.format(positionComponent.position.x) + ", " + decimalFormat.format(positionComponent.position.y)
+        );
 
         StatusComponent statusComponent = entity.getComponent(StatusComponent.class);
         MessageManager.getInstance().dispatchMessage(Messages.PLAYER_STATUS, statusComponent.getAction().getName());
         MessageManager.getInstance().dispatchMessage(Messages.PLAYER_DIRECTION, statusComponent.getDirection().getName());
 
         VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
-        MessageManager.getInstance().dispatchMessage(Messages.VELOCITY, "Velocity: " + decimalFormat.format(velocityComponent.velocity.x) + ", " + decimalFormat.format(velocityComponent.velocity.y));
-        MessageManager.getInstance().dispatchMessage(Messages.ACCELERATION, "Acceleration: " + decimalFormat.format(velocityComponent.acceleration.x) + ", " + decimalFormat.format(velocityComponent.acceleration.y));
+        MessageManager.getInstance().dispatchMessage(
+            Messages.VELOCITY,
+            "Velocity: " + decimalFormat.format(velocityComponent.velocity.x) + ", " + decimalFormat.format(velocityComponent.velocity.y)
+        );
+        MessageManager.getInstance().dispatchMessage(
+            Messages.ACCELERATION,
+            "Acceleration: " + decimalFormat.format(velocityComponent.acceleration.x) + ", " + decimalFormat.format(velocityComponent.acceleration.y)
+        );
 
         BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
 //        MessageManager.getInstance().dispatchMessage(Messages.BODY_POSITION, "Position: " + decimalFormat.format(bodyComponent.body.position.x) + ", " + decimalFormat.format(bodyComponent.body.position.y));

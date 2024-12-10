@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,7 +20,6 @@ import com.byron.models.sprite.SubAnimationModel;
 import com.byron.models.status.Status;
 import com.byron.utils.Dimensions;
 import com.byron.utils.Mappers;
-import com.byron.utils.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +27,9 @@ import java.util.List;
 import java.util.Map;
 
 public class StackedSpritesSystem extends IteratingSystem {
-    private ComponentMapper<StackedSpritesComponent> stacked = Mappers.stackedSprites;
-    private ComponentMapper<AnimableSpriteComponent> animable = Mappers.animableSprite;
+
+    private final ComponentMapper<StackedSpritesComponent> stacked = Mappers.stackedSprites;
+    private final ComponentMapper<AnimableSpriteComponent> animable = Mappers.animableSprite;
 
     public StackedSpritesSystem() {
         super(Family.all(RefreshSpriteRequirementComponent.class, AnimableSpriteComponent.class, StackedSpritesComponent.class, RenderComponent.class).get());
@@ -42,11 +41,11 @@ public class StackedSpritesSystem extends IteratingSystem {
         List<ComplexSprite> complexSprites = stackedSpritesComponent.getStackedComplexSprites();
         RawAnimationModel model = stackedSpritesComponent.getRawAnimationModel();
 
-        List<Map<Status, Animation>> texturesToAnimations = new ArrayList();
+        List<Map<Status, Animation<?>>> texturesToAnimations = new ArrayList<>();
 
         for (ComplexSprite complexSprite : complexSprites) {
 
-            Map<Status, Animation> animations = createAnimations(complexSprite, model);
+            Map<Status, Animation<?>> animations = createAnimations(complexSprite, model);
             texturesToAnimations.add(animations);
         }
 
@@ -56,15 +55,15 @@ public class StackedSpritesSystem extends IteratingSystem {
         entity.remove(RefreshSpriteRequirementComponent.class);
     }
 
-    private Map<Status, Animation> createAnimations(ComplexSprite complexSprite, RawAnimationModel model) {
+    private Map<Status, Animation<?>> createAnimations(ComplexSprite complexSprite, RawAnimationModel model) {
         Map<Status, SubAnimationModel> animationsModels = model.getSubAnimations();
-        Map<Status, Animation> animations = new HashMap<>();
+        Map<Status, Animation<?>> animations = new HashMap<>();
 
         TextureAtlas atlas = complexSprite.getAtlas();
         String name = complexSprite.getName();
 
         for (Status status : animationsModels.keySet()) {
-            Array<Sprite> segments = new Array();
+            Array<Sprite> segments = new Array<>();
             SubAnimationModel subAnimation = animationsModels.get(status);
 
             CellModel[] cells = subAnimation.getCells();
@@ -87,7 +86,7 @@ public class StackedSpritesSystem extends IteratingSystem {
                 sprite.flip(cell.isFlipX(), cell.isFlipY());
                 segments.add(sprite);
 
-                animations.put(status, new Animation(frameDuration, segments, subAnimation.getPlayMode()));
+                animations.put(status, new Animation<>(frameDuration, segments, subAnimation.getPlayMode()));
             }
         }
         return animations;

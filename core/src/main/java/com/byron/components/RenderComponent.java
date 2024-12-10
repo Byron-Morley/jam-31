@@ -1,7 +1,6 @@
 package com.byron.components;
 
 import com.badlogic.ashley.core.Component;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.byron.renderers.strategy.DefaultRenderPositionStrategy;
 import com.byron.renderers.strategy.RenderPositionStrategy;
@@ -11,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RenderComponent implements Component {
-    private List<Sprite> sprites;
-    int width = 1;
-    int height = 1;
+
+    private final List<Sprite> sprites;
+    public int width = 1;
+    public int height = 1;
     private RenderPriority priority;
     private RenderPositionStrategy renderPositionStrategy;
 
@@ -25,14 +25,14 @@ public class RenderComponent implements Component {
 
         this.width = (int) sprite.getWidth();
         this.height = (int) sprite.getHeight();
-        this.sprites = new ArrayList();
+        this.sprites = new ArrayList<>();
         this.sprites.add(sprite);
         this.priority = priority;
     }
 
     public RenderComponent(RenderPositionStrategy renderPositionStrategy, RenderPriority priority) {
         this.renderPositionStrategy = renderPositionStrategy;
-        this.sprites = new ArrayList();
+        this.sprites = new ArrayList<>();
         this.priority = priority;
     }
 

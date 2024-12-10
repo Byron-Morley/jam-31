@@ -11,8 +11,9 @@ import com.byron.models.physics.Body;
 import com.byron.utils.Mappers;
 
 public class PhysicsSystem extends IteratingSystem {
-    private ComponentMapper<PositionComponent> pm = Mappers.position;
-    private ComponentMapper<BodyComponent> bm = Mappers.body;
+
+    private final ComponentMapper<PositionComponent> pm = Mappers.position;
+    private final ComponentMapper<BodyComponent> bm = Mappers.body;
 
     public PhysicsSystem() {
         super(Family.all(BodyComponent.class, PositionComponent.class).get());
@@ -21,16 +22,17 @@ public class PhysicsSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         PositionComponent positionComponent = pm.get(entity);
+        Vector2 position = positionComponent.position;
         BodyComponent bodyComponent = bm.get(entity);
 
         if (positionComponent.overridePhysicsSystem) {
             positionComponent.overridePhysicsSystem = false;
-            bodyComponent.body.setPosition(new Vector2(positionComponent.getX(), positionComponent.getY()));
+            bodyComponent.body.setPosition(new Vector2(position.x, position.y));
         } else {
             Body body = bodyComponent.body;
 
-            positionComponent.setX(body.calculateXPosition());
-            positionComponent.setY(body.calculateYPosition());
+            position.x = body.calculateXPosition();
+            position.y = body.calculateYPosition();
         }
     }
 }

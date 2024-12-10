@@ -5,59 +5,34 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 
 public class PositionComponent implements Component {
-    public boolean overridePhysicsSystem;
-    public float x;
-    public float y;
 
-    public PositionComponent() {
-    }
+    public boolean overridePhysicsSystem;
+    public final Vector2 position;
 
     public PositionComponent(float x, float y) {
         overridePhysicsSystem = true;
-        this.x = x;
-        this.y = y;
+        position = new Vector2(x, y);
+    }
+
+    public PositionComponent(Vector2 position) {
+        this(position.x, position.y);
+    }
+
+    public PositionComponent() {
+        this(0f, 0f);
     }
 
     public PositionComponent(PositionComponent positionComponent) {
-        overridePhysicsSystem = true;
-        this.x = positionComponent.x;
-        this.y = positionComponent.y;
+        this(positionComponent.position);
+        overridePhysicsSystem = positionComponent.overridePhysicsSystem;
     }
 
-    public PositionComponent(Vector2 v) {
-        this.overridePhysicsSystem = true;
-        this.x = v.x;
-        this.y = v.y;
-    }
-
-    public void setPosition(Vector2 vector2) {
+    public void setPosition(Vector2 position) {
         overridePhysicsSystem = true;
-        this.x = vector2.x;
-        this.y = vector2.y;
+        this.position.set(position);
     }
 
     public PositionComponent(GridPoint2 v) {
-        this.x = v.x;
-        this.y = v.y;
-    }
-
-    public Vector2 getPosition() {
-        return new Vector2(x, y);
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
+        this(v.x, v.y);
     }
 }
