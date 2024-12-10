@@ -33,6 +33,8 @@ public class AgentFactory {
 
         if (agent.isPlayer()) {
             builder.withKeyboardControl().isPlayer().withLight(new Texture("raw/sprites/circleGlow.png"));
+        } else {
+            builder.isAI();
         }
 
         return builder;

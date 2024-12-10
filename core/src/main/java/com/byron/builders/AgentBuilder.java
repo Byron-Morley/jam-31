@@ -35,6 +35,11 @@ public class AgentBuilder {
         return this;
     }
 
+    public AgentBuilder isAI() {
+        entity.add(new AIComponent());
+        return this;
+    }
+
     public AgentBuilder withVelocity(Vector2 velocity) {
         entity.add(new VelocityComponent(velocity));
         return this;
