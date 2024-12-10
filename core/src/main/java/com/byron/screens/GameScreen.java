@@ -9,7 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.byron.engine.GameResources;
-import com.byron.interfaces.*;
+import com.byron.interfaces.IAgentManager;
+import com.byron.interfaces.ICameraManager;
+import com.byron.interfaces.IDungeonManager;
+import com.byron.interfaces.IItemManager;
+import com.byron.interfaces.IMapManager;
+import com.byron.interfaces.IPlayerInputManager;
+import com.byron.interfaces.IRenderable;
+import com.byron.interfaces.ISoundManager;
 import com.byron.managers.AgentManager;
 import com.byron.managers.CameraManager;
 import com.byron.managers.DungeonManager;
@@ -19,7 +26,6 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
-import com.byron.renderers.LightsRenderer;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.MovementSystem;
@@ -27,6 +33,7 @@ import com.byron.systems.PhysicsSystem;
 import com.byron.systems.PlayerInputSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
+import com.byron.systems.render.LightingSystem;
 import com.byron.systems.render.RenderSystem;
 import com.byron.systems.render.ShapeRenderSystem;
 import com.byron.systems.sprite.AnimableSpriteSystem;
@@ -65,7 +72,6 @@ public class GameScreen implements Screen {
 
     private void initializeRenderers() {
         gridRenderer = new GridRenderer();
-        lightsRenderer = new LightsRenderer();
     }
 
     private void initializeLogs() {
@@ -117,6 +123,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new DebugSystem());
         engine.addSystem(new DebugOverlaySystem());
+        engine.addSystem(new LightingSystem());
     }
 
     private void initGame() {
@@ -135,8 +142,6 @@ public class GameScreen implements Screen {
         resources.getBatch().begin();
         resources.getEngine().update(delta);
         resources.getBatch().end();
-
-        lightsRenderer.render(delta);
 
         gridRenderer.render(delta);
         userInterfaceManager.render(delta);

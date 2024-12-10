@@ -1,6 +1,7 @@
 package com.byron.factories;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.builders.AgentBuilder;
 import com.byron.components.sprite.StackableSpriteComponent;
@@ -11,11 +12,10 @@ import com.byron.models.sprite.RawAnimationModel;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.byron.utils.Config.*;
-
 public class AgentFactory {
-    private AnimationsFactory animationsFactory;
-    private Map<String, Agent> agents;
+
+    private final AnimationsFactory animationsFactory;
+    private final Map<String, Agent> agents;
 
     public AgentFactory() {
         this.agents = ModelFactory.getAgentsModel();
@@ -31,22 +31,18 @@ public class AgentFactory {
             .withAnimations(rawAnimationModel)
             .withEquipment(equipment);
 
-
         if (agent.isPlayer()) {
-            builder.withKeyboardControl().isPlayer();
+            builder.withKeyboardControl().isPlayer().withLight(new Texture("raw/sprites/circleGlow.png"));
         }
-
 
         return builder;
     }
 
     private Map<EquipSlot, Entity> buildEquipment(Map<EquipSlot, String> body) {
-        Map<EquipSlot, Entity> equipment = new HashMap();
+        Map<EquipSlot, Entity> equipment = new HashMap<>();
 
         for (Map.Entry<EquipSlot, String> entry : body.entrySet()) {
-            Entity overlay = new Entity()
-                .add(new StackableSpriteComponent(SpriteFactory.get(entry.getValue())));
-
+            Entity overlay = new Entity().add(new StackableSpriteComponent(SpriteFactory.get(entry.getValue())));
             equipment.put(entry.getKey(), overlay);
         }
 

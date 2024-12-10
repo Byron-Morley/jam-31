@@ -5,8 +5,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.byron.components.BodyComponent;
-import com.byron.components.PositionComponent;
 import com.byron.components.StatusComponent;
 import com.byron.components.VelocityComponent;
 import com.byron.components.player.KeyboardComponent;
@@ -38,10 +38,9 @@ public class PlayerInputSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity player, float deltaTime) {
-
         StatusComponent status = sm.get(player);
         BodyComponent bodyComponent = bm.get(player);
-        PositionComponent positionComponent = Mappers.position.get(player);
+        Vector2 position = Mappers.position.get(player).position;
 
         Stack<Direction> movementKeysPressed = playerInputManager.getMovementKeysPressed();
         Stack<PlayerAction> actionKeysPressed = playerInputManager.getActionKeyPressed();
@@ -53,26 +52,26 @@ public class PlayerInputSystem extends IteratingSystem {
 
             if (direction.equals(Direction.UP)) {
                 status.setDirection(Direction.UP);
-                if (dungeonService.isWalkable((int) positionComponent.getPosition().x, (int) (positionComponent.getPosition().y + 1))) {
-                    positionComponent.setY(positionComponent.getPosition().y + 1);
+                if (dungeonService.isWalkable((int) position.x, (int) (position.y + 1))) {
+                    position.y++;
                 }
             }
             if (direction.equals(Direction.DOWN)) {
                 status.setDirection(Direction.DOWN);
-                if (dungeonService.isWalkable((int) positionComponent.getPosition().x, (int) (positionComponent.getPosition().y - 1))) {
-                    positionComponent.setY(positionComponent.getPosition().y - 1);
+                if (dungeonService.isWalkable((int) position.x, (int) (position.y - 1))) {
+                    position.y--;
                 }
             }
             if (direction.equals(Direction.LEFT)) {
                 status.setDirection(Direction.LEFT);
-                if (dungeonService.isWalkable((int) (positionComponent.getPosition().x - 1), (int) positionComponent.getPosition().y)) {
-                    positionComponent.setX(positionComponent.getPosition().x - 1);
+                if (dungeonService.isWalkable((int) (position.x - 1), (int) position.y)) {
+                    position.x--;
                 }
             }
             if (direction.equals(Direction.RIGHT)) {
                 status.setDirection(Direction.RIGHT);
-                if (dungeonService.isWalkable((int) (positionComponent.getPosition().x + 1), (int) positionComponent.getPosition().y)) {
-                    positionComponent.setX(positionComponent.getPosition().x + 1);
+                if (dungeonService.isWalkable((int) (position.x + 1), (int) position.y)) {
+                    position.x++;
                 }
             }
         } else {

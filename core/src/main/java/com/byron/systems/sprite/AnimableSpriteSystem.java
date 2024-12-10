@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AnimableSpriteSystem extends IteratingSystem {
-    private ComponentMapper<AnimableSpriteComponent> asm = Mappers.animableSprite;
-    private ComponentMapper<StatusComponent> sm = Mappers.status;
-    private ComponentMapper<RenderComponent> rm = Mappers.render;
 
+    private final ComponentMapper<AnimableSpriteComponent> asm = Mappers.animableSprite;
+    private final ComponentMapper<StatusComponent> sm = Mappers.status;
+    private final ComponentMapper<RenderComponent> rm = Mappers.render;
 
     public AnimableSpriteSystem() {
         super(Family.all(StatusComponent.class, AnimableSpriteComponent.class, RenderComponent.class).get());
@@ -46,10 +46,10 @@ public class AnimableSpriteSystem extends IteratingSystem {
 
         renderComponent.clear();
 
-        List<Map<Status, Animation>> texturesToAnimations = animableSpriteComponent.getTexturesToAnimations();
+        List<Map<Status, Animation<?>>> texturesToAnimations = animableSpriteComponent.getTexturesToAnimations();
 
-        for (Map<Status, Animation> animations : texturesToAnimations) {
-            Animation animation = animations.get(status);
+        for (Map<Status, Animation<?>> animations : texturesToAnimations) {
+            Animation<?> animation = animations.get(status);
             Sprite sprite = (Sprite) animation.getKeyFrame(animableSpriteComponent.stateTime);
             renderComponent.add(sprite);
         }

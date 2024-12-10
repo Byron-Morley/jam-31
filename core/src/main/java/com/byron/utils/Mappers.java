@@ -8,6 +8,7 @@ import com.byron.components.player.WearComponent;
 import com.byron.components.sprite.AnimableSpriteComponent;
 import com.byron.components.sprite.StackableSpriteComponent;
 import com.byron.components.sprite.StackedSpritesComponent;
+import com.byron.components.visuals.LightComponent;
 
 public class Mappers {
     public static final ComponentMapper<PositionComponent> position = ComponentMapper.getFor(PositionComponent.class);
@@ -22,4 +23,5 @@ public class Mappers {
     public static final ComponentMapper<PlayerComponent> player = ComponentMapper.getFor(PlayerComponent.class);
     public static final ComponentMapper<WearComponent> wear = ComponentMapper.getFor(WearComponent.class);
     public static final ComponentMapper<ShapeComponent> shape = ComponentMapper.getFor(ShapeComponent.class);
+    public static final ComponentMapper<LightComponent> light = ComponentMapper.getFor(LightComponent.class);
 }
