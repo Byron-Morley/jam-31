@@ -1,7 +1,7 @@
 package com.byron.builders;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.AgentComponent;
 import com.byron.components.BodyComponent;
@@ -77,8 +77,8 @@ public class AgentBuilder {
         return this;
     }
 
-    public AgentBuilder withLight(Texture texture) {
-        entity.add(new LightComponent(texture));
+    public AgentBuilder withLight(Sprite sprite) {
+        entity.add(new LightComponent(sprite));
         return this;
     }
 

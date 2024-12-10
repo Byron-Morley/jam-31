@@ -1,9 +1,8 @@
 package com.byron.factories;
 
-import static com.byron.constants.GeneralConstants.PLAYER_SPEED;
+import static com.byron.constants.GeneralConstants.AGENT_SPEED;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.builders.AgentBuilder;
 import com.byron.components.sprite.StackableSpriteComponent;
@@ -31,14 +30,14 @@ public class AgentFactory {
         AgentBuilder builder = new AgentBuilder(agentId)
             .withVelocity(new Vector2(agent.getVelocityX(), agent.getVelocityY()))
             .withAnimations(rawAnimationModel)
-            .withEquipment(equipment);
+            .withEquipment(equipment)
+            .withSpeed(AGENT_SPEED);
 
         if (agent.isPlayer()) {
             builder
                 .withKeyboardControl()
                 .isPlayer()
-                .withLight(new Texture("raw/sprites/circleGlow.png"))
-                .withSpeed(PLAYER_SPEED);
+                .withLight(SpriteFactory.getSprite("circleGlow"));
         }
 
         return builder;
