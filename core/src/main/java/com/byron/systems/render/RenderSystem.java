@@ -18,10 +18,11 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RenderSystem extends SortedIteratingSystem {
-    private ComponentMapper<PositionComponent> pm = Mappers.position;
-    private ComponentMapper<RenderComponent> rm = Mappers.render;
-    private ComponentMapper<StatusComponent> sm = Mappers.status;
-    private SpriteBatch spriteBatch;
+
+    private final ComponentMapper<PositionComponent> pm = Mappers.position;
+    private final ComponentMapper<RenderComponent> rm = Mappers.render;
+    private final ComponentMapper<StatusComponent> sm = Mappers.status;
+    private final SpriteBatch spriteBatch;
 
     public RenderSystem() {
         super(Family.all(PositionComponent.class, RenderComponent.class).get(), new ZComparator());
@@ -31,7 +32,7 @@ public class RenderSystem extends SortedIteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         super.forceSort();
-        PositionComponent positionComponent = pm.get(entity);
+        Vector2 position = pm.get(entity).position;
         RenderComponent renderComponent = rm.get(entity);
 
         List<Sprite> sprites = renderComponent.getSprites();
@@ -41,7 +42,7 @@ public class RenderSystem extends SortedIteratingSystem {
         }
 
         for (Sprite sprite : sprites) {
-            Vector2 pos = renderComponent.getRenderPositionStrategy().process(positionComponent.getX(), positionComponent.getY());
+            Vector2 pos = renderComponent.getRenderPositionStrategy().process(position.x, position.y);
 
             float x = pos.x - Dimensions.toMeters(sprite.getOriginX());
             float y = pos.y - Dimensions.toMeters(sprite.getOriginY());
@@ -50,9 +51,9 @@ public class RenderSystem extends SortedIteratingSystem {
             float height = Dimensions.toMeters(sprite.getRegionHeight());
 
             spriteBatch.draw(sprite, x, y,
-                    sprite.getOriginX(), sprite.getOriginY(),
-                    width, height,
-                    sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+                sprite.getOriginX(), sprite.getOriginY(),
+                width, height,
+                sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         }
     }
 
@@ -70,16 +71,16 @@ public class RenderSystem extends SortedIteratingSystem {
             int priorityDiff = getPriorityDifference(e1, e2);
 
             if (priorityDiff == 0)
-                return getVerticalPositionDifferente(e1, e2);
+                return getVerticalPositionDifference(e1, e2);
 
             return priorityDiff;
         }
 
-        private int getVerticalPositionDifferente(Entity e1, Entity e2) {
-            PositionComponent p1 = pm.get(e1);
-            PositionComponent p2 = pm.get(e2);
+        private int getVerticalPositionDifference(Entity e1, Entity e2) {
+            Vector2 position1 = pm.get(e1).position;
+            Vector2 position2 = pm.get(e2).position;
 
-            return (int) ((p2.getY() - p1.getY()) * DIFF_MULTIPLIER);
+            return (int) ((position2.y - position1.y) * DIFF_MULTIPLIER);
         }
 
         private int getPriorityDifference(Entity e1, Entity e2) {

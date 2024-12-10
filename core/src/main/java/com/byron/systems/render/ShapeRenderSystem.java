@@ -42,7 +42,7 @@ public class ShapeRenderSystem extends PhasedIteratingSystem {
 
         ShapeComponent shapeComponent = sm.get(entity);
         PositionComponent positionComponent = pm.get(entity);
-        Vector2 position = positionComponent.getPosition();
+        Vector2 position = positionComponent.position;
         Shape shape = shapeComponent.getShape();
 
         renderer.setProjectionMatrix(camera.combined);

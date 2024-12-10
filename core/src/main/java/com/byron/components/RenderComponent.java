@@ -25,14 +25,14 @@ public class RenderComponent implements Component {
 
         this.width = (int) sprite.getWidth();
         this.height = (int) sprite.getHeight();
-        this.sprites = new ArrayList();
+        this.sprites = new ArrayList<>();
         this.sprites.add(sprite);
         this.priority = priority;
     }
 
     public RenderComponent(RenderPositionStrategy renderPositionStrategy, RenderPriority priority) {
         this.renderPositionStrategy = renderPositionStrategy;
-        this.sprites = new ArrayList();
+        this.sprites = new ArrayList<>();
         this.priority = priority;
     }
 

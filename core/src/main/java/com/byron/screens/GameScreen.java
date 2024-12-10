@@ -24,14 +24,18 @@ import com.byron.systems.CollisionSystem;
 import com.byron.systems.MovementSystem;
 import com.byron.systems.PhysicsSystem;
 import com.byron.systems.PlayerInputSystem;
+import com.byron.systems.SmoothMovementSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
+import com.byron.systems.render.LightingSystem;
 import com.byron.systems.render.RenderSystem;
 import com.byron.systems.render.ShapeRenderSystem;
-import com.byron.systems.sprite.AnimableSpriteSystem;
+import com.byron.systems.sprite.AnimatableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
 
+import static com.byron.utils.Config.MAP_HEIGHT;
+import static com.byron.utils.Config.MAP_WIDTH;
 
 public class GameScreen implements Screen {
 
@@ -51,8 +55,8 @@ public class GameScreen implements Screen {
     LevelManager levelManager;
     UserInterfaceManager userInterfaceManager;
 
-    IRenderable gridRenderer;
-
+    private IRenderable gridRenderer;
+    private IRenderable lightsRenderer;
 
     public GameScreen() {
         this.resources = GameResources.get();
@@ -92,10 +96,10 @@ public class GameScreen implements Screen {
 
     private void initializeManagers() {
         this.cameraManager = new CameraManager();
-        this.soundManager = new SoundManager();
-        this.itemManager = new ItemManager();
+        ISoundManager soundManager = new SoundManager();
+        IItemManager itemManager = new ItemManager();
         this.dungeonManager = new DungeonManager(itemManager.getItemService());
-        this.agentManager = new AgentManager();
+        IAgentManager agentManager = new AgentManager();
         this.userInterfaceManager = new UserInterfaceManager();
         this.playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
         this.levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService());
@@ -109,16 +113,18 @@ public class GameScreen implements Screen {
         Engine engine = resources.getEngine();
         engine.addSystem(new StackableSpriteSystem());
         engine.addSystem(new StackedSpritesSystem());
-        engine.addSystem(new AnimableSpriteSystem());
+        engine.addSystem(new AnimatableSpriteSystem());
         engine.addSystem(new PhysicsSystem());
         engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService()));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
         engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
+        engine.addSystem(new SmoothMovementSystem());
         engine.addSystem(new ShapeRenderSystem());
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new DebugSystem());
         engine.addSystem(new DebugOverlaySystem());
+        engine.addSystem(new LightingSystem());
     }
 
     private void initGame() {
