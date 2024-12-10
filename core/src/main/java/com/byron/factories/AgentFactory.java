@@ -1,5 +1,7 @@
 package com.byron.factories;
 
+import static com.byron.constants.GeneralConstants.PLAYER_SPEED;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -32,7 +34,11 @@ public class AgentFactory {
             .withEquipment(equipment);
 
         if (agent.isPlayer()) {
-            builder.withKeyboardControl().isPlayer().withLight(new Texture("raw/sprites/circleGlow.png"));
+            builder
+                .withKeyboardControl()
+                .isPlayer()
+                .withLight(new Texture("raw/sprites/circleGlow.png"))
+                .withSpeed(PLAYER_SPEED);
         }
 
         return builder;
