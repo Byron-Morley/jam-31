@@ -19,6 +19,7 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
+import com.byron.renderers.LightsRenderer;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.MovementSystem;
@@ -32,35 +33,29 @@ import com.byron.systems.sprite.AnimableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
 
-import static com.byron.utils.Config.MAP_HEIGHT;
-import static com.byron.utils.Config.MAP_WIDTH;
-
 public class GameScreen implements Screen {
 
     //Core
-    Stage stage;
-    GameResources resources;
-    OrthographicCamera camera;
+    private Stage stage;
+    private final GameResources resources;
+    private final OrthographicCamera camera;
 
     //Managers
-    ICameraManager cameraManager;
-    IMapManager mapManager;
-    ISoundManager soundManager;
-    IAgentManager agentManager;
-    IPlayerInputManager playerInputManager;
-    IDungeonManager dungeonManager;
-    IItemManager itemManager;
-    LevelManager levelManager;
-    UserInterfaceManager userInterfaceManager;
+    private ICameraManager cameraManager;
+    private IMapManager mapManager;
+    private IPlayerInputManager playerInputManager;
+    private IDungeonManager dungeonManager;
+    private LevelManager levelManager;
+    private UserInterfaceManager userInterfaceManager;
 
-    IRenderable gridRenderer;
-
+    private IRenderable gridRenderer;
+    private IRenderable lightsRenderer;
 
     public GameScreen() {
         this.resources = GameResources.get();
         initializeLogs();
         initializeStage();
-        initiliseRenderers();
+        initializeRenderers();
         initializeManagers();
         initializeListeners();
         initializeSystems();
@@ -68,8 +63,9 @@ public class GameScreen implements Screen {
         camera = GameResources.get().getCamera();
     }
 
-    private void initiliseRenderers() {
+    private void initializeRenderers() {
         gridRenderer = new GridRenderer();
+        lightsRenderer = new LightsRenderer();
     }
 
     private void initializeLogs() {
@@ -94,10 +90,10 @@ public class GameScreen implements Screen {
 
     private void initializeManagers() {
         this.cameraManager = new CameraManager();
-        this.soundManager = new SoundManager();
-        this.itemManager = new ItemManager();
+        ISoundManager soundManager = new SoundManager();
+        IItemManager itemManager = new ItemManager();
         this.dungeonManager = new DungeonManager(itemManager.getItemService());
-        this.agentManager = new AgentManager();
+        IAgentManager agentManager = new AgentManager();
         this.userInterfaceManager = new UserInterfaceManager();
         this.playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
         this.levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService());
@@ -139,6 +135,8 @@ public class GameScreen implements Screen {
         resources.getBatch().begin();
         resources.getEngine().update(delta);
         resources.getBatch().end();
+
+        lightsRenderer.render(delta);
 
         gridRenderer.render(delta);
         userInterfaceManager.render(delta);
