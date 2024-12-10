@@ -37,7 +37,7 @@ public class AgentFactory {
             builder
                 .withKeyboardControl()
                 .isPlayer()
-                .withLight(new Texture("raw/sprites/circleGlow.png"))
+                .withLight(new Texture("textures/lighting/circleGlow.png"))
                 .withSpeed(PLAYER_SPEED);
         }
 

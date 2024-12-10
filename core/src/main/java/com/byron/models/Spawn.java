@@ -3,6 +3,7 @@ package com.byron.models;
 public class Spawn {
 
     String name;
+    String type;
     float frequency;
 
     public String getName() {
@@ -11,5 +12,9 @@ public class Spawn {
 
     public float getFrequency() {
         return frequency;
+    }
+
+    public String getType() {
+        return type;
     }
 }

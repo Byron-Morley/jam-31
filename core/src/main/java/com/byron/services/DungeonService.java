@@ -19,7 +19,11 @@ import com.byron.renderers.strategy.RenderPriority;
 import com.byron.utils.dungeon.DungeonUtils;
 import com.byron.utils.dungeon.Room;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.byron.utils.Config.MAP_HEIGHT;
 import static com.byron.utils.Config.MAP_WIDTH;
@@ -29,6 +33,10 @@ public class DungeonService implements IDungeonService {
     IDungeonManager dungeonManager;
     IItemService itemService;
     Engine engine;
+    private Set<GridPoint2> occupiedPositions = new HashSet<>();
+    private Set<GridPoint2> wallBottom = new HashSet<>();
+
+    private float CHANCE_OF_CORNER_PILLARS = 0.2f;
 
     public DungeonService(IDungeonManager dungeonManager, IItemService itemService) {
         this.dungeonManager = dungeonManager;
@@ -36,9 +44,10 @@ public class DungeonService implements IDungeonService {
         engine = GameResources.get().getEngine();
         createFloorsAndWalls(dungeonManager.getDungeon());
         createEdges();
-//        spawnSceneryItems(dungeonManager.getDungeon());
+        spawnSceneryItems();
+        spawnColumnItems();
 
-        mapOutRooms(dungeonManager.getRooms());
+//        mapOutRooms(dungeonManager.getRooms());
     }
 
     private void mapOutRooms(Array<Room> rooms) {
@@ -60,25 +69,43 @@ public class DungeonService implements IDungeonService {
         }
     }
 
-    public void spawnSceneryItems(int[][] dungeon) {
-        List<Spawn> spawns = dungeonManager.getSpawns();
+ public void spawnSceneryItems() {
+    List<Spawn> spawns = dungeonManager.getSpawns();
+    Array<Room> rooms = dungeonManager.getRooms();
 
-        for (int x = 0; x < MAP_WIDTH; x++) {
-            for (int y = 0; y < MAP_HEIGHT; y++) {
-                if (dungeon[x][y] == 1) {
-                    for (Spawn spawn : spawns) {
-                        float frequency = spawn.getFrequency();
-                        String itemName = spawn.getName();
+    List<Spawn> clutterSpawns = spawns.stream()
+        .filter(spawn -> "clutter".equals(spawn.getType()))
+        .collect(Collectors.toList());
 
-                        if (MathUtils.random() < frequency) {
-                            spawn(itemName, x, y);
-                            break;
-                        }
-                    }
+    for (Room room : rooms) {
+        // Calculate room area and divide by 10 to get number of items
+        int roomArea = room.getWidth() * room.getHeight();
+        int itemsToSpawn = Math.max(1, roomArea / 15); // Ensure at least 1 item
+
+        // Try to spawn calculated number of items
+        for (int i = 0; i < itemsToSpawn; i++) {
+            int attempts = 0;
+            int maxAttempts = 10;
+            boolean placed = false;
+
+            while (!placed && attempts < maxAttempts) {
+                int randomX = MathUtils.random(room.getX(), room.getX() + room.getWidth() - 1);
+                int randomY = MathUtils.random(room.getY(), room.getY() + room.getHeight() - 1);
+                GridPoint2 position = new GridPoint2(randomX, randomY);
+
+                if (!occupiedPositions.contains(position) && !clutterSpawns.isEmpty()) {
+                    int randomIndex = MathUtils.random(clutterSpawns.size() - 1);
+                    Spawn selectedSpawn = clutterSpawns.get(randomIndex);
+                    spawn(selectedSpawn.getName(), randomX, randomY);
+                    occupiedPositions.add(position);
+                    placed = true;
                 }
+                attempts++;
             }
         }
     }
+}
+
 
 
     private void createFloorsAndWalls(int[][] map) {
@@ -116,6 +143,37 @@ public class DungeonService implements IDungeonService {
             }
         }
     }
+public void spawnColumnItems() {
+    List<Spawn> spawns = dungeonManager.getSpawns();
+    Array<Room> rooms = dungeonManager.getRooms();
+
+    // Filter for column type items
+    List<Spawn> columnSpawns = spawns.stream()
+        .filter(spawn -> "column".equals(spawn.getType()))
+        .collect(Collectors.toList());
+
+    for (Room room : rooms) {
+        // Get corner positions for this room
+        List<GridPoint2> corners = Arrays.asList(
+            new GridPoint2(room.getX(), room.getY()),                             // bottom-left
+            new GridPoint2(room.getX() + room.getWidth() - 1, room.getY()),      // bottom-right
+            new GridPoint2(room.getX(), room.getY() + room.getHeight() - 1),     // top-left
+            new GridPoint2(room.getX() + room.getWidth() - 1, room.getY() + room.getHeight() - 1)  // top-right
+        );
+
+        // For each corner, 50% chance to spawn
+        for (GridPoint2 corner : corners) {
+            if (MathUtils.randomBoolean(CHANCE_OF_CORNER_PILLARS) && !occupiedPositions.contains(corner)) {
+                if (!columnSpawns.isEmpty()) {
+                    int randomIndex = MathUtils.random(columnSpawns.size() - 1);
+                    Spawn selectedSpawn = columnSpawns.get(randomIndex);
+                    spawn(selectedSpawn.getName(), corner.x, corner.y);
+                    occupiedPositions.add(corner);
+                }
+            }
+        }
+    }
+}
 
 
     private void createEdges() {

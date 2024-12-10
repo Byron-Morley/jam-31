@@ -92,8 +92,8 @@ public class LightingSystem extends EntitySystem {
             sprite = Mappers.light.get(entity).sprite;
             position = Mappers.position.get(entity).position;
             renderComponent = Mappers.render.get(entity);
-            width = renderComponent.width;
-            height = renderComponent.height;
+            width = renderComponent.getWidth();
+            height = renderComponent.getHeight();
             sprite.setOriginBasedPosition(position.x + width / 2f, position.y + height / 2f);
             sprite.draw(spriteBatch);
         }
