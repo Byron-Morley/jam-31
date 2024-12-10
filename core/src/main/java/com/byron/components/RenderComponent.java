@@ -59,4 +59,8 @@ public class RenderComponent implements Component {
     public void add(Sprite sprite) {
         this.sprites.add(sprite);
     }
+
+    public Sprite getSprite() {
+        return sprites.get(0);
+    }
 }

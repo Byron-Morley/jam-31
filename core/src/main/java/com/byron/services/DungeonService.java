@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
 import com.byron.engine.GameResources;
@@ -16,6 +17,7 @@ import com.byron.interfaces.IItemService;
 import com.byron.models.Spawn;
 import com.byron.renderers.strategy.RenderPriority;
 import com.byron.utils.dungeon.DungeonUtils;
+import com.byron.utils.dungeon.Room;
 
 import java.util.List;
 
@@ -34,7 +36,28 @@ public class DungeonService implements IDungeonService {
         engine = GameResources.get().getEngine();
         createFloorsAndWalls(dungeonManager.getDungeon());
         createEdges();
-        spawnSceneryItems(dungeonManager.getDungeon());
+//        spawnSceneryItems(dungeonManager.getDungeon());
+
+        mapOutRooms(dungeonManager.getRooms());
+    }
+
+    private void mapOutRooms(Array<Room> rooms) {
+        for (Room room : rooms) {
+            int x = room.getX();
+            int y = room.getY();
+            int width = room.getWidth();
+            int height = room.getHeight();
+
+            for (int i = x; i < x + width; i++) {
+                for (int j = y; j < y + height; j++) {
+                    Entity entity = new Entity();
+                    entity.add(new PositionComponent(new Vector2(i, j)));
+                    entity.add(new RenderComponent(SpriteFactory.getSprite("red-grid"), RenderPriority.UI));
+                    engine.addEntity(entity);
+                }
+            }
+
+        }
     }
 
     public void spawnSceneryItems(int[][] dungeon) {
@@ -178,7 +201,6 @@ public class DungeonService implements IDungeonService {
 
         return index;
     }
-
 
     // Add this helper method to check bounds
     private boolean isValidPosition(int x, int y) {

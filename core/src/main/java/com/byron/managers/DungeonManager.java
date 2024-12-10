@@ -1,12 +1,15 @@
 package com.byron.managers;
 
+import com.badlogic.gdx.utils.Array;
 import com.byron.factories.ModelFactory;
 import com.byron.interfaces.IDungeonManager;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IItemService;
 import com.byron.models.Spawn;
 import com.byron.services.DungeonService;
+import com.byron.utils.dungeon.Dungeon;
 import com.byron.utils.dungeon.DungeonUtils;
+import com.byron.utils.dungeon.Room;
 
 import java.util.List;
 
@@ -19,12 +22,22 @@ public class DungeonManager implements IDungeonManager {
     int[][] dungeon;
     int[][] bitmap;
     List<Spawn> spawns;
-
+    Array<Room> rooms;
 
     public DungeonManager(IItemService itemService) {
         spawns = ModelFactory.getDungeonSpawns();
-        System.out.println("DungeonManager.DungeonManager "+ spawns.size());
-        dungeon = DungeonUtils.createDungeon(MAP_WIDTH, MAP_HEIGHT, 12, 20, 2, 6, 96);
+        Dungeon dungeonObject = DungeonUtils.createDungeon(
+            MAP_WIDTH, MAP_HEIGHT,
+            7,
+            14,
+            3,
+            6,
+            96,
+            20
+        );
+        dungeon = dungeonObject.getMap();
+        rooms = dungeonObject.getRooms();
+        System.out.println("DungeonManager.DungeonManager "+ rooms.size);
 //        dungeon = DungeonUtils.createSimpleDungeon(MAP_WIDTH, MAP_HEIGHT);
         bitmap = new int[MAP_WIDTH * 2][MAP_HEIGHT * 2];
         dungeonService = new DungeonService(this, itemService);
@@ -46,6 +59,10 @@ public class DungeonManager implements IDungeonManager {
 
     public List<Spawn> getSpawns() {
         return spawns;
+    }
+
+    public Array<Room> getRooms() {
+        return rooms;
     }
 }
 
