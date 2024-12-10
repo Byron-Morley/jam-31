@@ -17,13 +17,13 @@ import com.byron.utils.Mappers;
 import java.util.List;
 import java.util.Map;
 
-public class AnimableSpriteSystem extends IteratingSystem {
+public class AnimatableSpriteSystem extends IteratingSystem {
 
     private final ComponentMapper<AnimableSpriteComponent> asm = Mappers.animableSprite;
     private final ComponentMapper<StatusComponent> sm = Mappers.status;
     private final ComponentMapper<RenderComponent> rm = Mappers.render;
 
-    public AnimableSpriteSystem() {
+    public AnimatableSpriteSystem() {
         super(Family.all(StatusComponent.class, AnimableSpriteComponent.class, RenderComponent.class).get());
     }
 
@@ -37,7 +37,6 @@ public class AnimableSpriteSystem extends IteratingSystem {
 
         putNextFrameOnRenderComponent(entity, action, direction, animableSpriteComponent);
         tickOrResetStateTime(deltaTime, animableSpriteComponent, statusComponent);
-
     }
 
     private void putNextFrameOnRenderComponent(Entity entity, Action a, Direction d, AnimableSpriteComponent animableSpriteComponent) {
