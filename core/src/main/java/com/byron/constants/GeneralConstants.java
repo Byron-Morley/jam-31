@@ -6,5 +6,5 @@ package com.byron.constants;
  */
 public class GeneralConstants {
 
-    public static final float PLAYER_SPEED = 5f;
+    public static final float AGENT_SPEED = 5f;
 }

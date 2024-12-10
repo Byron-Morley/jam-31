@@ -41,39 +41,34 @@ public class PlayerInputSystem extends IteratingSystem {
         Stack<Direction> movementKeysPressed = playerInputManager.getMovementKeysPressed();
         Stack<PlayerAction> actionKeysPressed = playerInputManager.getActionKeyPressed();
 
-        if (status.isMoving()) return;
+        if (status.getAction() == Action.WALKING) return;
 
         if (movementKeysPressed.size() > 0) {
-            status.setAction(Action.WALKING);
-
             Direction direction = movementKeysPressed.pop();
+            status.setDirection(direction);
 
-            if (direction.equals(Direction.UP)) {
-                status.setDirection(Direction.UP);
-                if (dungeonService.isWalkable((int) position.x, (int) (position.y + 1))) {
-                    player.add(new DestinationComponent(position.x, position.y + 1));
-                }
+            int targetX = (int) position.x, targetY = (int) position.y;
+            switch (direction) {
+                case UP:
+                    targetY++;
+                    break;
+                case LEFT:
+                    targetX--;
+                    break;
+                case DOWN:
+                    targetY--;
+                    break;
+                case RIGHT:
+                    targetX++;
+                    break;
+                default:
+                    return;
             }
-            if (direction.equals(Direction.DOWN)) {
-                status.setDirection(Direction.DOWN);
-                if (dungeonService.isWalkable((int) position.x, (int) (position.y - 1))) {
-                    player.add(new DestinationComponent(position.x, position.y - 1));
-                }
+
+            if (dungeonService.isWalkable(targetX, targetY)) {
+                status.setAction(Action.WALKING);
+                player.add(new DestinationComponent(targetX, targetY));
             }
-            if (direction.equals(Direction.LEFT)) {
-                status.setDirection(Direction.LEFT);
-                if (dungeonService.isWalkable((int) (position.x - 1), (int) position.y)) {
-                    player.add(new DestinationComponent(position.x - 1, position.y));
-                }
-            }
-            if (direction.equals(Direction.RIGHT)) {
-                status.setDirection(Direction.RIGHT);
-                if (dungeonService.isWalkable((int) (position.x + 1), (int) position.y)) {
-                    player.add(new DestinationComponent(position.x + 1, position.y));
-                }
-            }
-        } else {
-            status.setAction(Action.STANDING);
         }
     }
 }
