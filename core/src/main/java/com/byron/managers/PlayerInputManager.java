@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.byron.interfaces.IPlayerInputManager;
 import com.byron.interfaces.IUIService;
-import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.models.player.PlayerAction;
 import com.byron.models.status.Direction;
 
@@ -14,13 +13,14 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public class PlayerInputManager extends ClickListener implements IPlayerInputManager {
-    private Stack<Direction> movementKeysPressed;
-    private Stack<PlayerAction> actionKeyPressed;
+
+    private final Stack<Direction> movementKeysPressed;
+    private final Stack<PlayerAction> actionKeyPressed;
     private boolean previousLeftClicking;
     private boolean isLeftClicking;
     private boolean isRightClicking;
-    private LinkedList<Float> scrollQueue;
-    private Vector2 movementVector = new Vector2();
+    private final LinkedList<Float> scrollQueue;
+    private final Vector2 movementVector = new Vector2();
     IUIService uiService;
 
 
@@ -30,7 +30,7 @@ public class PlayerInputManager extends ClickListener implements IPlayerInputMan
         previousLeftClicking = false;
         this.movementKeysPressed = new Stack<>();
         this.actionKeyPressed = new Stack<>();
-        this.scrollQueue = new LinkedList<Float>();
+        this.scrollQueue = new LinkedList<>();
         this.setButton(-1);
         this.uiService = uiService;
     }

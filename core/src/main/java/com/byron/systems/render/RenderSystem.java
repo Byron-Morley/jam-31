@@ -26,7 +26,7 @@ public class RenderSystem extends SortedIteratingSystem {
 
     public RenderSystem() {
         super(Family.all(PositionComponent.class, RenderComponent.class).get(), new ZComparator());
-        this.spriteBatch = GameResources.get().getBatch();
+        spriteBatch = GameResources.get().getBatch();
     }
 
     @Override
