@@ -46,6 +46,7 @@ public class DungeonService implements IDungeonService {
         createEdges();
         spawnSceneryItems();
         spawnColumnItems();
+        spawnSpecialItems();
 
 //        mapOutRooms(dungeonManager.getRooms());
     }
@@ -180,6 +181,51 @@ public class DungeonService implements IDungeonService {
             }
         }
     }
+
+    public void spawnSpecialItems() {
+    List<Spawn> spawns = dungeonManager.getSpawns();
+    Array<Room> rooms = dungeonManager.getRooms();
+
+    // Filter for special type items
+    List<Spawn> specialSpawns = spawns.stream()
+        .filter(spawn -> "special".equals(spawn.getType()))
+        .collect(Collectors.toList());
+
+    // Get a random room to place the special item
+    if (!rooms.isEmpty() && !specialSpawns.isEmpty()) {
+        Room selectedRoom = rooms.get(MathUtils.random(rooms.size - 1));
+
+        // Try to place in center of room first
+        int centerX = selectedRoom.getX() + selectedRoom.getWidth() / 2;
+        int centerY = selectedRoom.getY() + selectedRoom.getHeight() / 2;
+        GridPoint2 position = new GridPoint2(centerX, centerY);
+
+        // If center is occupied, try random positions in room
+        if (occupiedPositions.contains(position)) {
+            int attempts = 0;
+            int maxAttempts = 10;
+            boolean placed = false;
+
+            while (!placed && attempts < maxAttempts) {
+                int randomX = MathUtils.random(selectedRoom.getX(), selectedRoom.getX() + selectedRoom.getWidth() - 1);
+                int randomY = MathUtils.random(selectedRoom.getY(), selectedRoom.getY() + selectedRoom.getHeight() - 1);
+                position = new GridPoint2(randomX, randomY);
+
+                if (!occupiedPositions.contains(position)) {
+                    placed = true;
+                }
+                attempts++;
+            }
+        }
+
+        // Spawn the special item
+        int randomIndex = MathUtils.random(specialSpawns.size() - 1);
+        Spawn selectedSpawn = specialSpawns.get(randomIndex);
+        spawn(selectedSpawn.getName(), position.x, position.y);
+        occupiedPositions.add(position);
+    }
+}
+
 
 
     private void createEdges() {

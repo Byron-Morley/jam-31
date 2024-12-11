@@ -276,37 +276,44 @@ scenery/rubble
   orig: 32, 32
   offset: 0, 0
   index: -1
-scenery/skeleton
+scenery/sad-paper
   rotate: false
   xy: 775, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-scenery/stone-panel
+scenery/skeleton
   rotate: false
   xy: 307, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-scenery/stone-plaque
+scenery/stone-panel
   rotate: false
   xy: 809, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-scenery/web-one
+scenery/stone-plaque
   rotate: false
   xy: 341, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-scenery/web-two
+scenery/web-one
   rotate: false
   xy: 843, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/web-two
+  rotate: false
+  xy: 375, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

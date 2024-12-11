@@ -147,9 +147,9 @@
     "label": "Paper",
     "sprite": "scenery/paper"
   },
-  "rope": {
-    "label": "Rope",
-    "sprite": "scenery/rope"
+  "sad-paper": {
+    "label": "Sad Paper",
+    "sprite": "scenery/sad-paper"
   },
   "rubble": {
     "label": "Rubble",

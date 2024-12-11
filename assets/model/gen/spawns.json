@@ -127,9 +127,9 @@
     "type": "clutter"
   },
   {
-    "name": "rope",
+    "name": "sad-paper",
     "frequency": "0.013f",
-    "type": "clutter"
+    "type": "special"
   },
   {
     "name": "skeleton",

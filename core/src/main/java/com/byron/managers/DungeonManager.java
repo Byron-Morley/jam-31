@@ -14,8 +14,8 @@ import com.byron.utils.dungeon.Room;
 import java.util.List;
 import java.util.Random;
 
-import static com.byron.utils.Config.MAP_HEIGHT;
 import static com.byron.utils.Config.MAP_WIDTH;
+import static com.byron.utils.Config.MAP_HEIGHT;
 
 public class DungeonManager implements IDungeonManager {
     private final int TILE_SCALE = 1;
@@ -33,10 +33,13 @@ public class DungeonManager implements IDungeonManager {
 //        int seed = 60570046;
         System.out.println("seed: "+ seed);
 
+        int roomCountMax = MAP_WIDTH / 4;
+
+
         Dungeon dungeonObject = DungeonUtils.createDungeon(
             MAP_WIDTH, MAP_HEIGHT,
-            7,
-            14,
+            roomCountMax/2,
+            roomCountMax,
             3,
             6,
             96,
