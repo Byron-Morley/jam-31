@@ -37,6 +37,7 @@ public class AgentFactory {
             builder
                 .withKeyboardControl()
                 .isPlayer()
+                .withWeapon(SpriteFactory.getSprite("regularSword"))
                 .withLight(SpriteFactory.getSprite("circleGlow"));
         }
 

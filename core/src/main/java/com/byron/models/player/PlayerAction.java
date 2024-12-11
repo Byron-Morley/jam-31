@@ -1,7 +1,10 @@
 package com.byron.models.player;
+
 public enum PlayerAction {
+
     ACTION("ACTION");
-    private String name;
+
+    private final String name;
 
     PlayerAction(String name) {
         this.name = name;

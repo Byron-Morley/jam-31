@@ -17,27 +17,27 @@ public class WearComponent implements Component {
         this.wearables = wearables;
     }
 
-    public List<Entity> asList(){
+    public List<Entity> asList() {
         return wearables.keySet().stream().sorted(Comparator.comparingInt(EquipSlot::getRenderPriority)).map(e -> wearables.get(e)).collect(Collectors.toList());
     }
 
 
-    public List<Entity> getEquipmentAsList(){
-        List<Entity> equipment = new ArrayList();
+    public List<Entity> getEquipmentAsList() {
+        List<Entity> equipment = new ArrayList<>();
 
-        for(EquipSlot slot : EquipSlot.values()){
-            if((slot.hasAttackComponent() || slot.hasDefenseComponent()) && wearables.containsKey(slot))
+        for (EquipSlot slot : EquipSlot.values()) {
+            if ((slot.hasAttackComponent() || slot.hasDefenseComponent()) && wearables.containsKey(slot))
                 equipment.add(wearables.get(slot));
         }
 
         return equipment;
     }
 
-    public boolean hasWearable(EquipSlot equipSlot){
+    public boolean hasWearable(EquipSlot equipSlot) {
         return wearables.containsKey(equipSlot);
     }
 
-    public Entity getWearable(EquipSlot equipSlot){
+    public Entity getWearable(EquipSlot equipSlot) {
         return wearables.get(equipSlot);
     }
 }

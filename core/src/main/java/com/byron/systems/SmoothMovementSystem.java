@@ -13,8 +13,6 @@ import com.byron.utils.Mappers;
 
 public class SmoothMovementSystem extends IteratingSystem {
 
-    private static final float ARRIVAL_THRESHOLD = 0.01f;
-
     public SmoothMovementSystem() {
         super(Family.all(
                 PositionComponent.class,
@@ -34,15 +32,15 @@ public class SmoothMovementSystem extends IteratingSystem {
 
         Vector2 direction = new Vector2(destination).sub(position);
         float distance = direction.len();
+        Vector2 step = direction.nor().scl(speed * deltaTime);
 
-        if (distance < ARRIVAL_THRESHOLD) {
+        if (distance <= step.len()) {
             status.setAction(Action.STANDING);
             position.set(destination); // Snap to the target
             entity.remove(DestinationComponent.class); // Stop moving
             return;
         }
 
-        direction.nor().scl(speed * deltaTime);
-        position.add(direction);
+        position.add(step);
     }
 }
