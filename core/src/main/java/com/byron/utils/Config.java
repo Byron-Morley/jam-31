@@ -12,4 +12,8 @@ public class Config {
     public static final float VIEWPORT_WIDTH = SCREEN_WIDTH / PX_PER_METER;  // ~20 meters
     public static final float VIEWPORT_HEIGHT = SCREEN_HEIGHT / PX_PER_METER; // ~15 meters
 
+
+    public static final int ENEMY_ROOM_SPAWN_DENSITY = 20; // 1-25, lower = more enemies
+    public static final int ENEMY_ATTACK_DISTANCE = 10; // tiles
+    public static final int ENEMY_TURN_RATIO = 4; // how many turns until monster moves
 }

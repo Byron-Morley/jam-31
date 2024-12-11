@@ -5,6 +5,7 @@ import com.byron.models.equip.EquipSlot;
 import java.util.Map;
 
 public class Agent {
+    String id;
     String name;
     String factionId;
     float velocityX;
@@ -67,5 +68,9 @@ public class Agent {
 
     public boolean isPlayer() {
         return player;
+    }
+
+    public String getId() {
+        return id;
     }
 }

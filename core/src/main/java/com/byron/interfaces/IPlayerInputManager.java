@@ -17,4 +17,6 @@ public interface IPlayerInputManager {
     LinkedList<Float> getScrollQueue();
 
     Vector2 getMovementVector();
+
+    boolean playerHasTakenTheirTurn();
 }

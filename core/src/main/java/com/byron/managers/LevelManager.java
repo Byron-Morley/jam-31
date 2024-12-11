@@ -35,7 +35,7 @@ public class LevelManager {
         Entity goblin  = agentService.spawnAgent(new GridPoint2(15, 12), "goblin");
         */
 
-        Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
+//        Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
     }
 
 }

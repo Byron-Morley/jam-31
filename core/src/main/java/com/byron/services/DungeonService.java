@@ -11,36 +11,39 @@ import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
 import com.byron.engine.GameResources;
 import com.byron.factories.SpriteFactory;
+import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonManager;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IItemService;
+import com.byron.models.Agent;
 import com.byron.models.Spawn;
 import com.byron.renderers.strategy.RenderPriority;
 import com.byron.utils.dungeon.DungeonUtils;
 import com.byron.utils.dungeon.Room;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.byron.utils.Config.MAP_HEIGHT;
-import static com.byron.utils.Config.MAP_WIDTH;
+import static com.byron.utils.Config.*;
 
 public class DungeonService implements IDungeonService {
 
     IDungeonManager dungeonManager;
     IItemService itemService;
+    IAgentService agentService;
+
     Engine engine;
     private Set<GridPoint2> occupiedPositions = new HashSet<>();
     private Set<GridPoint2> wallBottom = new HashSet<>();
+    private GridPoint2 playerSpawnPosition;
 
     private float CHANCE_OF_CORNER_PILLARS = 0.2f;
 
-    public DungeonService(IDungeonManager dungeonManager, IItemService itemService) {
+    public DungeonService(IDungeonManager dungeonManager, IItemService itemService, IAgentService agentService) {
         this.dungeonManager = dungeonManager;
         this.itemService = itemService;
+        this.agentService = agentService;
+
         engine = GameResources.get().getEngine();
         createFloorsAndWalls(dungeonManager.getDungeon());
         createEdges();
@@ -48,8 +51,81 @@ public class DungeonService implements IDungeonService {
         spawnColumnItems();
         spawnSpecialItems();
 
+        spawnPlayer();
+        enemySpawner(playerSpawnPosition);
 //        mapOutRooms(dungeonManager.getRooms());
     }
+
+    private void spawnPlayer() {
+        Array<Room> rooms = dungeonManager.getRooms();
+        Room startRoom = rooms.get(MathUtils.random(rooms.size - 1));
+
+        // Calculate room center
+        int centerX = startRoom.getX() + startRoom.getWidth() / 2;
+        int centerY = startRoom.getY() + startRoom.getHeight() / 2;
+        GridPoint2 position = new GridPoint2(centerX, centerY);
+
+        // If center is occupied, find nearest unoccupied position
+        if (occupiedPositions.contains(position)) {
+            int attempts = 0;
+            int maxAttempts = 10;
+            boolean placed = false;
+
+            while (!placed && attempts < maxAttempts) {
+                int randomX = MathUtils.random(startRoom.getX(), startRoom.getX() + startRoom.getWidth() - 1);
+                int randomY = MathUtils.random(startRoom.getY(), startRoom.getY() + startRoom.getHeight() - 1);
+                position = new GridPoint2(randomX, randomY);
+
+                if (!occupiedPositions.contains(position)) {
+                    placed = true;
+                }
+                attempts++;
+            }
+        }
+        playerSpawnPosition = position;
+        agentService.spawnPlayer(position);
+        occupiedPositions.add(position);
+    }
+
+
+private void enemySpawner(GridPoint2 playerSpawnPosition) {
+    Map<String, Agent> agents = agentService.getAgents();
+    Array<Room> rooms = dungeonManager.getRooms();
+
+    List<Agent> enemyAgents = agents.values().stream()
+        .filter(agent -> "enemy".equals(agent.getFactionId()))
+        .collect(Collectors.toList());
+
+    for (Room room : rooms) {
+        int roomArea = room.getWidth() * room.getHeight();
+        int enemiesToSpawn = Math.max(1, roomArea / ENEMY_ROOM_SPAWN_DENSITY);
+
+        for (int i = 0; i < enemiesToSpawn; i++) {
+            int attempts = 0;
+            int maxAttempts = 10;
+            boolean placed = false;
+
+            while (!placed && attempts < maxAttempts) {
+                int randomX = MathUtils.random(room.getX(), room.getX() + room.getWidth() - 1);
+                int randomY = MathUtils.random(room.getY(), room.getY() + room.getHeight() - 1);
+                GridPoint2 position = new GridPoint2(randomX, randomY);
+
+                int distance = Math.abs(position.x - playerSpawnPosition.x) +
+                             Math.abs(position.y - playerSpawnPosition.y);
+
+                if (!occupiedPositions.contains(position) && !enemyAgents.isEmpty() && distance >= 2) {
+                    Agent selectedEnemy = enemyAgents.get(MathUtils.random(enemyAgents.size() - 1));
+                    agentService.spawnAgent(position, selectedEnemy.getId());
+                    occupiedPositions.add(position);
+                    placed = true;
+                }
+                attempts++;
+            }
+        }
+    }
+}
+
+
 
     private void mapOutRooms(Array<Room> rooms) {
         for (Room room : rooms) {
@@ -184,49 +260,48 @@ public class DungeonService implements IDungeonService {
     }
 
     public void spawnSpecialItems() {
-    List<Spawn> spawns = dungeonManager.getSpawns();
-    Array<Room> rooms = dungeonManager.getRooms();
+        List<Spawn> spawns = dungeonManager.getSpawns();
+        Array<Room> rooms = dungeonManager.getRooms();
 
-    // Filter for special type items
-    List<Spawn> specialSpawns = spawns.stream()
-        .filter(spawn -> "special".equals(spawn.getType()))
-        .collect(Collectors.toList());
+        // Filter for special type items
+        List<Spawn> specialSpawns = spawns.stream()
+            .filter(spawn -> "special".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
-    // Get a random room to place the special item
-    if (!rooms.isEmpty() && !specialSpawns.isEmpty()) {
-        Room selectedRoom = rooms.get(MathUtils.random(rooms.size - 1));
+        // Get a random room to place the special item
+        if (!rooms.isEmpty() && !specialSpawns.isEmpty()) {
+            Room selectedRoom = rooms.get(MathUtils.random(rooms.size - 1));
 
-        // Try to place in center of room first
-        int centerX = selectedRoom.getX() + selectedRoom.getWidth() / 2;
-        int centerY = selectedRoom.getY() + selectedRoom.getHeight() / 2;
-        GridPoint2 position = new GridPoint2(centerX, centerY);
+            // Try to place in center of room first
+            int centerX = selectedRoom.getX() + selectedRoom.getWidth() / 2;
+            int centerY = selectedRoom.getY() + selectedRoom.getHeight() / 2;
+            GridPoint2 position = new GridPoint2(centerX, centerY);
 
-        // If center is occupied, try random positions in room
-        if (occupiedPositions.contains(position)) {
-            int attempts = 0;
-            int maxAttempts = 10;
-            boolean placed = false;
+            // If center is occupied, try random positions in room
+            if (occupiedPositions.contains(position)) {
+                int attempts = 0;
+                int maxAttempts = 10;
+                boolean placed = false;
 
-            while (!placed && attempts < maxAttempts) {
-                int randomX = MathUtils.random(selectedRoom.getX(), selectedRoom.getX() + selectedRoom.getWidth() - 1);
-                int randomY = MathUtils.random(selectedRoom.getY(), selectedRoom.getY() + selectedRoom.getHeight() - 1);
-                position = new GridPoint2(randomX, randomY);
+                while (!placed && attempts < maxAttempts) {
+                    int randomX = MathUtils.random(selectedRoom.getX(), selectedRoom.getX() + selectedRoom.getWidth() - 1);
+                    int randomY = MathUtils.random(selectedRoom.getY(), selectedRoom.getY() + selectedRoom.getHeight() - 1);
+                    position = new GridPoint2(randomX, randomY);
 
-                if (!occupiedPositions.contains(position)) {
-                    placed = true;
+                    if (!occupiedPositions.contains(position)) {
+                        placed = true;
+                    }
+                    attempts++;
                 }
-                attempts++;
             }
+
+            // Spawn the special item
+            int randomIndex = MathUtils.random(specialSpawns.size() - 1);
+            Spawn selectedSpawn = specialSpawns.get(randomIndex);
+            spawn(selectedSpawn.getName(), position.x, position.y);
+            occupiedPositions.add(position);
         }
-
-        // Spawn the special item
-        int randomIndex = MathUtils.random(specialSpawns.size() - 1);
-        Spawn selectedSpawn = specialSpawns.get(randomIndex);
-        spawn(selectedSpawn.getName(), position.x, position.y);
-        occupiedPositions.add(position);
     }
-}
-
 
 
     private void createEdges() {

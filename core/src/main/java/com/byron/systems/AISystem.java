@@ -18,74 +18,87 @@ import com.byron.components.VelocityComponent;
 //import com.byron.components.player.KeyboardComponent;
 //import com.byron.interfaces.ICameraService;
 import com.byron.components.player.PlayerComponent;
+import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
 //import com.byron.interfaces.IPlayerInputManager;
+import com.byron.interfaces.IPlayerInputManager;
+import com.byron.managers.PlayerInputManager;
 import com.byron.models.status.Action;
 import com.byron.models.status.Direction;
 import com.byron.utils.Mappers;
 
+import static com.byron.utils.Config.ENEMY_ATTACK_DISTANCE;
+
 public class AISystem extends IteratingSystem {
 
     private final ComponentMapper<StatusComponent> sm = Mappers.status;
-    private final ComponentMapper<BodyComponent> bm = Mappers.body;
     private final ComponentMapper<VelocityComponent> vm = Mappers.velocity;
-    //private final IPlayerInputManager playerInputManager;
+    private IPlayerInputManager playerInputManager;
     IDungeonService dungeonService;
-    Entity player;
-    ImmutableArray<Entity> entityImmutableArray;
+    IAgentService agentService;
 
-    public AISystem(IDungeonService dungeonService) {
+    public AISystem(IDungeonService dungeonService, IAgentService agentService, IPlayerInputManager playerInputManager) {
         super(Family.all(AIComponent.class).get());
-        //this.cameraService = cameraService;
+        this.playerInputManager = playerInputManager;
         this.dungeonService = dungeonService;
+        this.agentService = agentService;
     }
 
-    @Override
-    public void addedToEngine(Engine engine) {
-        super.addedToEngine(engine);
-        //player = engine.getEntitiesFor(Family.all(PlayerComponent.class).get()).get(0);
-        entityImmutableArray = engine.getEntitiesFor(Family.all(PlayerComponent.class).get());
-    }
     @Override
     protected void processEntity(Entity enemy, float deltaTime) {
-        //Vector2 position = pm.get(entity).position;
-        //cameraService.setPosition(position.x, position.y);
+
+        AIComponent aiComponent = Mappers.ai.get(enemy);
+
         StatusComponent status = sm.get(enemy);
-        BodyComponent bodyComponent = bm.get(enemy);
-        Vector2 position = Mappers.position.get(enemy).position;
-        player = entityImmutableArray.first();
+        Vector2 enemyPosition = Mappers.position.get(enemy).position;
+
+        Entity player = agentService.getPlayer();
         Vector2 playerPosition = Mappers.position.get(player).position;
 
+        if (playerInputManager.playerHasTakenTheirTurn() && inRangeOfTarget(enemyPosition, playerPosition)) {
+            aiComponent.moveCounter --;
 
+            if (aiComponent.canMove()) {
+                basicFollowMovement(enemy, status, playerPosition, enemyPosition);
+            }
+        }
+    }
+
+    private void basicFollowMovement(Entity enemy, StatusComponent status, Vector2 playerPosition, Vector2 enemyPosition) {
         if (status.getAction() == Action.WALKING) return;
         //status.setAction(Action.STANDING);
 
         //status.setDirection(Direction.UP);
-        float xDelta = playerPosition.x - position.x;
-        float yDelta = playerPosition.y - position.y;
-        if(Math.abs(xDelta) >= Math.abs(yDelta)) {
-            if(xDelta < 0 && dungeonService.isWalkable((int) position.x - 1, (int) (position.y))) {
+        float xDelta = playerPosition.x - enemyPosition.x;
+        float yDelta = playerPosition.y - enemyPosition.y;
+        if (Math.abs(xDelta) >= Math.abs(yDelta)) {
+            if (xDelta < 0 && dungeonService.isWalkable((int) enemyPosition.x - 1, (int) (enemyPosition.y))) {
                 status.setAction(Action.WALKING);
                 status.setDirection(Direction.LEFT);
-                enemy.add(new DestinationComponent(position.x - 1, position.y));
+                enemy.add(new DestinationComponent(enemyPosition.x - 1, enemyPosition.y));
             }
-            if(xDelta > 0 && dungeonService.isWalkable((int) position.x + 1, (int) (position.y))) {
+            if (xDelta > 0 && dungeonService.isWalkable((int) enemyPosition.x + 1, (int) (enemyPosition.y))) {
                 status.setAction(Action.WALKING);
                 status.setDirection(Direction.RIGHT);
-                enemy.add(new DestinationComponent(position.x + 1, position.y));
+                enemy.add(new DestinationComponent(enemyPosition.x + 1, enemyPosition.y));
             }
         }
-        if(Math.abs(xDelta) < Math.abs(yDelta)) {
-            if(yDelta < 0 && dungeonService.isWalkable((int) position.x, (int) (position.y - 1))) {
+        if (Math.abs(xDelta) < Math.abs(yDelta)) {
+            if (yDelta < 0 && dungeonService.isWalkable((int) enemyPosition.x, (int) (enemyPosition.y - 1))) {
                 status.setAction(Action.WALKING);
                 status.setDirection(Direction.DOWN);
-                enemy.add(new DestinationComponent(position.x, position.y - 1));
+                enemy.add(new DestinationComponent(enemyPosition.x, enemyPosition.y - 1));
             }
-            if(yDelta > 0 && dungeonService.isWalkable((int) position.x, (int) (position.y + 1))) {
+            if (yDelta > 0 && dungeonService.isWalkable((int) enemyPosition.x, (int) (enemyPosition.y + 1))) {
                 status.setAction(Action.WALKING);
                 status.setDirection(Direction.UP);
-                enemy.add(new DestinationComponent(position.x, position.y + 1));
+                enemy.add(new DestinationComponent(enemyPosition.x, enemyPosition.y + 1));
             }
         }
+    }
+
+    private boolean inRangeOfTarget(Vector2 enemy, Vector2 player) {
+        float distance = enemy.dst(player);
+        return distance <= ENEMY_ATTACK_DISTANCE;
     }
 }

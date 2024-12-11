@@ -57,4 +57,8 @@ public class AgentFactory {
 
         return equipment;
     }
+
+    public Map<String, Agent> getAgents() {
+        return agents;
+    }
 }

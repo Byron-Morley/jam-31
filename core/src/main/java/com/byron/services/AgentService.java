@@ -5,6 +5,9 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.byron.builders.AgentBuilder;
 import com.byron.interfaces.IAgentManager;
 import com.byron.interfaces.IAgentService;
+import com.byron.models.Agent;
+
+import java.util.Map;
 
 public class AgentService extends Service implements IAgentService {
 
@@ -15,7 +18,19 @@ public class AgentService extends Service implements IAgentService {
     }
 
     public Entity spawnPlayer(GridPoint2 location) {
-        return this.spawnAgent(location, "player");
+        Entity player = this.spawnAgent(location, "player");
+        agentManager.setPlayer(player);
+        return player;
+    }
+
+    @Override
+    public Map<String, Agent> getAgents() {
+        return agentManager.getAgents();
+    }
+
+    @Override
+    public Entity getPlayer() {
+        return agentManager.getPlayer();
     }
 
     public Entity spawnAgent(GridPoint2 location, String type) {
@@ -32,4 +47,6 @@ public class AgentService extends Service implements IAgentService {
         getEngine().addEntity(agentEntity);
         return agentEntity;
     }
+
+
 }

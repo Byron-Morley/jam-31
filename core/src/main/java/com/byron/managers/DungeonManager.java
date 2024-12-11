@@ -2,6 +2,7 @@ package com.byron.managers;
 
 import com.badlogic.gdx.utils.Array;
 import com.byron.factories.ModelFactory;
+import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonManager;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IItemService;
@@ -25,7 +26,7 @@ public class DungeonManager implements IDungeonManager {
     List<Spawn> spawns;
     Array<Room> rooms;
 
-    public DungeonManager(IItemService itemService) {
+    public DungeonManager(IItemService itemService, IAgentService agentService) {
         spawns = ModelFactory.getDungeonSpawns();
 
         Random random = new Random();
@@ -50,7 +51,7 @@ public class DungeonManager implements IDungeonManager {
         System.out.println("DungeonManager.DungeonManager "+ rooms.size);
 //        dungeon = DungeonUtils.createSimpleDungeon(MAP_WIDTH, MAP_HEIGHT);
         bitmap = new int[MAP_WIDTH * 2][MAP_HEIGHT * 2];
-        dungeonService = new DungeonService(this, itemService);
+        dungeonService = new DungeonService(this, itemService, agentService);
 
     }
 

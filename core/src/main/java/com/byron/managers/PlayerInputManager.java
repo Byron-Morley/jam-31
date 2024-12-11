@@ -171,6 +171,11 @@ public class PlayerInputManager extends ClickListener implements IPlayerInputMan
         return movementVector;
     }
 
+    @Override
+    public boolean playerHasTakenTheirTurn() {
+        return (movementKeysPressed.size() > 0 || actionKeyPressed.size() > 0);
+    }
+
     public LinkedList<Float> getScrollQueue() {
         return scrollQueue;
     }

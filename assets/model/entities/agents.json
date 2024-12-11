@@ -1,5 +1,6 @@
 {
   "player": {
+    "id": "player",
     "name": "player",
     "player": true,
     "factionId": "player",
@@ -9,6 +10,7 @@
     }
   },
   "snake": {
+    "id": "snake",
     "name": "snake",
     "factionId": "enemy",
     "animationModel": "DEFAULT",
@@ -17,6 +19,7 @@
     }
   },
   "blue-ooze": {
+    "id": "blue-ooze",
     "name": "Blue Ooze",
     "factionId": "enemy",
     "animationModel": "DEFAULT",
@@ -25,6 +28,7 @@
     }
   },
   "red-dragon": {
+    "id": "red-dragon",
     "name": "Red Dragon",
     "factionId": "enemy",
     "animationModel": "DEFAULT",
@@ -33,6 +37,7 @@
     }
   },
   "goblin": {
+    "id"  : "goblin",
     "name": "Goblin",
     "factionId": "enemy",
     "animationModel": "DEFAULT",
