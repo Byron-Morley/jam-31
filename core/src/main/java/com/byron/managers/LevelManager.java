@@ -38,6 +38,7 @@ public class LevelManager {
         Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
 
         Random r = new Random();
+        System.out.println("just before dragons");
         int i=0;
         while(true) {
             int x = r.nextInt(64);

@@ -60,6 +60,7 @@ public class DungeonService implements IDungeonService {
                 }
             }
         }
+        System.out.println("finished walls?");
     }
 
     private void createEdges() {
