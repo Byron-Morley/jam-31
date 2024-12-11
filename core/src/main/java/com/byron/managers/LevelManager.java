@@ -36,22 +36,6 @@ public class LevelManager {
         */
 
         Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
-
-        Random r = new Random();
-        System.out.println("just before dragons");
-        int i=0;
-        while(true) {
-            int x = r.nextInt(64);
-            int y = r.nextInt(64);
-
-            if(dungeonService.isWalkable(x,y)) {
-                Entity dragon2  = agentService.spawnAgent(new GridPoint2(x, y), "red-dragon");
-                i++;
-            }
-            if (i == 8) {
-                break;
-            }
-        }
     }
 
 }

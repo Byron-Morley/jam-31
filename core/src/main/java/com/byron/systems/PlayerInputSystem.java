@@ -4,12 +4,10 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.DestinationComponent;
 import com.byron.components.StatusComponent;
 import com.byron.components.player.KeyboardComponent;
-import com.byron.engine.GameResources;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IPlayerInputManager;
 import com.byron.models.player.PlayerAction;
@@ -23,14 +21,12 @@ public class PlayerInputSystem extends IteratingSystem {
 
     private final ComponentMapper<StatusComponent> sm = Mappers.status;
     private final IPlayerInputManager playerInputManager;
-    OrthographicCamera camera;
-    IDungeonService dungeonService;
+    private final IDungeonService dungeonService;
 
     public PlayerInputSystem(IPlayerInputManager playerInputManager, IDungeonService dungeonService) {
         super(Family.all(KeyboardComponent.class).get());
         this.playerInputManager = playerInputManager;
         this.dungeonService = dungeonService;
-        camera = GameResources.get().getCamera();
     }
 
     @Override

@@ -16,9 +16,10 @@
 
 package com.byron.utils.dungeon;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.StringBuilder;
+
+import java.util.Random;
 
 /**
  * Utility class to generate flat and hierarchical random dungeons.
@@ -36,7 +37,7 @@ public final class DungeonUtils {
 
         int mapSizeX = 75;
         int mapSizeY = 125;
-        int map[][] = createDungeon(70, 120, 15, 67, 1, 8, 100);
+        int map[][] = createDungeon(70, 120, 15, 67, 2, 10, 100, 20).getMap();
         System.out.println(mapToString(map));
     }
 
@@ -73,19 +74,37 @@ public final class DungeonUtils {
     }
 
 
-    public static int[][] createDungeon(
+    public static Dungeon createDungeon(
         int mapSizeX, int mapSizeY,
         int roomCountMin, int roomCountMax,
         int roomMinSize, int roomMaxSize,
-        int squashIterations
+        int squashIterations, int seed
     ) {
-        int map[][] = new int[mapSizeX / 2][mapSizeY / 2];
-        int submapSizeX = mapSizeX / 4;
-        int submapSizeY = mapSizeY / 6;
+        int mulitplier = 2;
+
+
+        int map[][] = new int[mapSizeX / mulitplier][mapSizeY / mulitplier];
+        int submapSizeX = mapSizeX / 2 / mulitplier;
+        int submapSizeY = mapSizeY / 3 / mulitplier;
+
+        Random random = new Random(seed);
+        Array<Room> rooms = new Array<>();
 
         for (int x = 0; x < 2; x++) {
             for (int y = 0; y < 3; y++) {
-                int submap[][] = DungeonUtils.generate(submapSizeX, submapSizeY, MathUtils.random(roomCountMin, roomCountMax), roomMinSize, roomMaxSize, squashIterations, false);
+
+                Dungeon subDungeon = DungeonUtils.generate(
+                    submapSizeX, submapSizeY,
+                    random.nextInt(roomCountMax - roomCountMin + 1) + roomCountMin,
+                    roomMinSize,
+                    roomMaxSize,
+                    squashIterations,
+                    false,
+                    random.nextInt());
+
+                rooms.addAll(addRelativeRoomPositions(subDungeon.getRooms(), x, y, submapSizeX, submapSizeY));
+                int submap[][] = subDungeon.getMap();
+
                 for (int x0 = 0; x0 < submapSizeX; x0++) {
                     for (int y0 = 0; y0 < submapSizeY; y0++) {
                         if (submap[x0][y0] != TILE_EMPTY)
@@ -101,14 +120,16 @@ public final class DungeonUtils {
                 // Generates 1 or 2 corridors per building
                 boolean corridor1 = y < 3 - 1;
                 boolean corridor2 = x < 2 - 1;
-                if (corridor1 && corridor2 && MathUtils.randomBoolean(.4f)) {
-                    if (MathUtils.randomBoolean())
+                if (corridor1 && corridor2 && random.nextBoolean()) {
+                    if (random.nextBoolean())
                         corridor1 = false;
                     else
                         corridor2 = false;
                 }
                 if (corridor1) {
-                    int x0 = MathUtils.random(x * submapSizeX + 1, x * submapSizeX + submapSizeX / 2);
+                    int min = x * submapSizeX + 1;
+                    int max = x * submapSizeX + submapSizeX / 2;
+                    int x0 = random.nextInt(max - min + 1) + min;
                     int y0 = y * submapSizeY + 1;
                     for (int i = submapSizeY + 5; i > 0; i--) {
                         if (i < submapSizeY && map[x0][y0 + i] == TILE_FLOOR)
@@ -118,7 +139,9 @@ public final class DungeonUtils {
                 }
                 if (corridor2) {
                     int x1 = x * submapSizeX + 1;
-                    int y1 = MathUtils.random(y * submapSizeY + 1, y * submapSizeY + submapSizeY / 2);
+                    int min = y * submapSizeY + 1;
+                    int max = y * submapSizeY + submapSizeY / 2;
+                    int y1 = random.nextInt(max - min + 1) + min;
                     for (int i = submapSizeX + 5; i > 0; i--) {
                         if (i < submapSizeX && map[x1 + i][y1] == TILE_FLOOR)
                             break;
@@ -128,15 +151,89 @@ public final class DungeonUtils {
             }
         }
         addMissingWalls(map);
-
-        int[][] enlargedMap = enLargeMap(map, 2);
-
-
-        return enlargedMap;
+        int padding = 0;
+        int[][] enlargedMap = enLargeMap(map, mulitplier, padding);
+        int[][] fixedMap = fixMap(enlargedMap);
+        return new Dungeon(fixedMap, correctRooms(rooms, mulitplier, padding));
     }
 
-    private static int[][] enLargeMap(int[][] originalMap, int scale) {
-        int padding = 5;
+private static int[][] fixMap(int[][] map) {
+    int width = map.length;
+    int height = map[0].length;
+
+    for (int x = 1; x < width - 1; x++) {
+        for (int y = 1; y < height - 1; y++) {
+            // Check for horizontal adjacent wall spaces
+            if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL) {
+                if (map[x][y - 1] != TILE_WALL && map[x][y + 1] != TILE_WALL &&
+                    map[x + 1][y - 1] != TILE_WALL && map[x + 1][y + 1] != TILE_WALL) {
+                    map[x][y] = TILE_FLOOR;
+                    map[x + 1][y] = TILE_FLOOR;
+                }
+            }
+
+            // Check for 2x2 square of wall spaces
+            if (x < width - 2 && y < height - 2) {
+                if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL &&
+                    map[x][y + 1] == TILE_WALL && map[x + 1][y + 1] == TILE_WALL) {
+                    // Check if surrounded by non-wall tiles
+                    boolean surrounded = true;
+                    // Check top and bottom edges
+                    for (int dx = 0; dx <= 1; dx++) {
+                        if (map[x + dx][y - 1] == TILE_WALL || map[x + dx][y + 2] == TILE_WALL) {
+                            surrounded = false;
+                        }
+                    }
+                    // Check left and right edges
+                    for (int dy = 0; dy <= 1; dy++) {
+                        if (map[x - 1][y + dy] == TILE_WALL || map[x + 2][y + dy] == TILE_WALL) {
+                            surrounded = false;
+                        }
+                    }
+
+                    if (surrounded) {
+                        map[x][y] = TILE_FLOOR;
+                        map[x + 1][y] = TILE_FLOOR;
+                        map[x][y + 1] = TILE_FLOOR;
+                        map[x + 1][y + 1] = TILE_FLOOR;
+                    }
+                }
+            }
+        }
+    }
+    return map;
+}
+
+
+
+    private static Array<Room> addRelativeRoomPositions(Array<Room> rooms, int x, int y, int submapSizeX, int submapSizeY) {
+        Array<Room> correctedRooms = new Array<>();
+        for (Room room : rooms) {
+            int x0 = room.x + (x * submapSizeX);
+            int y0 = room.y + (y * submapSizeY);
+            int width = room.width;
+            int height = room.height;
+            correctedRooms.add(new Room(x0, y0, width, height));
+        }
+        return correctedRooms;
+    }
+
+    private static Array<Room> correctRooms(Array<Room> rooms, int mulitplier, int padding) {
+        Array<Room> correctedRooms = new Array<>();
+        for (Room room : rooms) {
+            int x = room.x * mulitplier + padding;
+            int y = room.y * mulitplier + padding;
+            int width = room.width * mulitplier;
+            int height = room.height * mulitplier;
+
+            correctedRooms.add(new Room(x, y, width, height));
+        }
+        return correctedRooms;
+
+    }
+
+    private static int[][] enLargeMap(int[][] originalMap, int scale, int padding) {
+
         int newWidth = (originalMap.length * scale) + (padding * 2);
         int newHeight = (originalMap[0].length * scale) + (padding * 2);
         int[][] enlargedMap = new int[newWidth][newHeight];
@@ -169,18 +266,27 @@ public final class DungeonUtils {
     private DungeonUtils() {
     }
 
-    public static int[][] generate(int mapSizeX, int mapSizeY, int roomCount, int roomMinSize, int roomMaxSize, int squashIterations) {
-        return generate(mapSizeX, mapSizeY, roomCount, roomMinSize, roomMaxSize, squashIterations, true);
+    public static Dungeon generate(int mapSizeX, int mapSizeY, int roomCount, int roomMinSize, int roomMaxSize, int squashIterations, int seed) {
+        return generate(mapSizeX, mapSizeY, roomCount, roomMinSize, roomMaxSize, squashIterations, true, seed);
     }
 
-    public static int[][] generate(int mapSizeX, int mapSizeY, int roomCount, int roomMinSize, int roomMaxSize, int squashIterations, boolean addMissingWalls) {
+    public static Dungeon generate(
+        int mapSizeX,
+        int mapSizeY,
+        int roomCount,
+        int roomMinSize,
+        int roomMaxSize,
+        int squashIterations,
+        boolean addMissingWalls,
+        int seed
+    ) {
         int[][] map = new int[mapSizeX][mapSizeY];
         for (int x = 0; x < mapSizeX; x++) {
             for (int y = 0; y < mapSizeY; y++) {
                 map[x][y] = TILE_EMPTY;
             }
         }
-
+        Random random = new Random(seed);
         // Generate random rooms and make sure they don't collide each other.
         // Also decrease the room width and height by 1 so as to make sure that no two rooms
         // are directly next to one another (making one big room).
@@ -194,18 +300,19 @@ public final class DungeonUtils {
                 }
 
                 Room room = new Room();
-                room.x = MathUtils.random(1, mapSizeX - roomMaxSize - 1);
-                room.y = MathUtils.random(1, mapSizeY - roomMaxSize - 1);
-                room.w = MathUtils.random(roomMinSize, roomMaxSize);
-                room.h = MathUtils.random(roomMinSize, roomMaxSize);
+
+                room.x = random.nextInt(mapSizeX - roomMaxSize - 1 - 1 + 1) + 1;
+                room.y = random.nextInt(mapSizeY - roomMaxSize - 1 - 1 + 1) + 1;
+                room.width = random.nextInt(roomMaxSize - roomMinSize + 1) + roomMinSize;
+                room.height = random.nextInt(roomMaxSize - roomMinSize + 1) + roomMinSize;
 
                 if (collides(rooms, room)) {
                     i--;
                     failures++;
                     continue;
                 }
-                room.w--;
-                room.h--;
+                room.width--;
+                room.height--;
 
                 rooms.add(room);
             }
@@ -215,6 +322,7 @@ public final class DungeonUtils {
         }
         roomCount = rooms.size;
 
+        System.out.println("roomCount:" + roomCount);
         // Build corridors between rooms that are near to one another.
         // We choose a random point in each room and then move the second point towards the
         // first one (in the while loop).
@@ -222,11 +330,10 @@ public final class DungeonUtils {
             Room roomA = rooms.get(i);
             Room roomB = findClosestRoom(rooms, roomA);
 
-            int pointAx = MathUtils.random(roomA.x, roomA.x + roomA.w);
-            int pointAy = MathUtils.random(roomA.y, roomA.y + roomA.h);
-
-            int pointBx = MathUtils.random(roomB.x, roomB.x + roomB.w);
-            int pointBy = MathUtils.random(roomB.y, roomB.y + roomB.h);
+            int pointAx = random.nextInt(roomA.width + 1) + roomA.x;
+            int pointAy = random.nextInt(roomA.height + 1) + roomA.y;
+            int pointBx = random.nextInt(roomB.width + 1) + roomB.x;
+            int pointBy = random.nextInt(roomB.height + 1) + roomB.y;
 
             while ((pointBx != pointAx) || (pointBy != pointAy)) {
                 if (pointBx != pointAx) {
@@ -248,8 +355,8 @@ public final class DungeonUtils {
         // Iterate through all the rooms and set the tile to FLOOR for every tile within a room
         for (int i = 0; i < roomCount; i++) {
             Room room = rooms.get(i);
-            for (int x = room.x; x < room.x + room.w; x++) {
-                for (int y = room.y; y < room.y + room.h; y++) {
+            for (int x = room.x; x < room.x + room.width; x++) {
+                for (int y = room.y; y < room.y + room.height; y++) {
                     map[x][y] = TILE_FLOOR;
                 }
             }
@@ -259,68 +366,7 @@ public final class DungeonUtils {
         if (addMissingWalls)
             addMissingWalls(map);
 
-        return map;
-    }
-
-    public static TwoLevelHierarchy generate2LevelHierarchy(int mapSizeX, int mapSizeY, int buildingsX, int buildingsY, int roomMinCount, int roomMaxCount, int roomMinSize, int roomMaxSize, int squashIterations) {
-        int map[][] = new int[mapSizeX][mapSizeY];
-        boolean level1Con1[][] = new boolean[buildingsX][buildingsY];
-        boolean level1Con2[][] = new boolean[buildingsX][buildingsY];
-        int submapSizeX = mapSizeX / buildingsX;
-        int submapSizeY = mapSizeY / buildingsY;
-
-        // Generate buildings
-        for (int x = 0; x < buildingsX; x++) {
-            for (int y = 0; y < buildingsY; y++) {
-                int submap[][] = DungeonUtils.generate(submapSizeX, submapSizeY, MathUtils.random(roomMinCount, roomMaxCount), roomMinSize, roomMaxSize, squashIterations, false);
-                for (int x0 = 0; x0 < submapSizeX; x0++) {
-                    for (int y0 = 0; y0 < submapSizeY; y0++) {
-                        if (submap[x0][y0] != TILE_EMPTY)
-                            map[x * submapSizeX + x0][y * submapSizeY + y0] = submap[x0][y0];
-                    }
-                }
-            }
-        }
-
-        // Generate corridors to connect buildings
-        for (int x = 0; x < buildingsX; x++) {
-            for (int y = 0; y < buildingsY; y++) {
-                // Generates 1 or 2 corridors per building
-                boolean corridor1 = y < buildingsY - 1;
-                boolean corridor2 = x < buildingsX - 1;
-                if (corridor1 && corridor2 && MathUtils.randomBoolean(.5f)) {
-                    if (MathUtils.randomBoolean())
-                        corridor1 = false;
-                    else
-                        corridor2 = false;
-                }
-                if (corridor1) {
-                    level1Con1[x][y] = true;
-                    int x0 = MathUtils.random(x * submapSizeX + 1, x * submapSizeX + submapSizeX / 2);
-                    int y0 = y * submapSizeY + 1;
-                    for (int i = submapSizeY + 5; i > 0; i--) {
-                        if (i < submapSizeY && map[x0][y0 + i] == TILE_FLOOR)
-                            break;
-                        map[x0][y0 + i] = TILE_FLOOR;
-                    }
-                }
-                if (corridor2) {
-                    level1Con2[x][y] = true;
-                    int x1 = x * submapSizeX + 1;
-                    int y1 = MathUtils.random(y * submapSizeY + 1, y * submapSizeY + submapSizeY / 2);
-                    for (int i = submapSizeX + 5; i > 0; i--) {
-                        if (i < submapSizeX && map[x1 + i][y1] == TILE_FLOOR)
-                            break;
-                        map[x1 + i][y1] = TILE_FLOOR;
-                    }
-                }
-            }
-        }
-
-        addMissingWalls(map);
-//		System.out.println(mapToString(map));
-
-        return new TwoLevelHierarchy(map, level1Con1, level1Con2);
+        return new Dungeon(map, rooms);
     }
 
     // Iterates through all the tiles in the map and if it finds a tile that is a FLOOR
@@ -350,8 +396,8 @@ public final class DungeonUtils {
         for (int i = 0; i < rooms.size; i++) {
             if (i == ignore) continue;
             Room check = rooms.get(i);
-            if (!((room.x + room.w < check.x) || (room.x > check.x + check.w) || (room.y + room.h < check.y) || (room.y > check.y
-                + check.h))) return true;
+            if (!((room.x + room.width < check.x) || (room.x > check.x + check.width) || (room.y + room.height < check.y) || (room.y > check.y
+                + check.height))) return true;
         }
 
         return false;
@@ -378,17 +424,17 @@ public final class DungeonUtils {
     }
 
     private static Room findClosestRoom(Array<Room> rooms, Room room) {
-        float midX = room.x + (room.w / 2f);
-        float midY = room.y + (room.h / 2f);
+        float midX = room.x + (room.width / 2f);
+        float midY = room.y + (room.height / 2f);
         Room closest = null;
         float closestDistance = Float.POSITIVE_INFINITY;
         for (int i = 0; i < rooms.size; i++) {
             Room check = rooms.get(i);
             if (check == room) continue;
-            float checkMidX = check.x + (check.w / 2f);
-            float checkMidY = check.y + (check.h / 2f);
-            float distance = Math.min(Math.abs(midX - checkMidX) - (room.w / 2f) - (check.w / 2f), Math.abs(midY - checkMidY)
-                - (room.h / 2f) - (check.h / 2f));
+            float checkMidX = check.x + (check.width / 2f);
+            float checkMidY = check.y + (check.height / 2f);
+            float distance = Math.min(Math.abs(midX - checkMidX) - (room.width / 2f) - (check.width / 2f), Math.abs(midY - checkMidY)
+                - (room.height / 2f) - (check.height / 2f));
             if (distance < closestDistance) {
                 closestDistance = distance;
                 closest = check;
@@ -419,21 +465,5 @@ public final class DungeonUtils {
             sb.append('\n');
         }
         return sb.toString();
-    }
-
-    private static class Room {
-        int x, y, w, h;
-    }
-
-    public static class TwoLevelHierarchy {
-        public int[][] level0;
-        public boolean[][] level1Con1;
-        public boolean[][] level1Con2;
-
-        public TwoLevelHierarchy(int[][] level0, boolean[][] level1Con1, boolean[][] level1Con2) {
-            this.level0 = level0;
-            this.level1Con1 = level1Con1;
-            this.level1Con2 = level1Con2;
-        }
     }
 }

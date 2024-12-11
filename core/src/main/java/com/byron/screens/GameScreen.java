@@ -9,14 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.byron.engine.GameResources;
-import com.byron.interfaces.IAgentManager;
-import com.byron.interfaces.ICameraManager;
-import com.byron.interfaces.IDungeonManager;
-import com.byron.interfaces.IItemManager;
-import com.byron.interfaces.IMapManager;
-import com.byron.interfaces.IPlayerInputManager;
-import com.byron.interfaces.IRenderable;
-import com.byron.interfaces.ISoundManager;
+import com.byron.interfaces.*;
 import com.byron.managers.AgentManager;
 import com.byron.managers.CameraManager;
 import com.byron.managers.DungeonManager;
@@ -32,7 +25,10 @@ import com.byron.systems.CollisionSystem;
 import com.byron.systems.MovementSystem;
 import com.byron.systems.PhysicsSystem;
 import com.byron.systems.PlayerInputSystem;
+import com.byron.systems.weapons.SlashSystem;
 import com.byron.systems.SmoothMovementSystem;
+import com.byron.systems.weapons.WeaponAttachSystem;
+import com.byron.systems.weapons.WeaponSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
 import com.byron.systems.render.LightingSystem;
@@ -42,20 +38,26 @@ import com.byron.systems.sprite.AnimatableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
 
+import static com.byron.utils.Config.MAP_HEIGHT;
+import static com.byron.utils.Config.MAP_WIDTH;
+
 public class GameScreen implements Screen {
 
     //Core
-    private Stage stage;
-    private final GameResources resources;
-    private final OrthographicCamera camera;
+    Stage stage;
+    GameResources resources;
+    OrthographicCamera camera;
 
     //Managers
-    private ICameraManager cameraManager;
-    private IMapManager mapManager;
-    private IPlayerInputManager playerInputManager;
-    private IDungeonManager dungeonManager;
-    private LevelManager levelManager;
-    private UserInterfaceManager userInterfaceManager;
+    ICameraManager cameraManager;
+    IMapManager mapManager;
+    ISoundManager soundManager;
+    IAgentManager agentManager;
+    IPlayerInputManager playerInputManager;
+    IDungeonManager dungeonManager;
+    IItemManager itemManager;
+    LevelManager levelManager;
+    UserInterfaceManager userInterfaceManager;
 
     private IRenderable gridRenderer;
     private IRenderable lightsRenderer;
@@ -64,7 +66,7 @@ public class GameScreen implements Screen {
         this.resources = GameResources.get();
         initializeLogs();
         initializeStage();
-        initializeRenderers();
+        initiliseRenderers();
         initializeManagers();
         initializeListeners();
         initializeSystems();
@@ -72,7 +74,7 @@ public class GameScreen implements Screen {
         camera = GameResources.get().getCamera();
     }
 
-    private void initializeRenderers() {
+    private void initiliseRenderers() {
         gridRenderer = new GridRenderer();
     }
 
@@ -123,8 +125,12 @@ public class GameScreen implements Screen {
         engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SmoothMovementSystem());
-        engine.addSystem(new ShapeRenderSystem());
         engine.addSystem(new CollisionSystem());
+        engine.addSystem(new RenderSystem());
+        engine.addSystem(new WeaponAttachSystem());
+        engine.addSystem(new SlashSystem());
+        engine.addSystem(new WeaponSystem(playerInputManager));
+        engine.addSystem(new ShapeRenderSystem());
         engine.addSystem(new DebugSystem());
         engine.addSystem(new DebugOverlaySystem());
         engine.addSystem(new LightingSystem());
@@ -147,7 +153,7 @@ public class GameScreen implements Screen {
         resources.getEngine().update(delta);
         resources.getBatch().end();
 
-        gridRenderer.render(delta);
+//        gridRenderer.render(delta);
         userInterfaceManager.render(delta);
     }
 

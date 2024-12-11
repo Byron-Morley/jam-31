@@ -1,0 +1,158 @@
+[
+  {
+    "name": "rubble",
+    "frequency": "0.01f",
+    "type": "clutter"
+  },
+  {
+    "name": "paper",
+    "frequency": "0.01f",
+    "type": "clutter"
+  },
+  {
+    "name": "bricks",
+    "frequency": "0.015f",
+    "type": "clutter"
+  },
+  {
+    "name": "bricks-large",
+    "frequency": "0.008f"
+  },
+  {
+    "name": "broken-armor",
+    "frequency": "0.005f"
+  },
+  {
+    "name": "broken-column",
+    "frequency": "0.012f",
+    "type": "column"
+  },
+  {
+    "name": "broken-column-large",
+    "frequency": "0.007f",
+    "type": "column"
+  },
+  {
+    "name": "broken-column-moss",
+    "frequency": "0.009f",
+    "type": "column"
+  },
+  {
+    "name": "broken-stone",
+    "frequency": "0.018f",
+    "type": "clutter"
+  },
+  {
+    "name": "broken-tile",
+    "frequency": "0.019f",
+    "type": "clutter"
+  },
+  {
+    "name": "coffin",
+    "frequency": "0.004f"
+  },
+  {
+    "name": "crystal",
+    "frequency": "0.006f"
+  },
+  {
+    "name": "crystal-alt",
+    "frequency": "0.006f"
+  },
+  {
+    "name": "crystal-large",
+    "frequency": "0.003f"
+  },
+  {
+    "name": "dark-stone-spire",
+    "frequency": "0.008f",
+    "type": "column"
+  },
+  {
+    "name": "dark-stone-spire-large",
+    "frequency": "0.004f",
+    "type": "column"
+  },
+  {
+    "name": "gothic-dragon",
+    "frequency": "0.002f"
+  },
+  {
+    "name": "grave-stone",
+    "frequency": "0.007f"
+  },
+  {
+    "name": "hole-in-wall",
+    "frequency": "0.011f",
+    "type": "wall-bottom"
+  },
+  {
+    "name": "hole-in-wall-bottom",
+    "frequency": "0.011f",
+    "type": "wall-bottom"
+  },
+  {
+    "name": "hole-in-wall-small",
+    "frequency": "0.014f",
+    "type": "wall-top"
+  },
+  {
+    "name": "idol",
+    "frequency": "0.003f",
+    "type": "column"
+  },
+  {
+    "name": "idol-alt",
+    "frequency": "0.003f",
+    "type": "column"
+  },
+  {
+    "name": "light-stone-spire",
+    "frequency": "0.008f",
+    "type": "column"
+  },
+  {
+    "name": "light-stone-spire-large",
+    "frequency": "0.004f",
+    "type": "column"
+  },
+  {
+    "name": "mushroom",
+    "frequency": "0.016f",
+    "type": "clutter"
+  },
+  {
+    "name": "mushroom-alt",
+    "frequency": "0.016f",
+    "type": "clutter"
+  },
+  {
+    "name": "sad-paper",
+    "frequency": "0.013f",
+    "type": "special"
+  },
+  {
+    "name": "skeleton",
+    "frequency": "0.005f",
+    "type": "clutter"
+  },
+  {
+    "name": "stone-panel",
+    "frequency": "0.01f"
+  },
+  {
+    "name": "stone-plaque",
+    "frequency": "0.01f",
+    "type": "wall-bottom"
+  },
+  {
+    "name": "web-one",
+    "frequency": "0.017f",
+    "type": "wall-top"
+  },
+  {
+    "name": "web-two",
+    "frequency": "0.017f",
+    "type": "wall-top"
+  }
+]
