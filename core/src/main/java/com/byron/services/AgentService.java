@@ -22,7 +22,6 @@ public class AgentService extends Service implements IAgentService {
         AgentBuilder agentBuilder = agentManager.getAgentFactory()
             .create(type)
             .at(location.x, location.y);
-//            .withBody(location.x, location.y, 1, 1);
         Entity agentEntity = agentBuilder.build();
 
         // Print all components
@@ -33,5 +32,4 @@ public class AgentService extends Service implements IAgentService {
         getEngine().addEntity(agentEntity);
         return agentEntity;
     }
-
 }

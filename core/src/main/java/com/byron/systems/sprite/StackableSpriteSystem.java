@@ -17,15 +17,16 @@ import java.util.stream.Collectors;
 
 
 public class StackableSpriteSystem extends IteratingSystem {
-    private ComponentMapper<StackableSpriteComponent> stackable = Mappers.stackableSprite;
-    private ComponentMapper<StackedSpritesComponent> stacked = Mappers.stackedSprites;
-    private ComponentMapper<WearComponent> wm = Mappers.wear;
+
+    private final ComponentMapper<StackableSpriteComponent> stackable = Mappers.stackableSprite;
+    private final ComponentMapper<StackedSpritesComponent> stacked = Mappers.stackedSprites;
+    private final ComponentMapper<WearComponent> wm = Mappers.wear;
 
     public StackableSpriteSystem() {
         super(Family.all(
-                RefreshSpriteRequirementComponent.class,
-                StackedSpritesComponent.class,
-                RenderComponent.class).get());
+            RefreshSpriteRequirementComponent.class,
+            StackedSpritesComponent.class,
+            RenderComponent.class).get());
     }
 
     @Override
@@ -35,13 +36,13 @@ public class StackableSpriteSystem extends IteratingSystem {
         stackedSpritesComponent.setStackedComplexSprites(wearablesComplexSprites);
     }
 
-    private List<ComplexSprite> getTexturesToMerge(Entity entity){
+    private List<ComplexSprite> getTexturesToMerge(Entity entity) {
         WearComponent wearComponent = wm.get(entity);
 
         return wearComponent
-                .asList()
-                .stream()
-                .map(e -> stackable.get(e).getComplexSprite())
-                .collect(Collectors.toList());
+            .asList()
+            .stream()
+            .map(e -> stackable.get(e).getComplexSprite())
+            .collect(Collectors.toList());
     }
 }

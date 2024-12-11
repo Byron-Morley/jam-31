@@ -1,7 +1,31 @@
 {
-  "stone-floor": {
+  "stone-floor-1": {
     "label": "Stone Floor",
     "sprite": "building/stone-tile-1"
+  },
+  "stone-floor-2": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-2"
+  },
+  "stone-floor-3": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-3"
+  },
+  "stone-floor-4": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-4"
+  },
+    "stone-floor-5": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-5"
+  },
+      "shade": {
+    "label": "Stone Floor",
+    "sprite": "building/shade"
+  },
+  "stone-floor-broken": {
+    "label": "Stone Floor Broken",
+    "sprite": "building/stone-tile-1-broken"
   },
   "stone-wall": {
     "label": "Stone Wall",
@@ -18,5 +42,137 @@
   "stone-brick-dungeon": {
     "label": "Stone Brick Dungeon",
     "sprite": "building/dungeon-wall"
+  },
+  "bricks": {
+    "label": "Bricks",
+    "sprite": "scenery/bricks"
+  },
+  "bricks-large": {
+    "label": "Large Bricks",
+    "sprite": "scenery/bricks-large"
+  },
+  "broken-armor": {
+    "label": "Broken Armor",
+    "sprite": "scenery/broken-armor"
+  },
+  "broken-column": {
+    "label": "Broken Column",
+    "sprite": "scenery/broken-column"
+  },
+  "broken-column-large": {
+    "label": "Large Broken Column",
+    "sprite": "scenery/broken-column-large"
+  },
+  "broken-column-moss": {
+    "label": "Mossy Broken Column",
+    "sprite": "scenery/broken-column-moss"
+  },
+  "broken-stone": {
+    "label": "Broken Stone",
+    "sprite": "scenery/broken-stone"
+  },
+  "broken-tile": {
+    "label": "Broken Tile",
+    "sprite": "scenery/broken-tile"
+  },
+  "coffin": {
+    "label": "Coffin",
+    "sprite": "scenery/coffin"
+  },
+  "crystal": {
+    "label": "Crystal",
+    "sprite": "scenery/crystal"
+  },
+  "crystal-alt": {
+    "label": "Alternative Crystal",
+    "sprite": "scenery/crystal-alt"
+  },
+  "crystal-large": {
+    "label": "Large Crystal",
+    "sprite": "scenery/crystal-large"
+  },
+  "dark-stone-spire": {
+    "label": "Dark Stone Spire",
+    "sprite": "scenery/dark-stone-spire"
+  },
+  "dark-stone-spire-large": {
+    "label": "Large Dark Stone Spire",
+    "sprite": "scenery/dark-stone-spire-large"
+  },
+  "gothic-dragon": {
+    "label": "Gothic Dragon",
+    "sprite": "scenery/gothic-dragon"
+  },
+  "grave-stone": {
+    "label": "Gravestone",
+    "sprite": "scenery/grave-stone"
+  },
+  "hole-in-wall": {
+    "label": "Hole in Wall",
+    "sprite": "scenery/hole-in-the-wall"
+  },
+  "hole-in-wall-bottom": {
+    "label": "Bottom Hole in Wall",
+    "sprite": "scenery/hole-in-the-wall-bottom"
+  },
+  "hole-in-wall-small": {
+    "label": "Small Hole in Wall",
+    "sprite": "scenery/hole-in-the-wall-small"
+  },
+  "idol": {
+    "label": "Idol",
+    "sprite": "scenery/idol"
+  },
+  "idol-alt": {
+    "label": "Alternative Idol",
+    "sprite": "scenery/idol-alt"
+  },
+  "light-stone-spire": {
+    "label": "Light Stone Spire",
+    "sprite": "scenery/light-stone-spire"
+  },
+  "light-stone-spire-large": {
+    "label": "Large Light Stone Spire",
+    "sprite": "scenery/light-stone-spire-large"
+  },
+  "mushroom": {
+    "label": "Mushroom",
+    "sprite": "scenery/mushroom"
+  },
+  "mushroom-alt": {
+    "label": "Alternative Mushroom",
+    "sprite": "scenery/mushroom-alt"
+  },
+  "paper": {
+    "label": "Paper",
+    "sprite": "scenery/paper"
+  },
+  "sad-paper": {
+    "label": "Sad Paper",
+    "sprite": "scenery/sad-paper"
+  },
+  "rubble": {
+    "label": "Rubble",
+    "sprite": "scenery/rubble"
+  },
+  "skeleton": {
+    "label": "Skeleton",
+    "sprite": "scenery/skeleton"
+  },
+  "stone-panel": {
+    "label": "Stone Panel",
+    "sprite": "scenery/stone-panel"
+  },
+  "stone-plaque": {
+    "label": "Stone Plaque",
+    "sprite": "scenery/stone-plaque"
+  },
+  "web-one": {
+    "label": "Web Type One",
+    "sprite": "scenery/web-one"
+  },
+  "web-two": {
+    "label": "Web Type Two",
+    "sprite": "scenery/web-two"
   }
 }

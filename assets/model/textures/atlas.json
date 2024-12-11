@@ -2,5 +2,7 @@
   "sprites/body/body.atlas",
   "sprites/items/16x16_items.atlas",
   "sprites/items/32x32_items.atlas",
-  "sprites/tiles/32x32_tiles.atlas"
+  "sprites/tiles/32x32_tiles.atlas",
+  "sprites/visuals/visuals.atlas",
+  "sprites/weapons/swords.atlas"
 ]

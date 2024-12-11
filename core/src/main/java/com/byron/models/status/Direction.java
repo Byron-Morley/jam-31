@@ -1,19 +1,25 @@
 package com.byron.models.status;
 
-public enum Direction {
-    UP("UP"),
-    LEFT("LEFT"),
-    DOWN("DOWN"),
-    RIGHT("RIGHT"),
-    UP_LEFT("UP_LEFT"),
-    UP_RIGHT("UP_RIGHT"),
-    DOWN_LEFT("DOWN_LEFT"),
-    DOWN_RIGHT("DOWN_RIGHT"),
-    CENTER("CENTER");
-    private String name;
+import com.badlogic.gdx.math.Vector2;
 
-    Direction(String name) {
+public enum Direction {
+
+    UP("UP", new Vector2(0f, 1f)),
+    LEFT("LEFT", new Vector2(-1f, 0f)),
+    DOWN("DOWN", new Vector2(0f, -1f)),
+    RIGHT("RIGHT", new Vector2(1f, 0f)),
+    UP_LEFT("UP_LEFT", new Vector2(-1f, 1f)),
+    UP_RIGHT("UP_RIGHT", new Vector2(1f, 1f)),
+    DOWN_LEFT("DOWN_LEFT", new Vector2(-1f, -1f)),
+    DOWN_RIGHT("DOWN_RIGHT", new Vector2(1f, -1f)),
+    CENTER("CENTER", new Vector2(0f, 0f));
+
+    private final String name;
+    public final Vector2 vector;
+
+    Direction(String name, Vector2 vector) {
         this.name = name;
+        this.vector = vector;
     }
 
     public String getName() {

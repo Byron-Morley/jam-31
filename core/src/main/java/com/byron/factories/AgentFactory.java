@@ -1,7 +1,7 @@
 package com.byron.factories;
 
+
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.builders.AgentBuilder;
 import com.byron.components.sprite.StackableSpriteComponent;
@@ -11,6 +11,8 @@ import com.byron.models.sprite.RawAnimationModel;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.byron.constants.GeneralConstants.AGENT_SPEED;
 
 public class AgentFactory {
 
@@ -29,11 +31,16 @@ public class AgentFactory {
         AgentBuilder builder = new AgentBuilder(agentId)
             .withVelocity(new Vector2(agent.getVelocityX(), agent.getVelocityY()))
             .withAnimations(rawAnimationModel)
-            .withEquipment(equipment);
+            .withEquipment(equipment)
+            .withSpeed(AGENT_SPEED);
 
         if (agent.isPlayer()) {
-            builder.withKeyboardControl().isPlayer().withLight(new Texture("raw/sprites/circleGlow.png"));
-        } else {
+            builder
+                .withKeyboardControl()
+                .isPlayer()
+                .withWeapon(SpriteFactory.getSprite("regularSword"))
+                .withLight(SpriteFactory.getSprite("circleGlow"));
+        }else {
             builder.isAI();
         }
 

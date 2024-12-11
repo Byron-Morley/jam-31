@@ -3,16 +3,14 @@ package com.byron.factories;
 import com.badlogic.gdx.Gdx;
 import com.byron.models.SoundAsset;
 import com.byron.models.Agent;
+import com.byron.models.Spawn;
 import com.byron.models.item.Item;
 import com.byron.models.sprite.RawAnimationModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ModelFactory {
     private static final String AGENTS_MODEL_PATH = "model/entities/agents.json";
@@ -20,12 +18,20 @@ public class ModelFactory {
     private static final String ANIMATIONS_MODEL_PATH = "model/entities/animations.json";
     private static final String SOUNDS_MODEL_PATH = "model/sound/sounds.json";
     private static final String ATLAS_MODEL_PATH = "model/textures/atlas.json";
+    private static final String DUNGEON_SPAWNS_PATH = "model/gen/spawns.json";
+
 
     private static Map<String, Object> cache = new HashMap<>();
     private static ObjectMapper mapper = new ObjectMapper();
 
+    public static List<Spawn> getDungeonSpawns() {
+        TypeReference<List<Spawn>> typeRef = new TypeReference<>() {
+        };
+        return (List<Spawn>) readModel(DUNGEON_SPAWNS_PATH, typeRef);
+    }
+
     public static Set<String> getAtlasSpriteModels() {
-        TypeReference<HashSet<String>> typeRef = new TypeReference<HashSet<String>>() {
+        TypeReference<HashSet<String>> typeRef = new TypeReference<>() {
         };
         return (Set<String>) readModel(ATLAS_MODEL_PATH, typeRef);
     }

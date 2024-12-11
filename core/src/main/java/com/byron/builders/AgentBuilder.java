@@ -1,9 +1,16 @@
 package com.byron.builders;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.components.*;
+import com.byron.components.AgentComponent;
+import com.byron.components.BodyComponent;
+import com.byron.components.PositionComponent;
+import com.byron.components.RenderComponent;
+import com.byron.components.SpeedComponent;
+import com.byron.components.StatusComponent;
+import com.byron.components.VelocityComponent;
+import com.byron.components.WeaponComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.components.player.PlayerComponent;
 import com.byron.components.player.WearComponent;
@@ -12,7 +19,6 @@ import com.byron.components.sprite.RefreshSpriteRequirementComponent;
 import com.byron.components.sprite.StackedSpritesComponent;
 import com.byron.components.visuals.LightComponent;
 import com.byron.factories.PhysicsFactory;
-import com.byron.factories.SpriteFactory;
 import com.byron.models.equip.EquipSlot;
 import com.byron.models.sprite.RawAnimationModel;
 import com.byron.renderers.strategy.RenderPriority;
@@ -60,8 +66,6 @@ public class AgentBuilder {
             .add(new AnimableSpriteComponent())
             .add(new StackedSpritesComponent(rawAnimationModel))
             .add(new RefreshSpriteRequirementComponent());
-
-
         return this;
     }
 
@@ -77,8 +81,18 @@ public class AgentBuilder {
         return this;
     }
 
-    public AgentBuilder withLight(Texture texture) {
-        entity.add(new LightComponent(texture));
+    public AgentBuilder withLight(Sprite lightSprite) {
+        entity.add(new LightComponent(lightSprite));
+        return this;
+    }
+
+    public AgentBuilder withSpeed(float speed) {
+        entity.add(new SpeedComponent(speed));
+        return this;
+    }
+
+    public AgentBuilder withWeapon(Sprite weaponSprite) {
+        entity.add(new WeaponComponent(weaponSprite));
         return this;
     }
 

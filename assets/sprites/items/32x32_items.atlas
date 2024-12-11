@@ -1,41 +1,320 @@
 
 32x32_items.png
-size: 128, 128
+size: 256, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+building/shade
+  rotate: false
+  xy: 1, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 building/stone-tile-1
   rotate: false
-  xy: 2, 2
+  xy: 103, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 building/stone-tile-1-broken
   rotate: false
-  xy: 36, 2
+  xy: 171, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+building/stone-tile-2
+  rotate: false
+  xy: 35, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+building/stone-tile-3
+  rotate: false
+  xy: 137, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+building/stone-tile-4
+  rotate: false
+  xy: 69, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+building/stone-tile-5
+  rotate: false
+  xy: 103, 33
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 building/wall
   rotate: false
-  xy: 2, 36
+  xy: 1, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 building/wall-left
   rotate: false
-  xy: 36, 36
+  xy: 35, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 building/wall-right
   rotate: false
-  xy: 70, 36
+  xy: 69, 35
   size: 32, 64
   orig: 32, 64
+  offset: 0, 0
+  index: -1
+
+32x32_items2.png
+size: 1024, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+scenery/bricks
+  rotate: false
+  xy: 1, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/bricks-large
+  rotate: false
+  xy: 99, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+scenery/broken-armor
+  rotate: false
+  xy: 503, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/broken-column
+  rotate: false
+  xy: 35, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/broken-column-large
+  rotate: false
+  xy: 231, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/broken-column-moss
+  rotate: false
+  xy: 537, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/broken-stone
+  rotate: false
+  xy: 69, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/broken-tile
+  rotate: false
+  xy: 571, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/coffin
+  rotate: false
+  xy: 265, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/crystal
+  rotate: false
+  xy: 103, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/crystal-alt
+  rotate: false
+  xy: 605, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/crystal-large
+  rotate: false
+  xy: 299, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/dark-stone-spire
+  rotate: false
+  xy: 137, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/dark-stone-spire-large
+  rotate: false
+  xy: 333, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/gothic-dragon
+  rotate: false
+  xy: 165, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+scenery/grave-stone
+  rotate: false
+  xy: 1, 35
+  size: 96, 64
+  orig: 96, 64
+  offset: 0, 0
+  index: -1
+scenery/hole-in-the-wall
+  rotate: false
+  xy: 367, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/hole-in-the-wall-bottom
+  rotate: false
+  xy: 639, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/hole-in-the-wall-small
+  rotate: false
+  xy: 171, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/idol
+  rotate: false
+  xy: 401, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/idol-alt
+  rotate: false
+  xy: 435, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/light-stone-spire
+  rotate: false
+  xy: 673, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/light-stone-spire-large
+  rotate: false
+  xy: 469, 35
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+scenery/mushroom
+  rotate: false
+  xy: 205, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/mushroom-alt
+  rotate: false
+  xy: 707, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/paper
+  rotate: false
+  xy: 239, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/rope
+  rotate: false
+  xy: 741, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/rubble
+  rotate: false
+  xy: 273, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/sad-paper
+  rotate: false
+  xy: 775, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/skeleton
+  rotate: false
+  xy: 307, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/stone-panel
+  rotate: false
+  xy: 809, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/stone-plaque
+  rotate: false
+  xy: 341, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/web-one
+  rotate: false
+  xy: 843, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/web-two
+  rotate: false
+  xy: 375, 1
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
