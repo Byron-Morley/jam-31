@@ -38,6 +38,8 @@ public class AgentFactory {
                 .withKeyboardControl()
                 .isPlayer()
                 .withLight(SpriteFactory.getSprite("circleGlow"));
+        } else {
+            builder.isAI();
         }
 
         return builder;

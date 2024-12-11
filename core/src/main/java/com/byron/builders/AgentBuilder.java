@@ -3,6 +3,7 @@ package com.byron.builders;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.byron.components.AIComponent;
 import com.byron.components.AgentComponent;
 import com.byron.components.BodyComponent;
 import com.byron.components.PositionComponent;
@@ -37,6 +38,11 @@ public class AgentBuilder {
 
     public AgentBuilder isPlayer() {
         entity.add(new PlayerComponent());
+        return this;
+    }
+
+    public AgentBuilder isAI() {
+        entity.add(new AIComponent());
         return this;
     }
 

@@ -26,6 +26,7 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
+import com.byron.systems.AISystem;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.MovementSystem;
@@ -103,7 +104,7 @@ public class GameScreen implements Screen {
         IAgentManager agentManager = new AgentManager();
         this.userInterfaceManager = new UserInterfaceManager();
         this.playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
-        this.levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService());
+        this.levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService(), dungeonManager.getDungeonService());
     }
 
     private void initializeListeners() {
@@ -118,6 +119,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new PhysicsSystem());
         engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService()));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
+        engine.addSystem(new AISystem(dungeonManager.getDungeonService()));
         engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SmoothMovementSystem());
