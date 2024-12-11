@@ -11,8 +11,8 @@ public class AIComponent implements Component {
     public State state = State.IDLE;
     public int moveCounter;
 
-    public AIComponent() {
-        this.moveCounter = ENEMY_TURN_RATIO;
+    public AIComponent(int moveCounter) {
+        this.moveCounter = moveCounter;
     }
 
     public boolean canMove() {

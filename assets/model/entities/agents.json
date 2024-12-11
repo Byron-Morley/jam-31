@@ -5,8 +5,17 @@
     "player": true,
     "factionId": "player",
     "animationModel": "DEFAULT",
+    "skin" :"black-knight",
     "body": {
       "BODY": "agent/black-knight"
+    },
+    "stats": {
+      "maxHealth": 100,
+      "health": 100,
+      "speed": 1,
+      "attack": 50,
+      "armor": 0,
+      "maxArmor": 100
     }
   },
   "snake": {
@@ -16,6 +25,14 @@
     "animationModel": "DEFAULT",
     "body": {
       "BODY": "agent/snake"
+    },
+    "stats": {
+      "maxHealth": 100,
+      "health": 100,
+      "speed": 2,
+      "attack": 20,
+      "armor": 0,
+      "maxArmor": 0
     }
   },
   "blue-ooze": {
@@ -25,6 +42,14 @@
     "animationModel": "DEFAULT",
     "body": {
       "BODY": "agent/blue-ooze"
+    },
+    "stats": {
+      "maxHealth": 100,
+      "health": 100,
+      "speed": 3,
+      "attack": 30,
+      "armor": 0,
+      "maxArmor": 0
     }
   },
   "red-dragon": {
@@ -34,15 +59,31 @@
     "animationModel": "DEFAULT",
     "body": {
       "BODY": "agent/red-dragon"
+    },
+    "stats": {
+      "maxHealth": 200,
+      "health": 100,
+      "speed": 5,
+      "attack": 60,
+      "armor": 0,
+      "maxArmor": 0
     }
   },
   "goblin": {
-    "id"  : "goblin",
+    "id": "goblin",
     "name": "Goblin",
     "factionId": "enemy",
     "animationModel": "DEFAULT",
     "body": {
       "BODY": "agent/goblin"
+    },
+    "stats": {
+      "maxHealth": 100,
+      "health": 100,
+      "speed": 4,
+      "attack": 40,
+      "armor": 0,
+      "maxArmor": 0
     }
   }
 }

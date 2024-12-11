@@ -19,14 +19,8 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
-import com.byron.systems.AISystem;
-import com.byron.systems.CameraFocusSystem;
-import com.byron.systems.CollisionSystem;
-import com.byron.systems.MovementSystem;
-import com.byron.systems.PhysicsSystem;
-import com.byron.systems.PlayerInputSystem;
+import com.byron.systems.*;
 import com.byron.systems.weapons.SlashSystem;
-import com.byron.systems.SmoothMovementSystem;
 import com.byron.systems.weapons.WeaponAttachSystem;
 import com.byron.systems.weapons.WeaponSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
@@ -120,7 +114,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new AnimatableSpriteSystem());
         engine.addSystem(new PhysicsSystem());
         engine.addSystem(new AISystem(dungeonManager.getDungeonService(), agentManager.getAgentService(), playerInputManager));
-        engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService()));
+        engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService(), agentManager.getAgentService()));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
         engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
@@ -134,6 +128,7 @@ public class GameScreen implements Screen {
         engine.addSystem(new DebugSystem());
         engine.addSystem(new DebugOverlaySystem());
         engine.addSystem(new LightingSystem());
+        engine.addSystem(new TakeDamageSystem());
     }
 
     private void initGame() {

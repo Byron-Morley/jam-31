@@ -11,4 +11,6 @@ public interface IAgentService {
     Entity spawnPlayer(GridPoint2 location);
     Map<String, Agent> getAgents();
     Entity getPlayer();
+
+    boolean isPositionFree(int x, int y);
 }

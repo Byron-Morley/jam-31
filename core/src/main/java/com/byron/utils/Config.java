@@ -14,6 +14,7 @@ public class Config {
 
 
     public static final int ENEMY_ROOM_SPAWN_DENSITY = 20; // 1-25, lower = more enemies
-    public static final int ENEMY_ATTACK_DISTANCE = 10; // tiles
+    public static final int ENEMY_ATTACK_DISTANCE = 7; // tiles
     public static final int ENEMY_TURN_RATIO = 4; // how many turns until monster moves
+    public static final int PERCENTAGE_CHANCE_ENEMY_MOVES_RANDOM_DIRECTION = 20; // how many turns until monster moves
 }

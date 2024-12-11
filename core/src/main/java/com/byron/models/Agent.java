@@ -13,7 +13,8 @@ public class Agent {
     boolean player = false;
     String animationModel;
     Map<EquipSlot, String> body;
-
+    Stats stats;
+    String skin;
 
     public Agent() {
     }
@@ -71,6 +72,15 @@ public class Agent {
     }
 
     public String getId() {
+        return id;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public String getSkin() {
+        if (skin != null) return skin;
         return id;
     }
 }
