@@ -12,6 +12,7 @@ import com.byron.utils.dungeon.DungeonUtils;
 import com.byron.utils.dungeon.Room;
 
 import java.util.List;
+import java.util.Random;
 
 import static com.byron.utils.Config.MAP_HEIGHT;
 import static com.byron.utils.Config.MAP_WIDTH;
@@ -26,6 +27,12 @@ public class DungeonManager implements IDungeonManager {
 
     public DungeonManager(IItemService itemService) {
         spawns = ModelFactory.getDungeonSpawns();
+
+        Random random = new Random();
+        int seed = random.nextInt(1000000000);
+//        int seed = 60570046;
+        System.out.println("seed: "+ seed);
+
         Dungeon dungeonObject = DungeonUtils.createDungeon(
             MAP_WIDTH, MAP_HEIGHT,
             7,
@@ -33,7 +40,7 @@ public class DungeonManager implements IDungeonManager {
             3,
             6,
             96,
-            20
+            seed
         );
         dungeon = dungeonObject.getMap();
         rooms = dungeonObject.getRooms();

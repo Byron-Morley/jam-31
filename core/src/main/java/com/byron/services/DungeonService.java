@@ -124,25 +124,28 @@ public class DungeonService implements IDungeonService {
                         spawn("stone-floor-1", x, y);
                     }
                     addToBitmap(x, y);
-
-                    if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
-                        if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
-                            spawn("stone-wall-right", x, y + 1);
-                            addToBitmap(x, y + 1);
-                            addToBitmap(x, y + 2);
-                        } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
-                            spawn("stone-wall-left", x, y + 1);
-                            addToBitmap(x, y + 1);
-                            addToBitmap(x, y + 2);
-                        } else {
-                            addToBitmap(x, y + 1);
-                            addToBitmap(x, y + 2);
-                            spawn("stone-wall", x, y + 1);
-                        }
-                        spawn("shade", x, y);
-                    }
+                    addWalls(map, y, x);
                 }
             }
+        }
+    }
+
+    private void addWalls(int[][] map, int y, int x) {
+        if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
+            if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+                spawn("stone-wall-right", x, y + 1);
+                addToBitmap(x, y + 1);
+                addToBitmap(x, y + 2);
+            } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+                spawn("stone-wall-left", x, y + 1);
+                addToBitmap(x, y + 1);
+                addToBitmap(x, y + 2);
+            } else {
+                addToBitmap(x, y + 1);
+                addToBitmap(x, y + 2);
+                spawn("stone-wall", x, y + 1);
+            }
+            spawn("shade", x, y);
         }
     }
 
