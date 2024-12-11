@@ -27,7 +27,7 @@ public class LevelManager {
 //        Entity ooze  = agentService.spawnAgent(new GridPoint2(14, 12), "blue-ooze");
 //        Entity goblin  = agentService.spawnAgent(new GridPoint2(15, 12), "goblin");
 
-        Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
+        Entity player  = agentService.spawnPlayer(new GridPoint2(5, 5));
     }
 
 }

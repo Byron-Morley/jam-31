@@ -141,3 +141,14 @@ task createTILESTextureAtlas(description: "Builds the Sprites Atlas", group: "TI
   }
 }
 
+task createVisualsTextureAtlas(description: "Builds the Visuals sprite atlas", group: "VISUALS") {
+  doLast {
+    TexturePacker.process('assets/raw/sprites/visuals', 'assets/sprites/visuals', 'visuals.atlas')
+  }
+}
+
+task createWeaponsTextureAtlas(description: "Builds the Weapons sprite atlas", group: "WEAPONS") {
+  doLast {
+    TexturePacker.process('assets/raw/sprites/weapons', 'assets/sprites/weapons', 'swords.atlas')
+  }
+}

@@ -12,15 +12,14 @@ import com.byron.components.player.PlayerComponent;
 import com.byron.models.status.Action;
 import com.byron.utils.Mappers;
 
-import static com.byron.utils.Config.*;
-
 
 public class MovementSystem extends IteratingSystem {
-    private Action lastAction = Action.STANDING;
-    private ComponentMapper<VelocityComponent> vm = Mappers.velocity;
-    private ComponentMapper<StatusComponent> sm = Mappers.status;
-    private ComponentMapper<BodyComponent> bm = Mappers.body;
-    private ComponentMapper<PlayerComponent> playm = Mappers.player;
+
+    private final Action lastAction = Action.STANDING;
+    private final ComponentMapper<VelocityComponent> vm = Mappers.velocity;
+    private final ComponentMapper<StatusComponent> sm = Mappers.status;
+    private final ComponentMapper<BodyComponent> bm = Mappers.body;
+    private final ComponentMapper<PlayerComponent> playm = Mappers.player;
 
     public MovementSystem() {
         super(Family.all(
