@@ -1,7 +1,27 @@
 {
-  "stone-floor": {
+  "stone-floor-1": {
     "label": "Stone Floor",
     "sprite": "building/stone-tile-1"
+  },
+  "stone-floor-2": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-2"
+  },
+  "stone-floor-3": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-3"
+  },
+  "stone-floor-4": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-4"
+  },
+    "stone-floor-5": {
+    "label": "Stone Floor",
+    "sprite": "building/stone-tile-5"
+  },
+      "shade": {
+    "label": "Stone Floor",
+    "sprite": "building/shade"
   },
   "stone-floor-broken": {
     "label": "Stone Floor Broken",

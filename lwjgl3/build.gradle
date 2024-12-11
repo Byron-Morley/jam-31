@@ -120,35 +120,39 @@ if (enableGraalNative == 'true') {
 
 
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings
 
+def commonSettings = new Settings()
+commonSettings.bleedIterations = 2
+commonSettings.duplicatePadding = true
 //BODY
 task createBodyTextureAtlas(description: "Builds the Sprites Atlas", group: "BODY") {
   doLast {
-    TexturePacker.process('assets/raw/sprites/32x32/body', 'assets/sprites/body', 'body.atlas')
+    TexturePacker.process(commonSettings,'assets/raw/sprites/32x32/body', 'assets/sprites/body', 'body.atlas')
   }
 }
 
 task createItemTextureAtlas(description: "Builds the Sprites Atlas", group: "SPRITES") {
   doLast {
-    TexturePacker.process('assets/raw/sprites/16x16/items', 'assets/sprites/items', '16x16_items.atlas')
-    TexturePacker.process('assets/raw/sprites/32x32/items', 'assets/sprites/items', '32x32_items.atlas')
+    TexturePacker.process(commonSettings, 'assets/raw/sprites/16x16/items', 'assets/sprites/items', '16x16_items.atlas')
+    TexturePacker.process(commonSettings, 'assets/raw/sprites/32x32/items', 'assets/sprites/items', '32x32_items.atlas')
   }
 }
 
 task createTILESTextureAtlas(description: "Builds the Sprites Atlas", group: "TILES") {
   doLast {
-    TexturePacker.process('assets/raw/sprites/32x32/tiles', 'assets/sprites/tiles', '32x32_tiles.atlas')
+    TexturePacker.process(commonSettings,'assets/raw/sprites/32x32/tiles', 'assets/sprites/tiles', '32x32_tiles.atlas')
   }
 }
 
 task createVisualsTextureAtlas(description: "Builds the Visuals sprite atlas", group: "VISUALS") {
   doLast {
-    TexturePacker.process('assets/raw/sprites/visuals', 'assets/sprites/visuals', 'visuals.atlas')
+    TexturePacker.process(commonSettings,'assets/raw/sprites/visuals', 'assets/sprites/visuals', 'visuals.atlas')
   }
 }
 
 task createWeaponsTextureAtlas(description: "Builds the Weapons sprite atlas", group: "WEAPONS") {
   doLast {
-    TexturePacker.process('assets/raw/sprites/weapons', 'assets/sprites/weapons', 'swords.atlas')
+    TexturePacker.process(commonSettings,'assets/raw/sprites/weapons', 'assets/sprites/weapons', 'swords.atlas')
   }
 }

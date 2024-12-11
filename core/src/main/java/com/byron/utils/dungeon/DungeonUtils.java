@@ -153,8 +153,58 @@ public final class DungeonUtils {
         addMissingWalls(map);
         int padding = 0;
         int[][] enlargedMap = enLargeMap(map, mulitplier, padding);
-        return new Dungeon(enlargedMap, correctRooms(rooms, mulitplier, padding));
+        int[][] fixedMap = fixMap(enlargedMap);
+        return new Dungeon(fixedMap, correctRooms(rooms, mulitplier, padding));
     }
+
+private static int[][] fixMap(int[][] map) {
+    int width = map.length;
+    int height = map[0].length;
+
+    for (int x = 1; x < width - 1; x++) {
+        for (int y = 1; y < height - 1; y++) {
+            // Check for horizontal adjacent wall spaces
+            if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL) {
+                if (map[x][y - 1] != TILE_WALL && map[x][y + 1] != TILE_WALL &&
+                    map[x + 1][y - 1] != TILE_WALL && map[x + 1][y + 1] != TILE_WALL) {
+                    map[x][y] = TILE_FLOOR;
+                    map[x + 1][y] = TILE_FLOOR;
+                }
+            }
+
+            // Check for 2x2 square of wall spaces
+            if (x < width - 2 && y < height - 2) {
+                if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL &&
+                    map[x][y + 1] == TILE_WALL && map[x + 1][y + 1] == TILE_WALL) {
+                    // Check if surrounded by non-wall tiles
+                    boolean surrounded = true;
+                    // Check top and bottom edges
+                    for (int dx = 0; dx <= 1; dx++) {
+                        if (map[x + dx][y - 1] == TILE_WALL || map[x + dx][y + 2] == TILE_WALL) {
+                            surrounded = false;
+                        }
+                    }
+                    // Check left and right edges
+                    for (int dy = 0; dy <= 1; dy++) {
+                        if (map[x - 1][y + dy] == TILE_WALL || map[x + 2][y + dy] == TILE_WALL) {
+                            surrounded = false;
+                        }
+                    }
+
+                    if (surrounded) {
+                        map[x][y] = TILE_FLOOR;
+                        map[x + 1][y] = TILE_FLOOR;
+                        map[x][y + 1] = TILE_FLOOR;
+                        map[x + 1][y + 1] = TILE_FLOOR;
+                    }
+                }
+            }
+        }
+    }
+    return map;
+}
+
+
 
     private static Array<Room> addRelativeRoomPositions(Array<Room> rooms, int x, int y, int submapSizeX, int submapSizeY) {
         Array<Room> correctedRooms = new Array<>();
