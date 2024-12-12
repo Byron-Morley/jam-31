@@ -21,6 +21,7 @@ import com.byron.components.hud.PositionInterpComponent;
 import com.byron.components.hud.ScoreEvent;
 import com.byron.components.hud.TextComponent;
 import com.byron.components.player.KeyboardComponent;
+import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IPlayerInputManager;
 import com.byron.models.player.PlayerAction;
@@ -35,11 +36,13 @@ public class PlayerInputSystem extends IteratingSystem {
     private final ComponentMapper<StatusComponent> sm = Mappers.status;
     private final IPlayerInputManager playerInputManager;
     private final IDungeonService dungeonService;
+    IAgentService agentService;
 
-    public PlayerInputSystem(IPlayerInputManager playerInputManager, IDungeonService dungeonService) {
+    public PlayerInputSystem(IPlayerInputManager playerInputManager, IDungeonService dungeonService, IAgentService agentService) {
         super(Family.all(KeyboardComponent.class).get());
         this.playerInputManager = playerInputManager;
         this.dungeonService = dungeonService;
+        this.agentService = agentService;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class PlayerInputSystem extends IteratingSystem {
             status.setDirection(direction);
             Vector2 target = position.cpy().add(direction.vector);
 
-            if (dungeonService.isWalkable(target)) {
+            if (dungeonService.isWalkable(target) && agentService.isPositionFree((int) target.x, (int) target.y)) {
                 status.setAction(Action.WALKING);
                 player.add(new DestinationComponent(target));
             }

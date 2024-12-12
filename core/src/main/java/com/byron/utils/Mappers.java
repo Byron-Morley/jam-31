@@ -2,6 +2,7 @@ package com.byron.utils;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.byron.components.BodyComponent;
+import com.byron.components.AIComponent;
 import com.byron.components.DestinationComponent;
 import com.byron.components.HUDProgressBarComponent;
 import com.byron.components.PositionComponent;
@@ -43,6 +44,7 @@ public class Mappers {
     public static final ComponentMapper<SpeedComponent> speed = ComponentMapper.getFor(SpeedComponent.class);
     public static final ComponentMapper<WeaponComponent> weapon = ComponentMapper.getFor(WeaponComponent.class);
     public static final ComponentMapper<SlashComponent> slash = ComponentMapper.getFor(SlashComponent.class);
+    public static final ComponentMapper<AIComponent> ai = ComponentMapper.getFor(AIComponent.class);
     public static final ComponentMapper<HUDProgressBarComponent> progressBar = ComponentMapper.getFor(HUDProgressBarComponent.class);
     public static final ComponentMapper<TextComponent> text = ComponentMapper.getFor(TextComponent.class);
     public static final ComponentMapper<ScoreEvent> scoreEvent = ComponentMapper.getFor(ScoreEvent.class);

@@ -17,7 +17,8 @@ public enum EquipSlot {
     BOW(17, true, false),
     RING(18, true, true),
     NECKAKLE(19, true, true),
-    HANDS(20, false, false);
+    HANDS(20, false, false),
+    EFFECT(21, false, false);
 
     private int renderPriority;
     private boolean hasAttackComponent;

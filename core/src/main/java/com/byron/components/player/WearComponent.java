@@ -12,9 +12,11 @@ import java.util.stream.Collectors;
 
 public class WearComponent implements Component {
     public Map<EquipSlot, Entity> wearables;
+    public String skin; ;
 
-    public WearComponent(Map<EquipSlot, Entity> wearables) {
+    public WearComponent(Map<EquipSlot, Entity> wearables, String skin) {
         this.wearables = wearables;
+        this.skin = skin;
     }
 
     public List<Entity> asList() {
@@ -39,5 +41,9 @@ public class WearComponent implements Component {
 
     public Entity getWearable(EquipSlot equipSlot) {
         return wearables.get(equipSlot);
+    }
+
+    public String getSkin() {
+        return skin;
     }
 }

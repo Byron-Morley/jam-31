@@ -4,6 +4,7 @@ package com.byron.factories;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.builders.AgentBuilder;
+import com.byron.components.AgentComponent;
 import com.byron.components.sprite.StackableSpriteComponent;
 import com.byron.models.Agent;
 import com.byron.models.equip.EquipSlot;
@@ -28,10 +29,10 @@ public class AgentFactory {
         Agent agent = agents.get(agentId);
         RawAnimationModel rawAnimationModel = animationsFactory.get(agent.getAnimationModel());
         Map<EquipSlot, Entity> equipment = buildEquipment(agent.getBody());
-        AgentBuilder builder = new AgentBuilder(agentId)
+        AgentBuilder builder = new AgentBuilder(agent, agentId)
             .withVelocity(new Vector2(agent.getVelocityX(), agent.getVelocityY()))
             .withAnimations(rawAnimationModel)
-            .withEquipment(equipment)
+            .withEquipment(equipment, agent.getSkin())
             .withSpeed(AGENT_SPEED);
 
         if (agent.isPlayer()) {
@@ -40,6 +41,8 @@ public class AgentFactory {
                 .isPlayer()
                 .withWeapon(SpriteFactory.getSprite("regularSword"), 1)
                 .withLight(SpriteFactory.getSprite("circleGlow"), 7f);
+        } else {
+            builder.isAI(agent.getStats().getSpeed());
         }
 
         return builder;
@@ -54,5 +57,9 @@ public class AgentFactory {
         }
 
         return equipment;
+    }
+
+    public Map<String, Agent> getAgents() {
+        return agents;
     }
 }

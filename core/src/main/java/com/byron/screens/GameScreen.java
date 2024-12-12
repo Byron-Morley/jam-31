@@ -26,29 +26,26 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
+import com.byron.systems.weapons.SlashSystem;
+import com.byron.systems.weapons.WeaponAttachSystem;
+import com.byron.systems.weapons.WeaponSystem;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.HUDRenderSystem;
 import com.byron.systems.MovementSystem;
+import com.byron.systems.AISystem;
 import com.byron.systems.PhysicsSystem;
 import com.byron.systems.PlayerInputSystem;
 import com.byron.systems.SmoothMovementSystem;
+import com.byron.systems.TakeDamageSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
-import com.byron.systems.hud.FadingTextSystem;
 import com.byron.systems.render.LightingSystem;
 import com.byron.systems.render.RenderSystem;
 import com.byron.systems.render.ShapeRenderSystem;
-import com.byron.systems.hud.ScoreChangeSystem;
-import com.byron.systems.hud.ScoreRenderer;
-import com.byron.systems.hud.ScoreWidgetSpawner;
 import com.byron.systems.sprite.AnimatableSpriteSystem;
 import com.byron.systems.sprite.StackableSpriteSystem;
 import com.byron.systems.sprite.StackedSpritesSystem;
-import com.byron.systems.weapons.ScoreMilestoneSystem;
-import com.byron.systems.weapons.SlashSystem;
-import com.byron.systems.weapons.WeaponAttachSystem;
-import com.byron.systems.weapons.WeaponSystem;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -108,14 +105,14 @@ public class GameScreen extends ScreenAdapter {
     }
 
     private void initializeManagers() {
-        this.cameraManager = new CameraManager();
-        ISoundManager soundManager = new SoundManager();
-        IItemManager itemManager = new ItemManager();
-        this.dungeonManager = new DungeonManager(itemManager.getItemService());
-        IAgentManager agentManager = new AgentManager();
-        this.userInterfaceManager = new UserInterfaceManager();
-        this.playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
-        this.levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService());
+        cameraManager = new CameraManager();
+        soundManager = new SoundManager();
+        itemManager = new ItemManager();
+        agentManager = new AgentManager();
+        dungeonManager = new DungeonManager(itemManager.getItemService(), agentManager.getAgentService());
+        userInterfaceManager = new UserInterfaceManager();
+        playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
+        levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService(), dungeonManager.getDungeonService());
     }
 
     private void initializeListeners() {
@@ -128,12 +125,13 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new StackedSpritesSystem());
         engine.addSystem(new AnimatableSpriteSystem());
         engine.addSystem(new PhysicsSystem());
-        engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService()));
+        engine.addSystem(new AISystem(dungeonManager.getDungeonService(), agentManager.getAgentService(), playerInputManager));
+        engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService(), agentManager.getAgentService()));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
+        engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new SmoothMovementSystem());
         engine.addSystem(new CollisionSystem());
-        engine.addSystem(new ScoreMilestoneSystem());
         engine.addSystem(new RenderSystem());
         engine.addSystem(new WeaponAttachSystem());
         engine.addSystem(new SlashSystem());
@@ -143,10 +141,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new DebugOverlaySystem());
         engine.addSystem(new LightingSystem());
         engine.addSystem(new HUDRenderSystem());
-        engine.addSystem(new ScoreChangeSystem());
-        engine.addSystem(new FadingTextSystem());
-        engine.addSystem(new ScoreRenderer());
-        engine.addSystem(new ScoreWidgetSpawner());
+        engine.addSystem(new TakeDamageSystem());
     }
 
     private void initGame() {

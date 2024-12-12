@@ -5,6 +5,7 @@ import com.byron.models.equip.EquipSlot;
 import java.util.Map;
 
 public class Agent {
+    String id;
     String name;
     String factionId;
     float velocityX;
@@ -12,7 +13,8 @@ public class Agent {
     boolean player = false;
     String animationModel;
     Map<EquipSlot, String> body;
-
+    Stats stats;
+    String skin;
 
     public Agent() {
     }
@@ -67,5 +69,18 @@ public class Agent {
 
     public boolean isPlayer() {
         return player;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public String getSkin() {
+        if (skin != null) return skin;
+        return id;
     }
 }
