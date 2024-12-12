@@ -79,8 +79,8 @@ public class AgentBuilder {
         return this;
     }
 
-    public AgentBuilder withWeapon(Sprite weaponSprite) {
-        entity.add(new WeaponComponent(weaponSprite));
+    public AgentBuilder withWeapon(Sprite weaponSprite, int damage) {
+        entity.add(new WeaponComponent(weaponSprite, damage));
         return this;
     }
 

@@ -1,12 +1,25 @@
 package com.byron.systems;
 
+import static com.badlogic.gdx.Input.Keys.NUM_1;
+import static com.badlogic.gdx.Input.Keys.NUM_2;
+import static com.badlogic.gdx.Input.Keys.O;
+import static com.badlogic.gdx.graphics.Color.CLEAR;
+import static com.badlogic.gdx.graphics.Color.RED;
+import static com.byron.models.status.Direction.UP;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.DestinationComponent;
 import com.byron.components.StatusComponent;
+import com.byron.components.hud.ColorInterpComponent;
+import com.byron.components.hud.PositionInterpComponent;
+import com.byron.components.hud.ScoreEvent;
+import com.byron.components.hud.TextComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
@@ -61,6 +74,30 @@ public class PlayerInputSystem extends IteratingSystem {
                 status.setAction(Action.WALKING);
                 player.add(new DestinationComponent(target));
             }
+        }
+
+        testScore();
+        testDamage(position);
+    }
+
+    // TODO: Remove, this is only for testing the score widget
+    private void testScore() {
+        if (Gdx.input.isKeyJustPressed(NUM_1)) {
+            getEngine().addEntity(new Entity().add(new ScoreEvent(500)));
+        }
+        if (Gdx.input.isKeyJustPressed(NUM_2)) {
+            getEngine().addEntity(new Entity().add(new ScoreEvent(1000)));
+        }
+    }
+
+    // TODO: Remove, this is only for testing the fading damage numbers
+    private void testDamage(Vector2 position) {
+        if (Gdx.input.isKeyJustPressed(O)) {
+            Entity damage = new Entity()
+                .add(new ColorInterpComponent(RED, CLEAR))
+                .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
+                .add(new TextComponent(new BitmapFont(Gdx.files.internal("raw/fonts/pixelFont.fnt")), "123", 0.05f));
+            getEngine().addEntity(damage);
         }
     }
 }
