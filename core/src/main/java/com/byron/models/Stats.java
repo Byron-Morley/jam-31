@@ -12,6 +12,7 @@ public class Stats {
     int maxArmor;
 
     public Stats() {
+        health = 100;
     }
 
     public int getMaxHealth() {
@@ -36,5 +37,9 @@ public class Stats {
 
     public int getMaxArmor() {
         return maxArmor;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
