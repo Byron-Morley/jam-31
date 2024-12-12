@@ -1,18 +1,14 @@
 package com.byron.managers;
 
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.math.GridPoint2;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IItemService;
 
-import java.util.Random;
-
 
 public class LevelManager {
 
-    IAgentService agentService;
-    IItemService itemService;
+    private final IAgentService agentService;
+    private final IItemService itemService;
 
     IDungeonService dungeonService;
 
@@ -22,7 +18,7 @@ public class LevelManager {
         this.dungeonService = dungeonService;
     }
 
-    public void init(){
+    public void init() {
         System.out.println("LevelManager: init()");
 
 
@@ -37,5 +33,4 @@ public class LevelManager {
 
 //        Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
     }
-
 }

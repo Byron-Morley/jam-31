@@ -44,29 +44,22 @@ public class PlayerInputSystem extends IteratingSystem {
 
         if (movementKeysPressed.size() > 0) {
             Direction direction = movementKeysPressed.pop();
-            status.setDirection(direction);
-
-            int targetX = (int) position.x, targetY = (int) position.y;
             switch (direction) {
                 case UP:
-                    targetY++;
-                    break;
                 case LEFT:
-                    targetX--;
-                    break;
                 case DOWN:
-                    targetY--;
-                    break;
                 case RIGHT:
-                    targetX++;
                     break;
                 default:
                     return;
             }
 
-            if (dungeonService.isWalkable(targetX, targetY)&& agentService.isPositionFree(targetX, targetY)) {
+            status.setDirection(direction);
+            Vector2 target = position.cpy().add(direction.vector);
+
+            if (dungeonService.isWalkable(target) && agentService.isPositionFree(target.x, target.y)) {
                 status.setAction(Action.WALKING);
-                player.add(new DestinationComponent(targetX, targetY));
+                player.add(new DestinationComponent(target));
             }
         }
     }

@@ -1,5 +1,8 @@
 package com.byron.services;
 
+import static com.byron.utils.Config.MAP_HEIGHT;
+import static com.byron.utils.Config.MAP_WIDTH;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,20 +27,17 @@ import com.byron.utils.dungeon.Room;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.byron.utils.Config.*;
 
 public class DungeonService implements IDungeonService {
 
-    IDungeonManager dungeonManager;
-    IItemService itemService;
-    IAgentService agentService;
-
-    Engine engine;
-    private Set<GridPoint2> occupiedPositions = new HashSet<>();
-    private Set<GridPoint2> wallBottom = new HashSet<>();
+    private final IDungeonManager dungeonManager;
+    private final IItemService itemService;
+    private final IAgentService agentService;
+    private final Engine engine;
+    private final Set<GridPoint2> occupiedPositions = new HashSet<>();
+    private final Set<GridPoint2> wallBottom = new HashSet<>();
     private GridPoint2 playerSpawnPosition;
-
-    private float CHANCE_OF_CORNER_PILLARS = 0.2f;
+    private final float CHANCE_OF_CORNER_PILLARS = 0.2f;
 
     public DungeonService(IDungeonManager dungeonManager, IItemService itemService, IAgentService agentService) {
         this.dungeonManager = dungeonManager;
@@ -88,43 +88,42 @@ public class DungeonService implements IDungeonService {
     }
 
 
-private void enemySpawner(GridPoint2 playerSpawnPosition) {
-    Map<String, Agent> agents = agentService.getAgents();
-    Array<Room> rooms = dungeonManager.getRooms();
+    private void enemySpawner(GridPoint2 playerSpawnPosition) {
+        Map<String, Agent> agents = agentService.getAgents();
+        Array<Room> rooms = dungeonManager.getRooms();
 
-    List<Agent> enemyAgents = agents.values().stream()
-        .filter(agent -> "enemy".equals(agent.getFactionId()))
-        .collect(Collectors.toList());
+        List<Agent> enemyAgents = agents.values().stream()
+            .filter(agent -> "enemy".equals(agent.getFactionId()))
+            .collect(Collectors.toList());
 
-    for (Room room : rooms) {
-        int roomArea = room.getWidth() * room.getHeight();
-        int enemiesToSpawn = Math.max(1, roomArea / ENEMY_ROOM_SPAWN_DENSITY);
+        for (Room room : rooms) {
+            int roomArea = room.getWidth() * room.getHeight();
+            int enemiesToSpawn = Math.max(1, roomArea / ENEMY_ROOM_SPAWN_DENSITY);
 
-        for (int i = 0; i < enemiesToSpawn; i++) {
-            int attempts = 0;
-            int maxAttempts = 10;
-            boolean placed = false;
+            for (int i = 0; i < enemiesToSpawn; i++) {
+                int attempts = 0;
+                int maxAttempts = 10;
+                boolean placed = false;
 
-            while (!placed && attempts < maxAttempts) {
-                int randomX = MathUtils.random(room.getX(), room.getX() + room.getWidth() - 1);
-                int randomY = MathUtils.random(room.getY(), room.getY() + room.getHeight() - 1);
-                GridPoint2 position = new GridPoint2(randomX, randomY);
+                while (!placed && attempts < maxAttempts) {
+                    int randomX = MathUtils.random(room.getX(), room.getX() + room.getWidth() - 1);
+                    int randomY = MathUtils.random(room.getY(), room.getY() + room.getHeight() - 1);
+                    GridPoint2 position = new GridPoint2(randomX, randomY);
 
-                int distance = Math.abs(position.x - playerSpawnPosition.x) +
-                             Math.abs(position.y - playerSpawnPosition.y);
+                    int distance = Math.abs(position.x - playerSpawnPosition.x) +
+                        Math.abs(position.y - playerSpawnPosition.y);
 
-                if (!occupiedPositions.contains(position) && !enemyAgents.isEmpty() && distance >= 2) {
-                    Agent selectedEnemy = enemyAgents.get(MathUtils.random(enemyAgents.size() - 1));
-                    agentService.spawnAgent(position, selectedEnemy.getId());
-                    occupiedPositions.add(position);
-                    placed = true;
+                    if (!occupiedPositions.contains(position) && !enemyAgents.isEmpty() && distance >= 2) {
+                        Agent selectedEnemy = enemyAgents.get(MathUtils.random(enemyAgents.size() - 1));
+                        agentService.spawnAgent(position, selectedEnemy.getId());
+                        occupiedPositions.add(position);
+                        placed = true;
+                    }
+                    attempts++;
                 }
-                attempts++;
             }
         }
     }
-}
-
 
 
     private void mapOutRooms(Array<Room> rooms) {
@@ -142,7 +141,6 @@ private void enemySpawner(GridPoint2 playerSpawnPosition) {
                     engine.addEntity(entity);
                 }
             }
-
         }
     }
 
@@ -209,11 +207,13 @@ private void enemySpawner(GridPoint2 playerSpawnPosition) {
 
     private void addWalls(int[][] map, int y, int x) {
         if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
-            if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+            if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR
+                || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("stone-wall-right", x, y + 1);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
-            } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+            } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR
+                || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("stone-wall-left", x, y + 1);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
@@ -322,7 +322,6 @@ private void enemySpawner(GridPoint2 playerSpawnPosition) {
     }
 
     private void spawnEdge(float dungeonX, float dungeonY, int index) {
-
         Entity entity = new Entity();
         Sprite sprite = SpriteFactory.getSprite("building/dungeon-wall", index);
 
@@ -414,7 +413,6 @@ private void enemySpawner(GridPoint2 playerSpawnPosition) {
         System.out.println("\n");
     }
 
-
     private void spawn(String item, int x, int y) {
         itemService.spawnItem(
             itemService.getItem(item).build(),
@@ -422,12 +420,8 @@ private void enemySpawner(GridPoint2 playerSpawnPosition) {
         );
     }
 
+    @Override
     public boolean isWalkable(int x, int y) {
         return dungeonManager.getDungeon()[x][y] == DungeonUtils.TILE_FLOOR;
-    }
-
-    @Override
-    public boolean isWalkable(Vector2 position) {
-        return isWalkable((int) position.x, (int) position.y);
     }
 }

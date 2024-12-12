@@ -8,20 +8,21 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameResources {
-    static GameResources instance;
-    Engine engine;
-    SpriteBatch batch;
-    ShapeRenderer shapeRenderer;
-    OrthographicCamera camera;
-    Stage stage;
-    AssetManager assetManager;
+
+    private static GameResources instance;
+    private final Engine engine;
+    private final SpriteBatch batch;
+    private final ShapeRenderer shapeRenderer;
+    private final OrthographicCamera camera;
+    private Stage stage;
+    private final AssetManager assetManager;
 
     public GameResources(Engine engine, SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.engine = engine;
         this.batch = batch;
         this.shapeRenderer = shapeRenderer;
-        this.camera = new OrthographicCamera();
-        this.assetManager = new AssetManager();
+        camera = new OrthographicCamera();
+        assetManager = new AssetManager();
 
         if (instance == null) {
             instance = this;
