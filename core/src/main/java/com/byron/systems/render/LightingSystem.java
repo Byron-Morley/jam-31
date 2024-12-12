@@ -45,7 +45,7 @@ public class LightingSystem extends EntitySystem {
         projectionMatrix = new Matrix4();
         bufferCamera = new OrthographicCamera();
         bufferCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        ambientColor = new Color(1f, 1f, 1f, 1f);
+        ambientColor = new Color(0f, 0f, 0.1f, 1f);
     }
 
     @Override

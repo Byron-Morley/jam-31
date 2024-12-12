@@ -76,8 +76,8 @@ public class AgentBuilder {
         return this;
     }
 
-    public AgentBuilder withLight(Sprite lightSprite) {
-        entity.add(new LightComponent(lightSprite));
+    public AgentBuilder withLight(Sprite lightSprite, float size) {
+        entity.add(new LightComponent(lightSprite, size));
         return this;
     }
 

@@ -39,7 +39,7 @@ public class AgentFactory {
                 .withKeyboardControl()
                 .isPlayer()
                 .withWeapon(SpriteFactory.getSprite("regularSword"))
-                .withLight(SpriteFactory.getSprite("circleGlow"));
+                .withLight(SpriteFactory.getSprite("circleGlow"), 7f);
         }
 
         return builder;

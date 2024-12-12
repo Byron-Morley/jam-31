@@ -1,26 +1,32 @@
 package com.byron.managers.ui;
 
-import com.badlogic.gdx.Gdx;
+import static com.byron.utils.Messages.ACCELERATION;
+import static com.byron.utils.Messages.BODY_POSITION;
+import static com.byron.utils.Messages.PLAYER_DIRECTION;
+import static com.byron.utils.Messages.PLAYER_POSITION;
+import static com.byron.utils.Messages.PLAYER_STATUS;
+import static com.byron.utils.Messages.PREVIOUS_POSITION;
+import static com.byron.utils.Messages.SPEED;
+import static com.byron.utils.Messages.VELOCITY;
+import static com.byron.utils.ui.Panels.TOP_RIGHT_DEBUG;
+
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.MessageManager;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.byron.engine.GameResources;
-import com.byron.interfaces.*;
+import com.byron.interfaces.IRenderable;
+import com.byron.interfaces.IUIService;
+import com.byron.interfaces.IUpdatable;
+import com.byron.interfaces.IWindowManager;
+import com.byron.interfaces.UI;
 import com.byron.managers.debug.DebugOverlayManager;
 import com.byron.services.ui.UIService;
-import com.byron.interfaces.UI;
 import com.byron.ui.controller.OverlayUIController;
 import com.byron.ui.view.debug.TopRightDebugUI;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.byron.utils.Messages.*;
-import static com.byron.utils.ui.Panels.TOP_RIGHT_DEBUG;
-
 
 public class UserInterfaceManager implements IRenderable, IWindowManager, IUpdatable {
 
@@ -60,11 +66,9 @@ public class UserInterfaceManager implements IRenderable, IWindowManager, IUpdat
     }
 
     private void initializeViews() {
-
         System.out.println("Initializing UI");
 
         registerUI(TOP_RIGHT_DEBUG, new TopRightDebugUI());
-
     }
 
     public void initializeControllers() {
@@ -102,7 +106,6 @@ public class UserInterfaceManager implements IRenderable, IWindowManager, IUpdat
             }
         }
     }
-
 
     @Override
     public void dispose() {

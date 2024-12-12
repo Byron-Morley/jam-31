@@ -5,8 +5,8 @@ import com.byron.engine.GameResources;
 import com.byron.interfaces.IRenderable;
 import com.byron.screens.GameScreen;
 
-
 public class ScreenManager implements IRenderable {
+
     private GameResources gameResources;
     private Screen currentScreen;
 
@@ -19,13 +19,13 @@ public class ScreenManager implements IRenderable {
     }
 
     public void setCurrentScreen(Screen currentScreen) {
-        if(this.currentScreen != null)
+        if (this.currentScreen != null)
             this.currentScreen.dispose();
 
         this.currentScreen = currentScreen;
     }
 
-    public void loadGameScreen(){
+    public void loadGameScreen() {
         System.out.println("Loading WorldScreen");
         setCurrentScreen(new GameScreen());
     }
@@ -39,6 +39,4 @@ public class ScreenManager implements IRenderable {
     public void dispose() {
 
     }
-
-
 }
