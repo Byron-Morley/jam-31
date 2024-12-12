@@ -92,6 +92,7 @@ public class WeaponSystem extends IteratingSystem {
                         AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
                         Stats stats = agentComponent.getStats();
                         stats.setHealth(stats.getHealth() - 50);
+                        if(stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
                     }
                 }
             }
@@ -104,6 +105,7 @@ public class WeaponSystem extends IteratingSystem {
                         AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
                         Stats stats = agentComponent.getStats();
                         stats.setHealth(stats.getHealth() - 50);
+                        if(stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
                     }
                 }
             }
@@ -116,6 +118,7 @@ public class WeaponSystem extends IteratingSystem {
                         AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
                         Stats stats = agentComponent.getStats();
                         stats.setHealth(stats.getHealth() - 50);
+                        if(stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
                     }
                 }
             }
@@ -128,6 +131,7 @@ public class WeaponSystem extends IteratingSystem {
                         AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
                         Stats stats = agentComponent.getStats();
                         stats.setHealth(stats.getHealth() - 50);
+                        if(stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
                     }
                 }
             }
