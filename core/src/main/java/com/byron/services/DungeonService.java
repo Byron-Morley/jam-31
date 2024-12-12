@@ -1,5 +1,8 @@
 package com.byron.services;
 
+import static com.byron.utils.Config.MAP_HEIGHT;
+import static com.byron.utils.Config.MAP_WIDTH;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,18 +28,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.byron.utils.Config.MAP_HEIGHT;
-import static com.byron.utils.Config.MAP_WIDTH;
-
 public class DungeonService implements IDungeonService {
 
-    IDungeonManager dungeonManager;
-    IItemService itemService;
-    Engine engine;
-    private Set<GridPoint2> occupiedPositions = new HashSet<>();
-    private Set<GridPoint2> wallBottom = new HashSet<>();
+    private final IDungeonManager dungeonManager;
+    private final IItemService itemService;
+    private final Engine engine;
+    private final Set<GridPoint2> occupiedPositions = new HashSet<>();
+    private final Set<GridPoint2> wallBottom = new HashSet<>();
 
-    private float CHANCE_OF_CORNER_PILLARS = 0.2f;
+    private final float CHANCE_OF_CORNER_PILLARS = 0.2f;
 
     public DungeonService(IDungeonManager dungeonManager, IItemService itemService) {
         this.dungeonManager = dungeonManager;
@@ -66,7 +66,6 @@ public class DungeonService implements IDungeonService {
                     engine.addEntity(entity);
                 }
             }
-
         }
     }
 
@@ -133,11 +132,13 @@ public class DungeonService implements IDungeonService {
 
     private void addWalls(int[][] map, int y, int x) {
         if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
-            if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+            if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR
+                || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("stone-wall-right", x, y + 1);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
-            } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+            } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR
+                || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("stone-wall-left", x, y + 1);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
@@ -183,50 +184,48 @@ public class DungeonService implements IDungeonService {
     }
 
     public void spawnSpecialItems() {
-    List<Spawn> spawns = dungeonManager.getSpawns();
-    Array<Room> rooms = dungeonManager.getRooms();
+        List<Spawn> spawns = dungeonManager.getSpawns();
+        Array<Room> rooms = dungeonManager.getRooms();
 
-    // Filter for special type items
-    List<Spawn> specialSpawns = spawns.stream()
-        .filter(spawn -> "special".equals(spawn.getType()))
-        .collect(Collectors.toList());
+        // Filter for special type items
+        List<Spawn> specialSpawns = spawns.stream()
+            .filter(spawn -> "special".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
-    // Get a random room to place the special item
-    if (!rooms.isEmpty() && !specialSpawns.isEmpty()) {
-        Room selectedRoom = rooms.get(MathUtils.random(rooms.size - 1));
+        // Get a random room to place the special item
+        if (!rooms.isEmpty() && !specialSpawns.isEmpty()) {
+            Room selectedRoom = rooms.get(MathUtils.random(rooms.size - 1));
 
-        // Try to place in center of room first
-        int centerX = selectedRoom.getX() + selectedRoom.getWidth() / 2;
-        int centerY = selectedRoom.getY() + selectedRoom.getHeight() / 2;
-        GridPoint2 position = new GridPoint2(centerX, centerY);
+            // Try to place in center of room first
+            int centerX = selectedRoom.getX() + selectedRoom.getWidth() / 2;
+            int centerY = selectedRoom.getY() + selectedRoom.getHeight() / 2;
+            GridPoint2 position = new GridPoint2(centerX, centerY);
 
-        // If center is occupied, try random positions in room
-        if (occupiedPositions.contains(position)) {
-            int attempts = 0;
-            int maxAttempts = 10;
-            boolean placed = false;
+            // If center is occupied, try random positions in room
+            if (occupiedPositions.contains(position)) {
+                int attempts = 0;
+                int maxAttempts = 10;
+                boolean placed = false;
 
-            while (!placed && attempts < maxAttempts) {
-                int randomX = MathUtils.random(selectedRoom.getX(), selectedRoom.getX() + selectedRoom.getWidth() - 1);
-                int randomY = MathUtils.random(selectedRoom.getY(), selectedRoom.getY() + selectedRoom.getHeight() - 1);
-                position = new GridPoint2(randomX, randomY);
+                while (!placed && attempts < maxAttempts) {
+                    int randomX = MathUtils.random(selectedRoom.getX(), selectedRoom.getX() + selectedRoom.getWidth() - 1);
+                    int randomY = MathUtils.random(selectedRoom.getY(), selectedRoom.getY() + selectedRoom.getHeight() - 1);
+                    position = new GridPoint2(randomX, randomY);
 
-                if (!occupiedPositions.contains(position)) {
-                    placed = true;
+                    if (!occupiedPositions.contains(position)) {
+                        placed = true;
+                    }
+                    attempts++;
                 }
-                attempts++;
             }
+
+            // Spawn the special item
+            int randomIndex = MathUtils.random(specialSpawns.size() - 1);
+            Spawn selectedSpawn = specialSpawns.get(randomIndex);
+            spawn(selectedSpawn.getName(), position.x, position.y);
+            occupiedPositions.add(position);
         }
-
-        // Spawn the special item
-        int randomIndex = MathUtils.random(specialSpawns.size() - 1);
-        Spawn selectedSpawn = specialSpawns.get(randomIndex);
-        spawn(selectedSpawn.getName(), position.x, position.y);
-        occupiedPositions.add(position);
     }
-}
-
-
 
     private void createEdges() {
         int[][] bitmap = dungeonManager.getBitmap();
@@ -246,7 +245,6 @@ public class DungeonService implements IDungeonService {
     }
 
     private void spawnEdge(float dungeonX, float dungeonY, int index) {
-
         Entity entity = new Entity();
         Sprite sprite = SpriteFactory.getSprite("building/dungeon-wall", index);
 
@@ -338,7 +336,6 @@ public class DungeonService implements IDungeonService {
         System.out.println("\n");
     }
 
-
     private void spawn(String item, int x, int y) {
         itemService.spawnItem(
             itemService.getItem(item).build(),
@@ -346,12 +343,8 @@ public class DungeonService implements IDungeonService {
         );
     }
 
+    @Override
     public boolean isWalkable(int x, int y) {
         return dungeonManager.getDungeon()[x][y] == DungeonUtils.TILE_FLOOR;
-    }
-
-    @Override
-    public boolean isWalkable(Vector2 position) {
-        return isWalkable((int) position.x, (int) position.y);
     }
 }

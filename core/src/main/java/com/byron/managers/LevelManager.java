@@ -5,18 +5,17 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IItemService;
 
-
 public class LevelManager {
 
-    IAgentService agentService;
-    IItemService itemService;
+    private final IAgentService agentService;
+    private final IItemService itemService;
 
     public LevelManager(IAgentService agentService, IItemService itemService) {
         this.agentService = agentService;
         this.itemService = itemService;
     }
 
-    public void init(){
+    public void init() {
         System.out.println("LevelManager: init()");
 
 
@@ -27,7 +26,6 @@ public class LevelManager {
 //        Entity ooze  = agentService.spawnAgent(new GridPoint2(14, 12), "blue-ooze");
 //        Entity goblin  = agentService.spawnAgent(new GridPoint2(15, 12), "goblin");
 
-        Entity player  = agentService.spawnPlayer(new GridPoint2(14, 10));
+        Entity player = agentService.spawnPlayer(new GridPoint2(14, 10));
     }
-
 }

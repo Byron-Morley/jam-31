@@ -9,20 +9,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.byron.managers.ScreenManager;
 import com.kotcrab.vis.ui.VisUI;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
- */
 public class Game extends ApplicationAdapter {
 
-    private SpriteBatch batch;
+    private SpriteBatch spriteBatch;
+    private ShapeRenderer shapeRenderer;
     private ScreenManager screenManager;
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
+        spriteBatch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
 
         VisUI.load();
-        screenManager = new ScreenManager(new GameResources(new Engine(), batch, new ShapeRenderer()));
+        screenManager = new ScreenManager(new GameResources(new Engine(), spriteBatch, shapeRenderer));
         screenManager.loadGameScreen();
     }
 
@@ -52,6 +52,7 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        batch.dispose();
+        spriteBatch.dispose();
+        shapeRenderer.dispose();
     }
 }
