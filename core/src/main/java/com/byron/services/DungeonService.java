@@ -1,8 +1,5 @@
 package com.byron.services;
 
-import static com.byron.utils.Config.MAP_HEIGHT;
-import static com.byron.utils.Config.MAP_WIDTH;
-
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,6 +23,8 @@ import com.byron.utils.dungeon.Room;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.byron.utils.Config.*;
 
 
 public class DungeonService implements IDungeonService {

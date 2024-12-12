@@ -19,14 +19,12 @@ public class TakeDamageSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float v) {
 
-        System.out.println("TakeDamageSystem");
-
         TakeDamageComponent takeDamageComponent = entity.getComponent(TakeDamageComponent.class);
         AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
         WearComponent wearComponent = entity.getComponent(WearComponent.class);
 
-        Entity effect = new Entity().add(new StackableSpriteComponent(SpriteFactory.get("agent/hurt-" + wearComponent.getSkin())));
-        wearComponent.wearables.put(EquipSlot.EFFECT, effect);
+//        Entity effect = new Entity().add(new StackableSpriteComponent(SpriteFactory.get("agent/hurt-" + wearComponent.getSkin())));
+//        wearComponent.wearables.put(EquipSlot.EFFECT, effect);
 
     }
 }
