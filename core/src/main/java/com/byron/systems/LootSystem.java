@@ -4,8 +4,11 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Vector2;
 import com.byron.components.*;
 import com.byron.components.hud.ColorInterpComponent;
 import com.byron.components.hud.PositionInterpComponent;
@@ -23,6 +26,7 @@ public class LootSystem extends IteratingSystem {
 
     IAgentService agentService;
     Engine engine;
+    BitmapFont bitmapFont;
 
     public LootSystem(IAgentService agentService) {
         super(Family.all(
@@ -30,6 +34,7 @@ public class LootSystem extends IteratingSystem {
         ).get());
         this.agentService = agentService;
         this.engine = GameResources.get().getEngine();
+        bitmapFont = new BitmapFont(Gdx.files.internal(FONT));
     }
 
     @Override
@@ -43,13 +48,29 @@ public class LootSystem extends IteratingSystem {
         if (playerPosition.position.equals(lootPosition.position)) {
             engine.addEntity(new Entity().add(new ScoreEvent(lootComponent.getValue())));
 
-            Entity damage = new Entity()
-                .add(new ColorInterpComponent(GOLD, CLEAR))
-                .add(new PositionInterpComponent(playerPosition.position, playerPosition.position.cpy().add(UP.vector)))
-                .add(new TextComponent(new BitmapFont(Gdx.files.internal(FONT)), "" + lootComponent.getValue(), 0.05f));
-            getEngine().addEntity(damage);
+            if (lootComponent.isArmor()) {
+
+                ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
+                Entity ArmorEntity = progressBars.get(1);
+                HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
+
+                float newProgress = Math.min(1, armorBar.getProgress() + (float) lootComponent.getValue() / 100);
+                armorBar.setProgress(newProgress);
+
+                showNumbers(playerPosition.position, GREEN, "+" + lootComponent.getValue());
+            } else {
+                showNumbers(playerPosition.position, GOLD, "" + lootComponent.getValue());
+            }
 
             engine.removeEntity(entity);
         }
+    }
+
+    private void showNumbers(Vector2 position, Color color, String text) {
+        Entity damage = new Entity()
+            .add(new ColorInterpComponent(color, CLEAR))
+            .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
+            .add(new TextComponent(bitmapFont, text, 0.05f));
+        getEngine().addEntity(damage);
     }
 }

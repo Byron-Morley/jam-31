@@ -76,41 +76,62 @@ building/wall-right
   index: -1
 
 32x32_items2.png
-size: 256, 64
+size: 128, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+loot/armor
+  rotate: false
+  xy: 1, 69
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+loot/boots
+  rotate: false
+  xy: 1, 35
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 loot/gold
   rotate: false
-  xy: 1, 1
+  xy: 35, 69
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 loot/gold-alt
   rotate: false
-  xy: 35, 1
+  xy: 1, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 loot/gold-chest
   rotate: false
-  xy: 69, 1
+  xy: 35, 35
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 loot/gold-dust
   rotate: false
-  xy: 103, 1
+  xy: 69, 69
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+loot/helmet
+  rotate: false
+  xy: 35, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 loot/swag
   rotate: false
-  xy: 137, 1
+  xy: 69, 35
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

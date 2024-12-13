@@ -217,6 +217,27 @@
     "pickupable": true,
     "value": 100
   },
+  "armor": {
+    "label": "Armor",
+    "sprite": "loot/armor",
+    "pickupable": true,
+    "value": 100,
+    "armor": true
+  },
+  "boots": {
+    "label": "Armor",
+    "sprite": "loot/boots",
+    "pickupable": true,
+    "value": 25,
+    "armor": true
+  },
+  "helmet": {
+    "label": "Armor",
+    "sprite": "loot/helmet",
+    "pickupable": true,
+    "value": 50,
+    "armor": true
+  },
   "pot": {
     "label": "Pot",
     "sprite": "scenery/pot"

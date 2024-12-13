@@ -209,5 +209,25 @@
     "name": "gold-dust",
     "frequency": "0.017f",
     "type": "loot"
+  },
+  {
+    "name": "gold-dust",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "armor",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+    {
+    "name": "helmet",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+    {
+    "name": "boots",
+    "frequency": "0.017f",
+    "type": "loot"
   }
 ]

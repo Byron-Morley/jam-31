@@ -31,7 +31,7 @@ public class ItemFactory {
             .withRender(model.getSprite(), model.getSpriteScale());
 
         if(model.isPickupable()){
-            itemBuilder.isLoot(model.getValue());
+            itemBuilder.isLoot(model.getValue(), model.isArmor());
         }
 
         return itemBuilder;

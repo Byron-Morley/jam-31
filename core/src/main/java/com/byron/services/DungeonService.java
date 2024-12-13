@@ -71,7 +71,7 @@ public class DungeonService implements IDungeonService {
         }
 
         // Add 1-4 additional random loot items
-        int additionalLoot = MathUtils.random(1, 8);
+        int additionalLoot = MathUtils.random(1, 10);
         for (int i = 0; i < additionalLoot; i++) {
             Room selectedRoom = rooms.get(MathUtils.random(rooms.size - 1));
             tryPlaceLootInRoom(selectedRoom, lootSpawns);

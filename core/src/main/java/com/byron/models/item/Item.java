@@ -6,6 +6,7 @@ public class Item {
     float spriteScale = 1;
     boolean pickupable = false;
     int value = 0;
+    boolean isArmor = false;
 
     public String getLabel() {
         return label;
@@ -25,5 +26,13 @@ public class Item {
 
     public int getValue() {
         return value;
+    }
+
+    public boolean isArmor() {
+        return isArmor;
+    }
+
+    public void setArmor(boolean armor) {
+        isArmor = armor;
     }
 }

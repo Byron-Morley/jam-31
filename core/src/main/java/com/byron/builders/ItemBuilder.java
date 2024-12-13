@@ -32,8 +32,8 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder isLoot(int value) {
-        entity.add(new LootComponent(value));
+    public ItemBuilder isLoot(int value, boolean isArmor) {
+        entity.add(new LootComponent(value, isArmor));
         return this;
     }
 
