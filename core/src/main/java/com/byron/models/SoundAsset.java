@@ -5,6 +5,7 @@ public class SoundAsset {
     String path;
     int priority;
     float volume;
+    boolean isMusic = false;
 
     public SoundAsset() {
     }
@@ -35,5 +36,13 @@ public class SoundAsset {
 
     public void setVolume(float volume) {
         this.volume = volume;
+    }
+
+    public boolean isMusic() {
+        return isMusic;
+    }
+
+    public void setMusic(boolean music) {
+        isMusic = music;
     }
 }

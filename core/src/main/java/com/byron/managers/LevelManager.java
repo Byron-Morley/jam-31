@@ -1,8 +1,12 @@
 package com.byron.managers;
 
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IItemService;
+
+import static com.byron.utils.Messages.PLAY_MUSIC;
+import static com.byron.utils.Messages.PLAY_SOUND;
 
 
 public class LevelManager {
@@ -21,16 +25,8 @@ public class LevelManager {
     public void init() {
         System.out.println("LevelManager: init()");
 
+        MessageManager.getInstance().dispatchMessage(PLAY_MUSIC, "track_01");
+        MessageManager.getInstance().dispatchMessage(PLAY_SOUND, "explosion");
 
-//        itemService.spawnItem(itemService.getItem("building/tile").build(), new GridPoint2(11, 12));
-
-        /*
-        Entity snake  = agentService.spawnAgent(new GridPoint2(12, 12), "snake");
-        Entity dragon  = agentService.spawnAgent(new GridPoint2(13, 12), "red-dragon");
-        Entity ooze  = agentService.spawnAgent(new GridPoint2(14, 12), "blue-ooze");
-        Entity goblin  = agentService.spawnAgent(new GridPoint2(15, 12), "goblin");
-        */
-
-//        Entity player  = agentService.spawnPlayer(new GridPoint2(10, 10));
     }
 }

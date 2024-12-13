@@ -9,4 +9,7 @@ public class Messages {
     public static final int BODY_POSITION = 6;
     public static final int PREVIOUS_POSITION = 7;
     public static final int SPEED = 8;
+    public static final int PLAY_SOUND = 9;
+    public static final int PLAY_MUSIC = 10;
+
 }
