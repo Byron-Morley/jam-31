@@ -17,4 +17,5 @@ public class Config {
     public static final int ENEMY_ATTACK_DISTANCE = 7; // tiles
     public static final int ENEMY_TURN_RATIO = 4; // how many turns until monster moves
     public static final int PERCENTAGE_CHANCE_ENEMY_MOVES_RANDOM_DIRECTION = 20; // how many turns until monster moves
+    public static final String FONT = "raw/fonts/pixelFont.fnt"; // how many turns until monster moves
 }

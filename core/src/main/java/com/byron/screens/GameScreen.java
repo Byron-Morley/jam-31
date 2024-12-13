@@ -26,15 +26,7 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
-import com.byron.systems.AISystem;
-import com.byron.systems.CameraFocusSystem;
-import com.byron.systems.CollisionSystem;
-import com.byron.systems.HUDRenderSystem;
-import com.byron.systems.MovementSystem;
-import com.byron.systems.PhysicsSystem;
-import com.byron.systems.PlayerInputSystem;
-import com.byron.systems.SmoothMovementSystem;
-import com.byron.systems.TakeDamageSystem;
+import com.byron.systems.*;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
 import com.byron.systems.hud.FadingTextSystem;
@@ -151,6 +143,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new FadingTextSystem());
         engine.addSystem(new ScoreRenderer());
         engine.addSystem(new ScoreWidgetSpawner());
+        engine.addSystem(new LootSystem(agentManager.getAgentService()));
     }
 
     private void initGame() {
