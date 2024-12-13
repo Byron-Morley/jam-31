@@ -39,7 +39,7 @@ public class AgentFactory {
             builder
                 .withKeyboardControl()
                 .isPlayer()
-                .withWeapon(SpriteFactory.getSprite("regularSword"))
+                .withWeapon(SpriteFactory.getSprite("regularSword"), 1)
                 .withLight(SpriteFactory.getSprite("circleGlow"), 7f);
         } else {
             builder.isAI(agent.getStats().getSpeed());

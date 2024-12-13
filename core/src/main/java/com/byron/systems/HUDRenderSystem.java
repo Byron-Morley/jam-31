@@ -40,18 +40,19 @@ public class HUDRenderSystem extends EntitySystem {
     public void addedToEngine(Engine engine) {
         progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
 
-        float barHeightPortion = 0.04f;
-        float barYPortion = 1f - barHeightPortion;
+        float barHeightPortion = 0.03f;
+        float healthBarYPortion = 1f - barHeightPortion;
+        float armorBarYPortion = healthBarYPortion - barHeightPortion;
 
         Entity healthBar = new Entity();
-        HUDProgressBarComponent healthBarComponent = new HUDProgressBarComponent(0f, barYPortion, 0.5f, barHeightPortion);
+        HUDProgressBarComponent healthBarComponent = new HUDProgressBarComponent(0f, healthBarYPortion, 1f, barHeightPortion);
         healthBarComponent.color.set(HEALTH_BAR_COLOR);
         healthBarComponent.progress = 1f;
         healthBar.add(healthBarComponent);
         engine.addEntity(healthBar);
 
         Entity armorBar = new Entity();
-        armorBar.add(new HUDProgressBarComponent(0.5f, barYPortion, 0.5f, barHeightPortion, ARMOR_BAR_COLOR));
+        armorBar.add(new HUDProgressBarComponent(0f, armorBarYPortion, 1f, barHeightPortion, ARMOR_BAR_COLOR));
         engine.addEntity(armorBar);
     }
 

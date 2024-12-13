@@ -13,6 +13,11 @@ import com.byron.components.SpeedComponent;
 import com.byron.components.StatusComponent;
 import com.byron.components.VelocityComponent;
 import com.byron.components.WeaponComponent;
+import com.byron.components.events.MilestoneEvent;
+import com.byron.components.hud.ColorInterpComponent;
+import com.byron.components.hud.PositionInterpComponent;
+import com.byron.components.hud.ScoreEvent;
+import com.byron.components.hud.TextComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.components.player.PlayerComponent;
 import com.byron.components.player.WearComponent;
@@ -41,4 +46,9 @@ public class Mappers {
     public static final ComponentMapper<SlashComponent> slash = ComponentMapper.getFor(SlashComponent.class);
     public static final ComponentMapper<AIComponent> ai = ComponentMapper.getFor(AIComponent.class);
     public static final ComponentMapper<HUDProgressBarComponent> progressBar = ComponentMapper.getFor(HUDProgressBarComponent.class);
+    public static final ComponentMapper<TextComponent> text = ComponentMapper.getFor(TextComponent.class);
+    public static final ComponentMapper<ScoreEvent> scoreEvent = ComponentMapper.getFor(ScoreEvent.class);
+    public static final ComponentMapper<ColorInterpComponent> colorInterp = ComponentMapper.getFor(ColorInterpComponent.class);
+    public static final ComponentMapper<PositionInterpComponent> positionInterp = ComponentMapper.getFor(PositionInterpComponent.class);
+    public static final ComponentMapper<MilestoneEvent> milestone = ComponentMapper.getFor(MilestoneEvent.class);
 }
