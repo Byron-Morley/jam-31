@@ -46,6 +46,17 @@ public class SpriteFactory {
         return null;
     }
 
+    public static ComplexSprite getItemComplexSprite(String name) {
+       try {
+            TextureRegion textureRegion = atlas.findRegion(name);
+            SpriteModel spriteModel = new SpriteModel(textureRegion.getRegionWidth());
+            return new ComplexSprite(atlas, textureRegion.getTexture(), spriteModel, name, true);
+        } catch (Exception e) {
+            System.out.println("failed to find:" + name);
+        }
+        return null;
+    }
+
     public static Sprite getSprite(String name, int index) {
 
         TextureRegion textureRegion = atlas.findRegion(name);

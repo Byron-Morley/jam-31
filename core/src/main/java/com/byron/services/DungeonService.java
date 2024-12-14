@@ -52,7 +52,11 @@ public class DungeonService implements IDungeonService {
         spawnLoot();
 
 
-        spawnPlayer();
+//        spawnPlayer();
+        GridPoint2 position = new GridPoint2(37, 50);
+        playerSpawnPosition = position;
+        agentService.spawnPlayer(position);
+        occupiedPositions.add(position);
         enemySpawner(playerSpawnPosition);
 //        mapOutRooms(dungeonManager.getRooms());
     }
@@ -266,8 +270,17 @@ public class DungeonService implements IDungeonService {
                 addToBitmap(x, y + 2);
                 spawn("building/wall", (float) x, (float) y + 1f);
             }
-            spawn("shade", x, y);
+            spawnShade("building/shade", -1, RenderPriority.FOREGROUND, new Vector2(x, y));
         }
+    }
+
+    private void spawnShade(String name, int index, RenderPriority foreground, Vector2 x) {
+        Entity entity = new Entity();
+        Sprite sprite = SpriteFactory.getSprite(name, index);
+
+        entity.add(new RenderComponent(sprite, foreground));
+        entity.add(new PositionComponent(x));
+        engine.addEntity(entity);
     }
 
     public void spawnColumnItems() {

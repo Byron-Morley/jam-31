@@ -54,7 +54,7 @@ public class ItemBuilder {
             .add(new AnimableSpriteComponent())
             .add(new StackedSpritesComponent(rawAnimationModel))
             .add(new RefreshSpriteRequirementComponent())
-            .add(new StackableSpriteComponent(SpriteFactory.get(spriteName)));
+            .add(new StackableSpriteComponent(SpriteFactory.getItemComplexSprite(spriteName)));
         return this;
     }
 

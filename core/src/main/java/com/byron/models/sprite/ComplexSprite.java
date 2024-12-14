@@ -9,12 +9,22 @@ public class ComplexSprite {
     private TextureAtlas atlas;
     private String name;
     private SpriteModel model;
+    private boolean resetOrigin = false;
+
 
     public ComplexSprite(TextureAtlas atlas, Texture texture, SpriteModel model, String name) {
         this.texture = texture;
         this.model = model;
         this.atlas = atlas;
         this.name = name;
+    }
+
+    public ComplexSprite(TextureAtlas atlas, Texture texture, SpriteModel model, String name, boolean resetOrigin) {
+        this.texture = texture;
+        this.atlas = atlas;
+        this.name = name;
+        this.model = model;
+        this.resetOrigin = resetOrigin;
     }
 
     public Texture getTexture() {
@@ -35,5 +45,9 @@ public class ComplexSprite {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isResetOrigin() {
+        return resetOrigin;
     }
 }

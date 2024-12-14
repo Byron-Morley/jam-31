@@ -6,7 +6,7 @@ import com.byron.models.status.Direction;
 public class ItemRenderPositionStrategy implements RenderPositionStrategy {
     @Override
     public Vector2 process(float x, float y) {
-        return new Vector2(x + 0.5f, y + 0.5f);
+        return new Vector2(x, y);
     }
 
     @Override

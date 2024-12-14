@@ -75,10 +75,10 @@ public final class DungeonUtils {
 
 
     public static Dungeon createDungeon(
-        int mapSizeX, int mapSizeY,
-        int roomCountMin, int roomCountMax,
-        int roomMinSize, int roomMaxSize,
-        int squashIterations, int seed
+            int mapSizeX, int mapSizeY,
+            int roomCountMin, int roomCountMax,
+            int roomMinSize, int roomMaxSize,
+            int squashIterations, int seed
     ) {
         int mulitplier = 2;
 
@@ -94,13 +94,13 @@ public final class DungeonUtils {
             for (int y = 0; y < 3; y++) {
 
                 Dungeon subDungeon = DungeonUtils.generate(
-                    submapSizeX, submapSizeY,
-                    random.nextInt(roomCountMax - roomCountMin + 1) + roomCountMin,
-                    roomMinSize,
-                    roomMaxSize,
-                    squashIterations,
-                    false,
-                    random.nextInt());
+                        submapSizeX, submapSizeY,
+                        random.nextInt(roomCountMax - roomCountMin + 1) + roomCountMin,
+                        roomMinSize,
+                        roomMaxSize,
+                        squashIterations,
+                        false,
+                        random.nextInt());
 
                 rooms.addAll(addRelativeRoomPositions(subDungeon.getRooms(), x, y, submapSizeX, submapSizeY));
                 int submap[][] = subDungeon.getMap();
@@ -157,53 +157,24 @@ public final class DungeonUtils {
         return new Dungeon(fixedMap, correctRooms(rooms, mulitplier, padding));
     }
 
-private static int[][] fixMap(int[][] map) {
-    int width = map.length;
-    int height = map[0].length;
+    private static int[][] fixMap(int[][] map) {
+        int width = map.length;
+        int height = map[0].length;
 
-    for (int x = 1; x < width - 1; x++) {
-        for (int y = 1; y < height - 1; y++) {
-            // Check for horizontal adjacent wall spaces
-            if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL) {
-                if (map[x][y - 1] != TILE_WALL && map[x][y + 1] != TILE_WALL &&
-                    map[x + 1][y - 1] != TILE_WALL && map[x + 1][y + 1] != TILE_WALL) {
-                    map[x][y] = TILE_FLOOR;
-                    map[x + 1][y] = TILE_FLOOR;
-                }
-            }
-
-            // Check for 2x2 square of wall spaces
-            if (x < width - 2 && y < height - 2) {
-                if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL &&
-                    map[x][y + 1] == TILE_WALL && map[x + 1][y + 1] == TILE_WALL) {
-                    // Check if surrounded by non-wall tiles
-                    boolean surrounded = true;
-                    // Check top and bottom edges
-                    for (int dx = 0; dx <= 1; dx++) {
-                        if (map[x + dx][y - 1] == TILE_WALL || map[x + dx][y + 2] == TILE_WALL) {
-                            surrounded = false;
-                        }
-                    }
-                    // Check left and right edges
-                    for (int dy = 0; dy <= 1; dy++) {
-                        if (map[x - 1][y + dy] == TILE_WALL || map[x + 2][y + dy] == TILE_WALL) {
-                            surrounded = false;
-                        }
-                    }
-
-                    if (surrounded) {
+        for (int x = 1; x < width - 1; x++) {
+            for (int y = 1; y < height - 1; y++) {
+                // Check for horizontal adjacent wall spaces
+                if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL) {
+                    if (map[x][y - 1] != TILE_WALL && map[x][y + 1] != TILE_WALL &&
+                            map[x + 1][y - 1] != TILE_WALL && map[x + 1][y + 1] != TILE_WALL) {
                         map[x][y] = TILE_FLOOR;
                         map[x + 1][y] = TILE_FLOOR;
-                        map[x][y + 1] = TILE_FLOOR;
-                        map[x + 1][y + 1] = TILE_FLOOR;
                     }
                 }
             }
         }
+        return map;
     }
-    return map;
-}
-
 
 
     private static Array<Room> addRelativeRoomPositions(Array<Room> rooms, int x, int y, int submapSizeX, int submapSizeY) {
@@ -271,14 +242,14 @@ private static int[][] fixMap(int[][] map) {
     }
 
     public static Dungeon generate(
-        int mapSizeX,
-        int mapSizeY,
-        int roomCount,
-        int roomMinSize,
-        int roomMaxSize,
-        int squashIterations,
-        boolean addMissingWalls,
-        int seed
+            int mapSizeX,
+            int mapSizeY,
+            int roomCount,
+            int roomMinSize,
+            int roomMaxSize,
+            int squashIterations,
+            boolean addMissingWalls,
+            int seed
     ) {
         int[][] map = new int[mapSizeX][mapSizeY];
         for (int x = 0; x < mapSizeX; x++) {
@@ -397,7 +368,7 @@ private static int[][] fixMap(int[][] map) {
             if (i == ignore) continue;
             Room check = rooms.get(i);
             if (!((room.x + room.width < check.x) || (room.x > check.x + check.width) || (room.y + room.height < check.y) || (room.y > check.y
-                + check.height))) return true;
+                    + check.height))) return true;
         }
 
         return false;
@@ -434,7 +405,7 @@ private static int[][] fixMap(int[][] map) {
             float checkMidX = check.x + (check.width / 2f);
             float checkMidY = check.y + (check.height / 2f);
             float distance = Math.min(Math.abs(midX - checkMidX) - (room.width / 2f) - (check.width / 2f), Math.abs(midY - checkMidY)
-                - (room.height / 2f) - (check.height / 2f));
+                    - (room.height / 2f) - (check.height / 2f));
             if (distance < closestDistance) {
                 closestDistance = distance;
                 closest = check;
