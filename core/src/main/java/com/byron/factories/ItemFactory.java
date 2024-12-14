@@ -5,6 +5,7 @@ import com.byron.builders.ItemBuilder;
 import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
 import com.byron.models.item.Item;
+import com.byron.models.sprite.RawAnimationModel;
 import com.byron.utils.Mappers;
 
 import java.util.Map;
@@ -14,8 +15,10 @@ public class ItemFactory {
     ComponentMapper<PositionComponent> pm = Mappers.position;
     ComponentMapper<RenderComponent> rm = Mappers.render;
     int itemCount = 0;
+    AnimationsFactory animationsFactory;
 
-    public ItemFactory() {
+    public ItemFactory(AgentFactory agentFactory) {
+        this.animationsFactory = agentFactory.getAnimationsFactory();
         this.models = ModelFactory.getItemsModel();
     }
 
@@ -27,10 +30,12 @@ public class ItemFactory {
         String id = name + "_" + ++itemCount;
         Item model = models.get(name);
 
-        ItemBuilder itemBuilder = new ItemBuilder(model, id, name)
-            .withRender(model.getSprite(), model.getSpriteScale());
+        RawAnimationModel rawAnimationModel = animationsFactory.get(model.getAnimationModel());
 
-        if(model.isPickupable()){
+        ItemBuilder itemBuilder = new ItemBuilder(model, id, name)
+            .withAnimations(rawAnimationModel, model.getSprite());
+
+        if (model.isPickupable()) {
             itemBuilder.isLoot(model.getValue(), model.isArmor());
         }
 

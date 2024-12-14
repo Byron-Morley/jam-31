@@ -11,7 +11,7 @@ public class Agent {
     float velocityX;
     float velocityY;
     boolean player = false;
-    String animationModel;
+    String animationModel = "AGENT";
     Map<EquipSlot, String> body;
     Stats stats;
     String skin;

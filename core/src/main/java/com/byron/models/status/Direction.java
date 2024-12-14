@@ -12,7 +12,7 @@ public enum Direction {
     UP_RIGHT("UP_RIGHT", new Vector2(1f, 1f)),
     DOWN_LEFT("DOWN_LEFT", new Vector2(-1f, -1f)),
     DOWN_RIGHT("DOWN_RIGHT", new Vector2(1f, -1f)),
-    CENTER("CENTER", new Vector2(0f, 0f));
+    NONE("", new Vector2(0f, 0f));
 
     private final String name;
     public final Vector2 vector;

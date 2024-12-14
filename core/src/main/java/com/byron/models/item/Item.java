@@ -7,6 +7,7 @@ public class Item {
     boolean pickupable = false;
     int value = 0;
     boolean isArmor = false;
+    String animationModel = "DEFAULT";
 
     public String getLabel() {
         return label;
@@ -34,5 +35,9 @@ public class Item {
 
     public void setArmor(boolean armor) {
         isArmor = armor;
+    }
+
+    public String getAnimationModel() {
+        return animationModel;
     }
 }

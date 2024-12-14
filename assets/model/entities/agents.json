@@ -4,7 +4,7 @@
     "name": "player",
     "player": true,
     "factionId": "player",
-    "animationModel": "DEFAULT",
+    "animationModel": "AGENT",
     "skin" :"black-knight",
     "body": {
       "BODY": "agent/black-knight"
@@ -22,7 +22,7 @@
     "id": "snake",
     "name": "snake",
     "factionId": "enemy",
-    "animationModel": "DEFAULT",
+    "animationModel": "AGENT",
     "body": {
       "BODY": "agent/snake"
     },
@@ -39,7 +39,7 @@
     "id": "blue-ooze",
     "name": "Blue Ooze",
     "factionId": "enemy",
-    "animationModel": "DEFAULT",
+    "animationModel": "AGENT",
     "body": {
       "BODY": "agent/blue-ooze"
     },
@@ -56,7 +56,7 @@
     "id": "red-dragon",
     "name": "Red Dragon",
     "factionId": "enemy",
-    "animationModel": "DEFAULT",
+    "animationModel": "AGENT",
     "body": {
       "BODY": "agent/red-dragon"
     },
@@ -73,7 +73,7 @@
     "id": "goblin",
     "name": "Goblin",
     "factionId": "enemy",
-    "animationModel": "DEFAULT",
+    "animationModel": "AGENT",
     "body": {
       "BODY": "agent/goblin"
     },

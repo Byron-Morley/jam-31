@@ -16,6 +16,12 @@ public class StatusComponent implements Component {
         this.changeInActionOrDirection = false;
     }
 
+    public StatusComponent(Action action, Direction direction) {
+        this.action = action;
+        this.direction = direction;
+        this.changeInActionOrDirection = false;
+    }
+
     public void setAction(Action action){
         changeInActionOrDirection = action != this.action;
         this.action = action;

@@ -12,6 +12,7 @@ import com.byron.components.sprite.StackedSpritesComponent;
 import com.byron.models.sprite.ComplexSprite;
 import com.byron.utils.Mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,14 +32,21 @@ public class StackableSpriteSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        List<ComplexSprite> wearablesComplexSprites = getTexturesToMerge(entity);
+
+        WearComponent wearComponent = wm.get(entity);
         StackedSpritesComponent stackedSpritesComponent = stacked.get(entity);
-        stackedSpritesComponent.setStackedComplexSprites(wearablesComplexSprites);
+        if (wearComponent != null) {
+            List<ComplexSprite> wearablesComplexSprites = getTexturesToMerge(entity);
+            stackedSpritesComponent.setStackedComplexSprites(wearablesComplexSprites);
+        } else {
+            List<ComplexSprite> sprites = new ArrayList<>();
+            sprites.add(stackable.get(entity).getComplexSprite());
+            stackedSpritesComponent.setStackedComplexSprites(sprites);
+        }
     }
 
     private List<ComplexSprite> getTexturesToMerge(Entity entity) {
         WearComponent wearComponent = wm.get(entity);
-
         return wearComponent
             .asList()
             .stream()

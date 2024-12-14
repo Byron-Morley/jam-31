@@ -253,18 +253,18 @@ public class DungeonService implements IDungeonService {
         if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
             if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR
                     || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
-                spawn("stone-wall-right", x, y + 1);
+                spawn("building/wall-right", (float) x, (float) y + 1f);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
             } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR
                     || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
-                spawn("stone-wall-left", x, y + 1);
+                spawn("building/wall-left", (float) x, (float) y + 1f);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
             } else {
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
-                spawn("stone-wall", x, y + 1);
+                spawn("building/wall", (float) x, (float) y + 1f);
             }
             spawn("shade", x, y);
         }
@@ -365,15 +365,6 @@ public class DungeonService implements IDungeonService {
         }
     }
 
-    private void spawnEdge(float dungeonX, float dungeonY, int index) {
-        Entity entity = new Entity();
-        Sprite sprite = SpriteFactory.getSprite("building/dungeon-wall", index);
-
-        entity.add(new RenderComponent(sprite, RenderPriority.BACKGROUND));
-        entity.add(new PositionComponent(new Vector2(dungeonX, dungeonY)));
-        engine.addEntity(entity);
-    }
-
     private void addToBitmap(int x, int y) {
         int bx = x * 2;
         int by = y * 2;
@@ -432,6 +423,7 @@ public class DungeonService implements IDungeonService {
     }
 
     // Add this helper method to check bounds
+
     private boolean isValidPosition(int x, int y) {
         int[][] bitmap = dungeonManager.getBitmap();
         return x >= 0 && x < bitmap.length && y >= 0 && y < bitmap[0].length;
@@ -455,6 +447,24 @@ public class DungeonService implements IDungeonService {
             System.out.printf("%2d", x);
         }
         System.out.println("\n");
+    }
+
+    private void spawnEdge(float dungeonX, float dungeonY, int index) {
+        Entity entity = new Entity();
+        Sprite sprite = SpriteFactory.getSprite("building/dungeon-wall", index);
+
+        entity.add(new RenderComponent(sprite, RenderPriority.BACKGROUND));
+        entity.add(new PositionComponent(new Vector2(dungeonX, dungeonY)));
+        engine.addEntity(entity);
+    }
+
+    private void spawn(String name, float dungeonX, float dungeonY) {
+        Entity entity = new Entity();
+        Sprite sprite = SpriteFactory.getSprite(name, -1);
+
+        entity.add(new RenderComponent(sprite, RenderPriority.BACKGROUND));
+        entity.add(new PositionComponent(new Vector2(dungeonX, dungeonY)));
+        engine.addEntity(entity);
     }
 
     private void spawn(String item, int x, int y) {

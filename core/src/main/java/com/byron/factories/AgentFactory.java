@@ -22,6 +22,7 @@ public class AgentFactory {
     public AgentFactory() {
         this.agents = ModelFactory.getAgentsModel();
         this.animationsFactory = new AnimationsFactory();
+
     }
 
     public AgentBuilder create(String agentId) {
@@ -59,5 +60,9 @@ public class AgentFactory {
 
     public Map<String, Agent> getAgents() {
         return agents;
+    }
+
+    public AnimationsFactory getAnimationsFactory() {
+        return animationsFactory;
     }
 }

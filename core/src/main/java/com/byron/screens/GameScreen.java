@@ -104,8 +104,8 @@ public class GameScreen extends ScreenAdapter {
     private void initializeManagers() {
         cameraManager = new CameraManager();
         soundManager = new SoundManager();
-        itemManager = new ItemManager();
         agentManager = new AgentManager();
+        itemManager = new ItemManager(agentManager.getAgentFactory());
         dungeonManager = new DungeonManager(itemManager.getItemService(), agentManager.getAgentService());
         userInterfaceManager = new UserInterfaceManager();
         playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
@@ -158,7 +158,7 @@ public class GameScreen extends ScreenAdapter {
         resources.getEngine().update(delta);
         resources.getBatch().end();
 
-//        gridRenderer.render(delta);
+        gridRenderer.render(delta);
         userInterfaceManager.render(delta);
     }
 
