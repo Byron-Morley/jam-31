@@ -67,10 +67,17 @@ public class HUDRenderSystem extends EntitySystem {
         shapeRenderer.begin();
 
         HUDProgressBarComponent progressBar;
+        shapeRenderer.set(Filled);
         for (int i = 0; i < progressBars.size(); i++) {
             progressBar = Mappers.progressBar.get(progressBars.get(i));
             updateProgressBar(progressBar);
-            drawProgressBar(progressBar);
+            drawProgressBarInner(progressBar);
+        }
+
+        shapeRenderer.set(Line);
+        for (int i = 0; i < progressBars.size(); i++) {
+            progressBar = Mappers.progressBar.get(progressBars.get(i));
+            drawProgressBarFrame(progressBar);
         }
 
         shapeRenderer.end();
@@ -90,14 +97,14 @@ public class HUDRenderSystem extends EntitySystem {
         rect.height = camH * progressBar.hPortion;
     }
 
-    private void drawProgressBar(HUDProgressBarComponent progressBar) {
+    private void drawProgressBarInner(HUDProgressBarComponent progressBar) {
         Rectangle rectangle = progressBar.rectangle;
-
-        shapeRenderer.set(Filled);
         shapeRenderer.setColor(progressBar.color);
         shapeRenderer.rect(rectangle.x, rectangle.y, rectangle.width * progressBar.progress, rectangle.height);
+    }
 
-        shapeRenderer.set(Line);
+    private void drawProgressBarFrame(HUDProgressBarComponent progressBar) {
+        Rectangle rectangle = progressBar.rectangle;
         shapeRenderer.setColor(BAR_FRAME_COLOR);
         shapeRenderer.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }

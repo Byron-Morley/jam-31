@@ -105,7 +105,7 @@ public class PlayerInputSystem extends IteratingSystem {
 
         Entity damage = new Entity()
             .add(new ColorInterpComponent(RED, CLEAR))
-            .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
+            .add(new PositionInterpComponent(position.cpy(), position.cpy().add(UP.vector)))
             .add(new TextComponent(new BitmapFont(Gdx.files.internal("raw/fonts/pixelFont.fnt")), "123", 0.05f));
         getEngine().addEntity(damage);
     }
