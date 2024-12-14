@@ -46,21 +46,42 @@ public class DungeonService implements IDungeonService {
         engine = GameResources.get().getEngine();
         createFloorsAndWalls(dungeonManager.getDungeon());
         createEdges();
+        spawnPlayer();
+        spawnExit();
         spawnSceneryItems();
         spawnColumnItems();
         spawnSpecialItems();
         spawnLoot();
-
-
-//        spawnPlayer();
-        GridPoint2 position = new GridPoint2(37, 50);
-        playerSpawnPosition = position;
-        agentService.spawnPlayer(position);
-        occupiedPositions.add(position);
         enemySpawner(playerSpawnPosition);
-//        mapOutRooms(dungeonManager.getRooms());
-        printBitmap(dungeonManager.getDungeon());
+        //        mapOutRooms(dungeonManager.getRooms());
+        //        printBitmap(dungeonManager.getDungeon());
     }
+
+    private void spawnExit() {
+        Array<Room> rooms = dungeonManager.getRooms();
+
+        // Find top-right most room
+        Room exitRoom = rooms.get(0);
+        for (Room room : rooms) {
+            if (room.getY() >= exitRoom.getY() && room.getX() >= exitRoom.getX()) {
+                exitRoom = room;
+            }
+        }
+
+        // Calculate room center
+        int centerX = exitRoom.getX() + exitRoom.getWidth() / 2;
+        int centerY = exitRoom.getY() + exitRoom.getHeight() / 2;
+
+        // Spawn pentagram at center
+        spawn("pentagram", centerX, centerY);
+
+        // Mark 2x2 area as occupied
+        occupiedPositions.add(new GridPoint2(centerX, centerY));
+        occupiedPositions.add(new GridPoint2(centerX + 1, centerY));
+        occupiedPositions.add(new GridPoint2(centerX, centerY + 1));
+        occupiedPositions.add(new GridPoint2(centerX + 1, centerY + 1));
+    }
+
 
     private void spawnLoot() {
         List<Spawn> spawns = dungeonManager.getSpawns();
@@ -107,7 +128,14 @@ public class DungeonService implements IDungeonService {
 
     private void spawnPlayer() {
         Array<Room> rooms = dungeonManager.getRooms();
-        Room startRoom = rooms.get(MathUtils.random(rooms.size - 1));
+
+        // Find bottom-left most room
+        Room startRoom = rooms.get(0);
+        for (Room room : rooms) {
+            if (room.getY() <= startRoom.getY() && room.getX() <= startRoom.getX()) {
+                startRoom = room;
+            }
+        }
 
         // Calculate room center
         int centerX = startRoom.getX() + startRoom.getWidth() / 2;
@@ -131,6 +159,7 @@ public class DungeonService implements IDungeonService {
                 attempts++;
             }
         }
+
         playerSpawnPosition = position;
         agentService.spawnPlayer(position);
         occupiedPositions.add(position);

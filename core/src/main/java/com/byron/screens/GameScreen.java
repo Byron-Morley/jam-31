@@ -158,7 +158,7 @@ public class GameScreen extends ScreenAdapter {
         resources.getEngine().update(delta);
         resources.getBatch().end();
 
-        gridRenderer.render(delta);
+//        gridRenderer.render(delta);
         userInterfaceManager.render(delta);
     }
 

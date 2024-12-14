@@ -39,7 +39,7 @@ public class AgentFactory {
             builder
                 .withKeyboardControl()
                 .isPlayer()
-                .withLight(SpriteFactory.getSprite("circleGlow"), 7f);
+                .withLight(SpriteFactory.getSprite("circleGlow"), 12f);
         } else {
             builder.isAI(agent.getStats().getSpeed());
         }

@@ -30,12 +30,11 @@ public class DungeonManager implements IDungeonManager {
         spawns = ModelFactory.getDungeonSpawns();
 
         Random random = new Random();
-//        int seed = random.nextInt(1000000000);
-        int seed = 22824050;
+        int seed = random.nextInt(1000000000);
+//        int seed = 22824050;
         System.out.println("seed: "+ seed);
 
         int roomCountMax = MAP_WIDTH / 4;
-
 
         Dungeon dungeonObject = DungeonUtils.createDungeon(
             MAP_WIDTH, MAP_HEIGHT,
