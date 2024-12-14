@@ -22,6 +22,7 @@ public class AgentFactory {
     public AgentFactory() {
         this.agents = ModelFactory.getAgentsModel();
         this.animationsFactory = new AnimationsFactory();
+
     }
 
     public AgentBuilder create(String agentId) {
@@ -38,7 +39,7 @@ public class AgentFactory {
             builder
                 .withKeyboardControl()
                 .isPlayer()
-                .withLight(SpriteFactory.getSprite("circleGlow"), 7f);
+                .withLight(SpriteFactory.getSprite("circleGlow"), 12f);
         } else {
             builder.isAI(agent.getStats().getSpeed());
         }
@@ -59,5 +60,9 @@ public class AgentFactory {
 
     public Map<String, Agent> getAgents() {
         return agents;
+    }
+
+    public AnimationsFactory getAnimationsFactory() {
+        return animationsFactory;
     }
 }

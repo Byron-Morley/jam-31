@@ -81,6 +81,7 @@ public class StackedSpritesSystem extends IteratingSystem {
 
                 Sprite sprite = new Sprite(textureRegion);
                 sprite.setSize(width, height);
+                if (complexSprite.isResetOrigin()) sprite.setOrigin(0, 0);
 //                sprite.setOriginCenter();
 
                 sprite.flip(cell.isFlipX(), cell.isFlipY());

@@ -11,6 +11,6 @@ public class ItemRenderPositionStrategy implements RenderPositionStrategy {
 
     @Override
     public Vector2 process(float x, float y, Direction direction) {
-       return new Vector2(x, y);
+        return new Vector2(x, y);
     }
 }

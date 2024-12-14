@@ -2,6 +2,21 @@
   "DEFAULT": {
     "frameDuration": 0.1,
     "subAnimations": {
+      "IDLE": {
+        "cells": [
+          {
+            "cell": -1,
+            "flipX": false,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
+      }
+    }
+  },
+  "AGENT": {
+    "frameDuration": 0.1,
+    "subAnimations": {
       "STANDING_UP": {
         "cells": [
           {
@@ -124,17 +139,17 @@
             "flipX": false,
             "flipY": false
           },
-             {
+          {
             "cell": 9,
             "flipX": false,
             "flipY": false
           },
-             {
+          {
             "cell": 10,
             "flipX": false,
             "flipY": false
           },
-             {
+          {
             "cell": 11,
             "flipX": false,
             "flipY": false
@@ -286,6 +301,36 @@
           }
         ],
         "playMode": "NORMAL"
+      }
+    }
+  },
+    "CANDLES": {
+    "frameDuration": 0.1,
+    "subAnimations": {
+      "IDLE": {
+        "cells": [
+          {
+            "cell": 1,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 2,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 3,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 4,
+            "flipX": false,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
       }
     }
   }

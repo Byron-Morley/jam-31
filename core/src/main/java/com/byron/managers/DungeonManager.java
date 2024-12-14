@@ -26,16 +26,12 @@ public class DungeonManager implements IDungeonManager {
     List<Spawn> spawns;
     Array<Room> rooms;
 
-    public DungeonManager(IItemService itemService, IAgentService agentService) {
+    public DungeonManager(int seed, IItemService itemService, IAgentService agentService) {
         spawns = ModelFactory.getDungeonSpawns();
-
-        Random random = new Random();
-        int seed = random.nextInt(1000000000);
-//        int seed = 60570046;
+//        int seed = 22824050;
         System.out.println("seed: "+ seed);
 
         int roomCountMax = MAP_WIDTH / 4;
-
 
         Dungeon dungeonObject = DungeonUtils.createDungeon(
             MAP_WIDTH, MAP_HEIGHT,
@@ -52,7 +48,6 @@ public class DungeonManager implements IDungeonManager {
 //        dungeon = DungeonUtils.createSimpleDungeon(MAP_WIDTH, MAP_HEIGHT);
         bitmap = new int[MAP_WIDTH * 2][MAP_HEIGHT * 2];
         dungeonService = new DungeonService(this, itemService, agentService);
-
     }
 
     public int[][] getDungeon() {

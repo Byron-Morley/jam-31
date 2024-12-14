@@ -26,14 +26,7 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
-import com.byron.systems.AISystem;
-import com.byron.systems.CameraFocusSystem;
-import com.byron.systems.CollisionSystem;
-import com.byron.systems.HUDRenderSystem;
-import com.byron.systems.PhysicsSystem;
-import com.byron.systems.PlayerInputSystem;
-import com.byron.systems.SmoothMovementSystem;
-import com.byron.systems.TakeDamageSystem;
+import com.byron.systems.*;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
 import com.byron.systems.hud.FadingTextSystem;
@@ -71,9 +64,13 @@ public class GameScreen extends ScreenAdapter {
 
     private IRenderable gridRenderer;
     private IRenderable lightsRenderer;
+    private int seed;
 
-    public GameScreen() {
+
+    public GameScreen(int seed) {
+
         this.resources = GameResources.get();
+        this.seed = seed;
         initializeLogs();
         initializeStage();
         initializeRenderers();
@@ -82,6 +79,7 @@ public class GameScreen extends ScreenAdapter {
         initializeSystems();
         initGame();
         camera = GameResources.get().getCamera();
+
     }
 
     private void initializeRenderers() {
@@ -111,9 +109,9 @@ public class GameScreen extends ScreenAdapter {
     private void initializeManagers() {
         cameraManager = new CameraManager();
         soundManager = new SoundManager();
-        itemManager = new ItemManager();
         agentManager = new AgentManager();
-        dungeonManager = new DungeonManager(itemManager.getItemService(), agentManager.getAgentService());
+        itemManager = new ItemManager(agentManager.getAgentFactory());
+        dungeonManager = new DungeonManager(this.seed, itemManager.getItemService(), agentManager.getAgentService());
         userInterfaceManager = new UserInterfaceManager();
         playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
         levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService(), dungeonManager.getDungeonService());
@@ -149,6 +147,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new FadingTextSystem());
         engine.addSystem(new ScoreRenderer());
         engine.addSystem(new ScoreWidgetSpawner());
+        engine.addSystem(new LootSystem(agentManager.getAgentService()));
     }
 
     private void initGame() {
@@ -157,6 +156,13 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+        if (resources.isRestart()) {
+//            GameResources.get().setRestart(false);
+//            resources.getEngine().removeAllEntities();
+//            GameResources.get().getScreenManager().setCurrentScreen(new GameScreen(100000));
+        }
+
         cameraManager.render(delta);
 
         resources.getBatch().setProjectionMatrix(camera.combined);
@@ -178,4 +184,5 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
+
 }

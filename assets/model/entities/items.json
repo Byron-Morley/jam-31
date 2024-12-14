@@ -15,11 +15,11 @@
     "label": "Stone Floor",
     "sprite": "building/stone-tile-4"
   },
-    "stone-floor-5": {
+  "stone-floor-5": {
     "label": "Stone Floor",
     "sprite": "building/stone-tile-5"
   },
-      "shade": {
+  "shade": {
     "label": "Stone Floor",
     "sprite": "building/shade"
   },
@@ -174,5 +174,121 @@
   "web-two": {
     "label": "Web Type Two",
     "sprite": "scenery/web-two"
+  },
+  "barrel": {
+    "label": "Barrel",
+    "sprite": "scenery/barrel"
+  },
+  "dirt": {
+    "label": "Dirt",
+    "sprite": "scenery/dirt"
+  },
+  "flower": {
+    "label": "Flower",
+    "sprite": "scenery/flower"
+  },
+  "gold": {
+    "label": "Gold",
+    "sprite": "loot/gold",
+    "pickupable": true,
+    "value": 500
+  },
+  "gold-alt": {
+    "label": "Alternative Gold",
+    "sprite": "loot/gold-alt",
+    "pickupable": true,
+    "value": 500
+  },
+  "gold-chest": {
+    "label": "Gold Chest",
+    "sprite": "loot/gold-chest",
+    "pickupable": true,
+    "value": 1000
+  },
+  "swag": {
+    "label": "Swag",
+    "sprite": "loot/swag",
+    "pickupable": true,
+    "value": 100
+  },
+  "gold-dust": {
+    "label": "Gold Dust",
+    "sprite": "loot/gold-dust",
+    "pickupable": true,
+    "value": 100
+  },
+  "armor": {
+    "label": "Armor",
+    "sprite": "loot/armor",
+    "pickupable": true,
+    "value": 100,
+    "armor": true
+  },
+  "boots": {
+    "label": "Armor",
+    "sprite": "loot/boots",
+    "pickupable": true,
+    "value": 25,
+    "armor": true
+  },
+  "helmet": {
+    "label": "Armor",
+    "sprite": "loot/helmet",
+    "pickupable": true,
+    "value": 50,
+    "armor": true
+  },
+  "pot": {
+    "label": "Pot",
+    "sprite": "scenery/pot"
+  },
+  "rock-2": {
+    "label": "Rock",
+    "sprite": "scenery/rock-2"
+  },
+  "rocks": {
+    "label": "Rocks",
+    "sprite": "scenery/rocks"
+  },
+  "pentagram": {
+    "label": "Pentagram",
+    "sprite": "scenery/pentagram",
+    "exit": true
+  },
+  "candle-pillar": {
+    "label": "Candle Pillar",
+    "sprite": "scenery/candle-pillar",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "fire-pit": {
+    "label": "Fire Pit",
+    "sprite": "scenery/fire-pit",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "floor-candles": {
+    "label": "Floor Candles",
+    "sprite": "scenery/floor-candles",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "floor-candles-alt": {
+    "label": "Floor Candles",
+    "sprite": "scenery/floor-candles-alt",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "wall-candles-alt": {
+    "label": "Wall Candles",
+    "sprite": "scenery/wall-candles-alt",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "wall-candles": {
+    "label": "Wall Candles",
+    "sprite": "scenery/wall-candles",
+    "animationModel": "CANDLES",
+    "light": true
   }
 }

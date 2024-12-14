@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.byron.engine.GameResources;
 import com.byron.interfaces.IRenderable;
 import com.byron.screens.GameScreen;
+import  java.util.Random;
 
 public class ScreenManager implements IRenderable {
 
@@ -12,6 +13,7 @@ public class ScreenManager implements IRenderable {
 
     public ScreenManager(GameResources gameResources) {
         this.gameResources = gameResources;
+        gameResources.setScreenManager(this);
     }
 
     public Screen getCurrentScreen() {
@@ -27,7 +29,9 @@ public class ScreenManager implements IRenderable {
 
     public void loadGameScreen() {
         System.out.println("Loading WorldScreen");
-        setCurrentScreen(new GameScreen());
+        Random random = new Random();
+        int seed = random.nextInt(1000000000);
+        setCurrentScreen(new GameScreen(seed));
     }
 
     @Override

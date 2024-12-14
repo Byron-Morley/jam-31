@@ -23,4 +23,12 @@ public class HUDProgressBarComponent implements Component {
     public HUDProgressBarComponent(float xPortion, float yPortion, float wPortion, float hPortion) {
         this(xPortion, yPortion, wPortion, hPortion, new Color(1f, 1f, 1f, 1f));
     }
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
+    }
 }

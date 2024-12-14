@@ -1,5 +1,6 @@
 package com.byron.managers;
 
+import com.byron.factories.AgentFactory;
 import com.byron.factories.ItemFactory;
 import com.byron.interfaces.IItemManager;
 import com.byron.interfaces.IItemService;
@@ -10,8 +11,8 @@ public class ItemManager implements IItemManager {
     ItemFactory itemFactory;
     IItemService itemService;
 
-    public ItemManager() {
-        itemFactory = new ItemFactory();
+    public ItemManager(AgentFactory agentFactory) {
+        itemFactory = new ItemFactory(agentFactory);
         itemService = new ItemService(this);
     }
 

@@ -48,7 +48,7 @@ public class AgentService extends Service implements IAgentService {
 
         // Print all components
         agentEntity.getComponents().forEach(component -> {
-            System.out.println("Component: " + component.getClass().getSimpleName());
+//            System.out.println("Component: " + component.getClass().getSimpleName());
         });
 
         getEngine().addEntity(agentEntity);

@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.byron.managers.ScreenManager;
 
 public class GameResources {
 
+    private ScreenManager screenManager;
     private static GameResources instance;
     private final Engine engine;
     private final SpriteBatch batch;
@@ -16,6 +18,7 @@ public class GameResources {
     private final OrthographicCamera camera;
     private Stage stage;
     private final AssetManager assetManager;
+    private boolean restart = false;
 
     public GameResources(Engine engine, SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.engine = engine;
@@ -27,6 +30,14 @@ public class GameResources {
         if (instance == null) {
             instance = this;
         }
+    }
+
+    public ScreenManager getScreenManager() {
+        return screenManager;
+    }
+
+    public void setScreenManager(ScreenManager screenManager) {
+        this.screenManager = screenManager;
     }
 
     public Engine getEngine() {
@@ -59,5 +70,13 @@ public class GameResources {
 
     public AssetManager getAssetManager() {
         return assetManager;
+    }
+
+    public boolean isRestart() {
+        return restart;
+    }
+
+    public void setRestart(boolean restart) {
+        this.restart = restart;
     }
 }
