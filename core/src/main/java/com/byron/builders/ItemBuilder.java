@@ -64,6 +64,12 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder withLight(Sprite lightSprite, float size, Color color) {
+        lightSprite.setColor(color);
+        entity.add(new LightComponent(lightSprite, size));
+        return this;
+    }
+
     public ItemBuilder withRender(String spriteName, float spriteScale) {
         return withRender(spriteName, spriteScale, new Color(Color.WHITE));
     }

@@ -1,5 +1,7 @@
 package com.byron.factories;
 
+import static com.byron.constants.GeneralConstants.LIGHT_COLOR;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.byron.builders.ItemBuilder;
 import com.byron.components.PositionComponent;
@@ -40,7 +42,7 @@ public class ItemFactory {
         }
 
         if(model.isLight()){
-            itemBuilder.withLight(SpriteFactory.getSprite("circleGlow"), 5f);
+            itemBuilder.withLight(SpriteFactory.getSprite("circleGlow"), 5f, LIGHT_COLOR);
         }
 
         return itemBuilder;
