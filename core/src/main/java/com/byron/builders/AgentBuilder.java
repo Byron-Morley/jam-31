@@ -3,7 +3,14 @@ package com.byron.builders;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.components.*;
+import com.byron.components.AIComponent;
+import com.byron.components.AgentComponent;
+import com.byron.components.PositionComponent;
+import com.byron.components.RenderComponent;
+import com.byron.components.SpeedComponent;
+import com.byron.components.StatusComponent;
+import com.byron.components.TakeDamageComponent;
+import com.byron.components.VelocityComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.components.player.PlayerComponent;
 import com.byron.components.player.WearComponent;
@@ -24,7 +31,6 @@ public class AgentBuilder {
     Entity entity;
 
     public AgentBuilder(Agent agent, String agentId) {
-
         entity = new Entity()
             .add(new AgentComponent(agent.getStats()))
             .add(new StatusComponent());
@@ -76,11 +82,6 @@ public class AgentBuilder {
 
     public AgentBuilder withSpeed(float speed) {
         entity.add(new SpeedComponent(speed));
-        return this;
-    }
-
-    public AgentBuilder withWeapon(Sprite weaponSprite, int damage) {
-        entity.add(new WeaponComponent(weaponSprite, damage));
         return this;
     }
 

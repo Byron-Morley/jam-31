@@ -1,10 +1,12 @@
 package com.byron.systems;
 
+import static com.badlogic.gdx.Input.Keys.E;
 import static com.badlogic.gdx.Input.Keys.NUM_1;
 import static com.badlogic.gdx.Input.Keys.NUM_2;
 import static com.badlogic.gdx.Input.Keys.O;
 import static com.badlogic.gdx.graphics.Color.CLEAR;
 import static com.badlogic.gdx.graphics.Color.RED;
+import static com.byron.constants.Weapon.REGULAR_SWORD;
 import static com.byron.models.status.Direction.UP;
 
 import com.badlogic.ashley.core.ComponentMapper;
@@ -13,14 +15,20 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.DestinationComponent;
 import com.byron.components.StatusComponent;
-import com.byron.components.hud.ColorInterpComponent;
-import com.byron.components.hud.PositionInterpComponent;
+import com.byron.components.WeaponComponent;
 import com.byron.components.hud.ScoreEvent;
 import com.byron.components.hud.TextComponent;
 import com.byron.components.player.KeyboardComponent;
+import com.byron.components.sprite.SpriteComponent;
+import com.byron.components.visuals.ColorInterpComponent;
+import com.byron.components.visuals.PositionInterpComponent;
+import com.byron.components.weapons.DamageComponent;
+import com.byron.components.weapons.WeaponTag;
+import com.byron.factories.SpriteFactory;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
 import com.byron.interfaces.IPlayerInputManager;
@@ -78,6 +86,7 @@ public class PlayerInputSystem extends IteratingSystem {
 
         testScore();
         testDamage(position);
+        testWeapon(player);
     }
 
     // TODO: Remove, this is only for testing the score widget
@@ -92,12 +101,27 @@ public class PlayerInputSystem extends IteratingSystem {
 
     // TODO: Remove, this is only for testing the fading damage numbers
     private void testDamage(Vector2 position) {
-        if (Gdx.input.isKeyJustPressed(O)) {
-            Entity damage = new Entity()
-                .add(new ColorInterpComponent(RED, CLEAR))
-                .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
-                .add(new TextComponent(new BitmapFont(Gdx.files.internal("raw/fonts/pixelFont.fnt")), "123", 0.05f));
-            getEngine().addEntity(damage);
-        }
+        if (!Gdx.input.isKeyJustPressed(O)) return;
+
+        Entity damage = new Entity()
+            .add(new ColorInterpComponent(RED, CLEAR))
+            .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
+            .add(new TextComponent(new BitmapFont(Gdx.files.internal("raw/fonts/pixelFont.fnt")), "123", 0.05f));
+        getEngine().addEntity(damage);
+    }
+
+    // TODO: Remove, this is only for testing giving the player a weapon
+    private void testWeapon(Entity player) {
+        if (!Gdx.input.isKeyJustPressed(E)) return;
+
+        Sprite weaponSprite = SpriteFactory.getSprite(REGULAR_SWORD.name);
+        weaponSprite.setOriginCenter();
+        Entity weapon = new Entity()
+            .add(new WeaponTag())
+            .add(new SpriteComponent(weaponSprite))
+            .add(new DamageComponent(REGULAR_SWORD.damage));
+        getEngine().addEntity(weapon);
+
+        player.add(new WeaponComponent(weapon));
     }
 }

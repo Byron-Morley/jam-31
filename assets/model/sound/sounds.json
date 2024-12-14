@@ -18,5 +18,11 @@
     "path": "sounds/effect.ogg",
     "priority": 3,
     "volume": 0.1
+  },
+  "swoosh": {
+    "id": "swoosh",
+    "path": "sounds/swoosh01.ogg",
+    "priority": 4,
+    "volume": 0.1
   }
 }

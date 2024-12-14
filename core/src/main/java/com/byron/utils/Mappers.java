@@ -1,32 +1,38 @@
 package com.byron.utils;
 
 import com.badlogic.ashley.core.ComponentMapper;
-import com.byron.components.BodyComponent;
 import com.byron.components.AIComponent;
+import com.byron.components.AgentComponent;
+import com.byron.components.BodyComponent;
 import com.byron.components.DestinationComponent;
 import com.byron.components.HUDProgressBarComponent;
 import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
 import com.byron.components.ShapeComponent;
-import com.byron.components.SlashComponent;
 import com.byron.components.SpeedComponent;
 import com.byron.components.StatusComponent;
 import com.byron.components.VelocityComponent;
 import com.byron.components.WeaponComponent;
 import com.byron.components.events.MilestoneEvent;
-import com.byron.components.hud.ColorInterpComponent;
-import com.byron.components.hud.PositionInterpComponent;
 import com.byron.components.hud.ScoreEvent;
 import com.byron.components.hud.TextComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.components.player.PlayerComponent;
 import com.byron.components.player.WearComponent;
 import com.byron.components.sprite.AnimableSpriteComponent;
+import com.byron.components.sprite.SpriteComponent;
 import com.byron.components.sprite.StackableSpriteComponent;
 import com.byron.components.sprite.StackedSpritesComponent;
+import com.byron.components.visuals.ColorInterpComponent;
 import com.byron.components.visuals.LightComponent;
+import com.byron.components.visuals.PositionInterpComponent;
+import com.byron.components.visuals.RotationInterpComponent;
+import com.byron.components.weapons.DamageComponent;
+import com.byron.components.weapons.WeaponTag;
 
 public class Mappers {
+
+    public static final ComponentMapper<AgentComponent> agent = ComponentMapper.getFor(AgentComponent.class);
     public static final ComponentMapper<PositionComponent> position = ComponentMapper.getFor(PositionComponent.class);
     public static final ComponentMapper<RenderComponent> render = ComponentMapper.getFor(RenderComponent.class);
     public static final ComponentMapper<StatusComponent> status = ComponentMapper.getFor(StatusComponent.class);
@@ -43,12 +49,15 @@ public class Mappers {
     public static final ComponentMapper<DestinationComponent> destination = ComponentMapper.getFor(DestinationComponent.class);
     public static final ComponentMapper<SpeedComponent> speed = ComponentMapper.getFor(SpeedComponent.class);
     public static final ComponentMapper<WeaponComponent> weapon = ComponentMapper.getFor(WeaponComponent.class);
-    public static final ComponentMapper<SlashComponent> slash = ComponentMapper.getFor(SlashComponent.class);
     public static final ComponentMapper<AIComponent> ai = ComponentMapper.getFor(AIComponent.class);
     public static final ComponentMapper<HUDProgressBarComponent> progressBar = ComponentMapper.getFor(HUDProgressBarComponent.class);
     public static final ComponentMapper<TextComponent> text = ComponentMapper.getFor(TextComponent.class);
     public static final ComponentMapper<ScoreEvent> scoreEvent = ComponentMapper.getFor(ScoreEvent.class);
     public static final ComponentMapper<ColorInterpComponent> colorInterp = ComponentMapper.getFor(ColorInterpComponent.class);
     public static final ComponentMapper<PositionInterpComponent> positionInterp = ComponentMapper.getFor(PositionInterpComponent.class);
+    public static final ComponentMapper<RotationInterpComponent> rotationInterp = ComponentMapper.getFor(RotationInterpComponent.class);
     public static final ComponentMapper<MilestoneEvent> milestone = ComponentMapper.getFor(MilestoneEvent.class);
+    public static final ComponentMapper<WeaponTag> weaponTag = ComponentMapper.getFor(WeaponTag.class);
+    public static final ComponentMapper<SpriteComponent> sprite = ComponentMapper.getFor(SpriteComponent.class);
+    public static final ComponentMapper<DamageComponent> damage = ComponentMapper.getFor(DamageComponent.class);
 }

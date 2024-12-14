@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.byron.components.WeaponComponent;
 import com.byron.components.events.MilestoneEvent;
 import com.byron.components.player.PlayerComponent;
@@ -46,9 +47,11 @@ public class ScoreMilestoneSystem extends IteratingSystem {
     }
 
     private void randomizeWeapon(WeaponComponent weaponComponent) {
-        Weapon weapon = Random.fromArray(Weapon.TIER_MAP.get(tier));
-        weaponComponent.sprite.set(SpriteFactory.getSprite(weapon.name));
-        weaponComponent.sprite.setOriginCenter();
-        weaponComponent.damage = weapon.damage;
+        Weapon newWeapon = Random.fromArray(Weapon.TIER_MAP.get(tier));
+        Entity weapon = weaponComponent.weapon;
+        Sprite weaponSprite = Mappers.sprite.get(weapon).sprite;
+        weaponSprite.set(SpriteFactory.getSprite(newWeapon.name));
+        weaponSprite.setOriginCenter();
+        Mappers.damage.get(weapon).damage = newWeapon.damage;
     }
 }

@@ -13,8 +13,6 @@ import com.byron.interfaces.IAgentService;
 import com.byron.models.Agent;
 import com.byron.utils.Mappers;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class AgentService extends Service implements IAgentService {
@@ -73,6 +71,4 @@ public class AgentService extends Service implements IAgentService {
     public boolean isPositionFree(int x, int y) {
         return isPositionFree(new GridPoint2(x, y));
     }
-
-
 }

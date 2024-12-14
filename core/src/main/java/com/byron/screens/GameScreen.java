@@ -30,7 +30,6 @@ import com.byron.systems.AISystem;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.HUDRenderSystem;
-import com.byron.systems.MovementSystem;
 import com.byron.systems.PhysicsSystem;
 import com.byron.systems.PlayerInputSystem;
 import com.byron.systems.SmoothMovementSystem;
@@ -133,7 +132,6 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new AISystem(dungeonManager.getDungeonService(), agentManager.getAgentService(), playerInputManager));
         engine.addSystem(new PlayerInputSystem(playerInputManager, dungeonManager.getDungeonService(), agentManager.getAgentService()));
         engine.addSystem(new CameraFocusSystem(cameraManager.getCameraService()));
-        engine.addSystem(new MovementSystem());
         engine.addSystem(new SmoothMovementSystem());
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new ScoreMilestoneSystem());

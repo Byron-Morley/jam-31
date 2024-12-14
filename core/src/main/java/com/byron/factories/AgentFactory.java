@@ -1,10 +1,11 @@
 package com.byron.factories;
 
 
+import static com.byron.constants.GeneralConstants.AGENT_SPEED;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.builders.AgentBuilder;
-import com.byron.components.AgentComponent;
 import com.byron.components.sprite.StackableSpriteComponent;
 import com.byron.models.Agent;
 import com.byron.models.equip.EquipSlot;
@@ -12,8 +13,6 @@ import com.byron.models.sprite.RawAnimationModel;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.byron.constants.GeneralConstants.AGENT_SPEED;
 
 public class AgentFactory {
 
@@ -39,7 +38,6 @@ public class AgentFactory {
             builder
                 .withKeyboardControl()
                 .isPlayer()
-                .withWeapon(SpriteFactory.getSprite("regularSword"), 1)
                 .withLight(SpriteFactory.getSprite("circleGlow"), 7f);
         } else {
             builder.isAI(agent.getStats().getSpeed());
