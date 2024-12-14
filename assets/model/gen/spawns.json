@@ -154,5 +154,80 @@
     "name": "web-two",
     "frequency": "0.017f",
     "type": "wall-top"
+  },
+  {
+    "name": "pot",
+    "frequency": "0.017f",
+    "type": "clutter"
+  },
+  {
+    "name": "rocks",
+    "frequency": "0.017f",
+    "type": "clutter"
+  },
+  {
+    "name": "rock-2",
+    "frequency": "0.017f",
+    "type": "clutter"
+  },
+  {
+    "name": "flower",
+    "frequency": "0.017f",
+    "type": "clutter"
+  },
+  {
+    "name": "dirt",
+    "frequency": "0.017f",
+    "type": "clutter"
+  },
+  {
+    "name": "barrel",
+    "frequency": "0.017f",
+    "type": "clutter"
+  },
+  {
+    "name": "gold",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "gold-alt",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "gold-chest",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "swag",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "gold-dust",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "gold-dust",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+  {
+    "name": "armor",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+    {
+    "name": "helmet",
+    "frequency": "0.017f",
+    "type": "loot"
+  },
+    {
+    "name": "boots",
+    "frequency": "0.017f",
+    "type": "loot"
   }
 ]

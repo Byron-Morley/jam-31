@@ -149,6 +149,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new FadingTextSystem());
         engine.addSystem(new ScoreRenderer());
         engine.addSystem(new ScoreWidgetSpawner());
+        engine.addSystem(new LootSystem(agentManager.getAgentService()));
     }
 
     private void initGame() {

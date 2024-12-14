@@ -30,8 +30,10 @@ public class ItemFactory {
         ItemBuilder itemBuilder = new ItemBuilder(model, id, name)
             .withRender(model.getSprite(), model.getSpriteScale());
 
+        if(model.isPickupable()){
+            itemBuilder.isLoot(model.getValue(), model.isArmor());
+        }
+
         return itemBuilder;
     }
-
-
 }

@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.byron.components.LootComponent;
 import com.byron.components.RenderComponent;
 import com.byron.components.items.ItemComponent;
 import com.byron.factories.SpriteFactory;
@@ -28,6 +29,11 @@ public class ItemBuilder {
             Gdx.app.error("ItemBuilder", spriteName);
             Gdx.app.error("ItemBuilder", "Error: " + e.getMessage());
         }
+        return this;
+    }
+
+    public ItemBuilder isLoot(int value, boolean isArmor) {
+        entity.add(new LootComponent(value, isArmor));
         return this;
     }
 
