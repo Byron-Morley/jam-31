@@ -79,7 +79,7 @@ public class WeaponSystem extends IteratingSystem {
     }
 
     private void setupAnimation(Entity weapon, Vector2 playerPos, Vector2 direction) {
-        Vector2 pos = playerPos.cpy().add(0.25f, 0.25f);
+        Vector2 pos = playerPos.cpy().add(0.25f, 0.2f);
         Vector2 left = direction.cpy().rotateDeg(90f);
         Vector2 right = direction.cpy().rotateDeg(-90f);
         Vector2 startPos = pos.cpy().add(direction).add(left);
