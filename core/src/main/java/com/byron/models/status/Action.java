@@ -21,7 +21,8 @@ public enum Action {
     AIMING("AIMING"),
     PRESHOOTING("PRESHOOTING"),
     SHOOTING("SHOOTING"),
-    FALLING("FALLING");
+    FALLING("FALLING"),
+    ENGAGING("ENGAGING"); // WARNING: gfx missing, null pointer exception; do not use, 'engaging' As in, a monster is engaging the player, adjacent and ready/waiting to attack
 
     private String name;
 

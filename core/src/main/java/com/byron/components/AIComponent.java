@@ -6,7 +6,7 @@ import static com.byron.utils.Config.ENEMY_TURN_RATIO;
 
 public class AIComponent implements Component {
 
-    public enum State {IDLE, ATTACKING, MOVING}
+    public enum State {IDLE, ATTACKING, MOVING} // Byron went a different way, never needed this line and the one below
 
     public State state = State.IDLE;
     public int moveCounter;

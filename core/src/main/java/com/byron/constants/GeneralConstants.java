@@ -7,4 +7,5 @@ package com.byron.constants;
 public class GeneralConstants {
 
     public static final float AGENT_SPEED = 5f;
+    // public static final int AI_ATTACK_DELAY = 3; //the ratio of player turns to AI attack turns // Constant was a duplicate of ENEMY_TURN_RATIOd
 }
