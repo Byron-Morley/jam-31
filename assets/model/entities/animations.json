@@ -303,5 +303,35 @@
         "playMode": "NORMAL"
       }
     }
+  },
+    "CANDLES": {
+    "frameDuration": 0.1,
+    "subAnimations": {
+      "IDLE": {
+        "cells": [
+          {
+            "cell": 1,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 2,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 3,
+            "flipX": false,
+            "flipY": false
+          },
+          {
+            "cell": 4,
+            "flipX": false,
+            "flipY": false
+          }
+        ],
+        "playMode": "LOOP"
+      }
+    }
   }
 }

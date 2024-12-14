@@ -39,6 +39,10 @@ public class ItemFactory {
             itemBuilder.isLoot(model.getValue(), model.isArmor());
         }
 
+        if(model.isLight()){
+            itemBuilder.withLight(SpriteFactory.getSprite("circleGlow"), 5f);
+        }
+
         return itemBuilder;
     }
 }

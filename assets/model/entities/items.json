@@ -254,5 +254,41 @@
     "label": "Pentagram",
     "sprite": "scenery/pentagram",
     "exit": true
+  },
+  "candle-pillar": {
+    "label": "Candle Pillar",
+    "sprite": "scenery/candle-pillar",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "fire-pit": {
+    "label": "Fire Pit",
+    "sprite": "scenery/fire-pit",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "floor-candles": {
+    "label": "Floor Candles",
+    "sprite": "scenery/floor-candles",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "floor-candles-alt": {
+    "label": "Floor Candles",
+    "sprite": "scenery/floor-candles-alt",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "wall-candles-alt": {
+    "label": "Wall Candles",
+    "sprite": "scenery/wall-candles-alt",
+    "animationModel": "CANDLES",
+    "light": true
+  },
+  "wall-candles": {
+    "label": "Wall Candles",
+    "sprite": "scenery/wall-candles",
+    "animationModel": "CANDLES",
+    "light": true
   }
 }

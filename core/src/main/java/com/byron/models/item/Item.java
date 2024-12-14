@@ -8,6 +8,7 @@ public class Item {
     int value = 0;
     boolean isArmor = false;
     boolean isExit = false;
+    boolean light = false;
     String animationModel = "DEFAULT";
 
     public String getLabel() {
@@ -48,5 +49,13 @@ public class Item {
 
     public void setExit(boolean exit) {
         isExit = exit;
+    }
+
+    public boolean isLight() {
+        return light;
+    }
+
+    public void setLight(boolean light) {
+        this.light = light;
     }
 }

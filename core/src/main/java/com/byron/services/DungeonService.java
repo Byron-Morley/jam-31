@@ -34,7 +34,8 @@ public class DungeonService implements IDungeonService {
     private final IAgentService agentService;
     private final Engine engine;
     private final Set<GridPoint2> occupiedPositions = new HashSet<>();
-    private final Set<GridPoint2> wallBottom = new HashSet<>();
+    private final Set<GridPoint2> bottomWalls = new HashSet<>();
+    private final Set<GridPoint2> topWalls = new HashSet<>();
     private GridPoint2 playerSpawnPosition;
     private final float CHANCE_OF_CORNER_PILLARS = 0.2f;
 
@@ -49,6 +50,7 @@ public class DungeonService implements IDungeonService {
         spawnPlayer();
         spawnExit();
         spawnSceneryItems();
+        spawnWallScenery();
         spawnColumnItems();
         spawnSpecialItems();
         spawnLoot();
@@ -56,6 +58,84 @@ public class DungeonService implements IDungeonService {
         //        mapOutRooms(dungeonManager.getRooms());
         //        printBitmap(dungeonManager.getDungeon());
     }
+
+    private void spawnWallScenery() {
+        spawnWallTorches();
+        spawnTopWallScenery();
+        List<Spawn> spawns = dungeonManager.getSpawns();
+
+        // Filter for wall-bottom type items
+        List<Spawn> wallSpawns = spawns.stream()
+                .filter(spawn -> "wall-bottom".equals(spawn.getType()))
+                .collect(Collectors.toList());
+
+        // For each bottom wall position, randomly decide to spawn an item
+        for (GridPoint2 wallPos : bottomWalls) {
+            if (MathUtils.randomBoolean(0.15f) && !occupiedPositions.contains(wallPos)) {
+                if (!wallSpawns.isEmpty()) {
+                    // Get random wall decoration from the filtered list
+                    int randomIndex = MathUtils.random(wallSpawns.size() - 1);
+                    Spawn selectedSpawn = wallSpawns.get(randomIndex);
+
+                    // Spawn the selected item
+                    spawn(selectedSpawn.getName(), wallPos.x, wallPos.y);
+                    occupiedPositions.add(wallPos);
+                }
+            }
+        }
+    }
+
+    private void spawnWallTorches() {
+        List<Spawn> spawns = dungeonManager.getSpawns();
+
+        List<Spawn> torchSpawns = spawns.stream()
+                .filter(spawn -> "wall-torch".equals(spawn.getType()))
+                .collect(Collectors.toList());
+
+        Set<GridPoint2> torchPositions = new HashSet<>();
+        int spaceCounter = 0;
+
+        for (GridPoint2 wallPos : topWalls) {
+            if (spaceCounter % 2 == 0 && !occupiedPositions.contains(wallPos)) {
+                // Check left and right positions
+                GridPoint2 leftPos = new GridPoint2(wallPos.x - 1, wallPos.y);
+                GridPoint2 rightPos = new GridPoint2(wallPos.x + 1, wallPos.y);
+
+                if (!torchPositions.contains(leftPos) && !torchPositions.contains(rightPos)) {
+                    if (!torchSpawns.isEmpty()) {
+                        int randomIndex = MathUtils.random(torchSpawns.size() - 1);
+                        Spawn selectedSpawn = torchSpawns.get(randomIndex);
+
+                        spawn(selectedSpawn.getName(), wallPos.x, wallPos.y);
+                        occupiedPositions.add(wallPos);
+                        torchPositions.add(wallPos);
+                    }
+                }
+            }
+            spaceCounter++;
+        }
+    }
+
+    private void spawnTopWallScenery() {
+        List<Spawn> spawns = dungeonManager.getSpawns();
+
+        List<Spawn> wallSpawns = spawns.stream()
+                .filter(spawn -> "wall-top".equals(spawn.getType()))
+                .collect(Collectors.toList());
+
+        for (GridPoint2 wallPos : topWalls) {
+            if (MathUtils.randomBoolean(0.15f) && !occupiedPositions.contains(wallPos)) {
+                if (!wallSpawns.isEmpty()) {
+                    int randomIndex = MathUtils.random(wallSpawns.size() - 1);
+                    Spawn selectedSpawn = wallSpawns.get(randomIndex);
+
+                    spawn(selectedSpawn.getName(), wallPos.x, wallPos.y);
+                    occupiedPositions.add(wallPos);
+                }
+            }
+        }
+    }
+
 
     private void spawnExit() {
         Array<Room> rooms = dungeonManager.getRooms();
@@ -290,14 +370,22 @@ public class DungeonService implements IDungeonService {
                 spawn("building/wall-right", (float) x, (float) y + 1f);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
+                bottomWalls.add(new GridPoint2(x, y + 1));
+                topWalls.add(new GridPoint2(x, y + 2));
+
+
             } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR
                     || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("building/wall-left", (float) x, (float) y + 1f);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
+                bottomWalls.add(new GridPoint2(x, y + 1));
+                topWalls.add(new GridPoint2(x, y + 2));
             } else {
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
+                bottomWalls.add(new GridPoint2(x, y + 1));
+                topWalls.add(new GridPoint2(x, y + 2));
                 spawn("building/wall", (float) x, (float) y + 1f);
             }
             spawnShade("building/shade", -1, RenderPriority.FOREGROUND, new Vector2(x, y));

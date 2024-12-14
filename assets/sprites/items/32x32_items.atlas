@@ -138,7 +138,7 @@ loot/swag
   index: -1
 
 32x32_items3.png
-size: 1024, 128
+size: 512, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -151,273 +151,483 @@ scenery/barrel
   index: -1
 scenery/bricks
   rotate: false
-  xy: 569, 67
+  xy: 135, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/bricks-large
   rotate: false
-  xy: 99, 35
+  xy: 1, 101
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 scenery/broken-armor
   rotate: false
-  xy: 35, 1
+  xy: 169, 133
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/broken-column
   rotate: false
-  xy: 603, 67
+  xy: 267, 199
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/broken-column-large
   rotate: false
-  xy: 297, 35
+  xy: 67, 101
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/broken-column-moss
   rotate: false
-  xy: 69, 1
+  xy: 35, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/broken-stone
   rotate: false
-  xy: 637, 67
+  xy: 169, 99
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/broken-tile
   rotate: false
-  xy: 103, 1
+  xy: 203, 133
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+scenery/candle-pillar
+  rotate: false
+  xy: 301, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+scenery/candle-pillar
+  rotate: false
+  xy: 69, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+scenery/candle-pillar
+  rotate: false
+  xy: 203, 99
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+scenery/candle-pillar
+  rotate: false
+  xy: 335, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+scenery/candle-pillar
+  rotate: false
+  xy: 369, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
 scenery/coffin
   rotate: false
-  xy: 331, 35
+  xy: 165, 167
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/crystal
   rotate: false
-  xy: 671, 67
+  xy: 403, 199
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/crystal-alt
   rotate: false
-  xy: 137, 1
+  xy: 437, 199
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/crystal-large
   rotate: false
-  xy: 365, 35
+  xy: 67, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/dark-stone-spire
   rotate: false
-  xy: 705, 67
+  xy: 471, 199
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/dark-stone-spire-large
   rotate: false
-  xy: 399, 35
+  xy: 101, 101
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/dirt
   rotate: false
-  xy: 171, 1
+  xy: 135, 33
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+scenery/fire-pit
+  rotate: false
+  xy: 169, 65
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+scenery/fire-pit
+  rotate: false
+  xy: 203, 65
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+scenery/fire-pit
+  rotate: false
+  xy: 267, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+scenery/fire-pit
+  rotate: false
+  xy: 301, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+scenery/fire-pit
+  rotate: false
+  xy: 335, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+scenery/floor-candles
+  rotate: false
+  xy: 203, 31
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+scenery/floor-candles
+  rotate: false
+  xy: 237, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+scenery/floor-candles
+  rotate: false
+  xy: 237, 97
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+scenery/floor-candles
+  rotate: false
+  xy: 271, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+scenery/floor-candles
+  rotate: false
+  xy: 237, 63
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+scenery/floor-candles-alt
+  rotate: false
+  xy: 369, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+scenery/floor-candles-alt
+  rotate: false
+  xy: 403, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+scenery/floor-candles-alt
+  rotate: false
+  xy: 437, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+scenery/floor-candles-alt
+  rotate: false
+  xy: 471, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+scenery/floor-candles-alt
+  rotate: false
+  xy: 169, 31
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
 scenery/flower
   rotate: false
-  xy: 739, 67
+  xy: 271, 97
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/gothic-dragon
   rotate: false
-  xy: 165, 35
+  xy: 99, 167
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 scenery/grave-stone
   rotate: false
-  xy: 1, 35
+  xy: 1, 167
   size: 96, 64
   orig: 96, 64
   offset: 0, 0
   index: -1
 scenery/hole-in-the-wall
   rotate: false
-  xy: 433, 35
+  xy: 199, 167
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/hole-in-the-wall-bottom
   rotate: false
-  xy: 205, 1
+  xy: 305, 131
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/hole-in-the-wall-small
   rotate: false
-  xy: 773, 67
+  xy: 271, 63
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/idol
   rotate: false
-  xy: 467, 35
+  xy: 101, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/idol-alt
   rotate: false
-  xy: 501, 35
+  xy: 135, 101
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/light-stone-spire
   rotate: false
-  xy: 239, 1
+  xy: 305, 97
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/light-stone-spire-large
   rotate: false
-  xy: 535, 35
+  xy: 233, 167
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/mushroom
   rotate: false
-  xy: 807, 67
+  xy: 339, 131
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/mushroom-alt
   rotate: false
-  xy: 273, 1
+  xy: 305, 63
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/paper
   rotate: false
-  xy: 841, 67
+  xy: 339, 97
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/pentagram
   rotate: false
-  xy: 231, 35
+  xy: 1, 35
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 scenery/pot
   rotate: false
-  xy: 307, 1
+  xy: 373, 131
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/rock-2
   rotate: false
-  xy: 875, 67
+  xy: 339, 63
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/rocks
   rotate: false
-  xy: 341, 1
+  xy: 373, 97
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/rubble
   rotate: false
-  xy: 909, 67
+  xy: 407, 131
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/sad-paper
   rotate: false
-  xy: 375, 1
+  xy: 373, 63
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/skeleton
   rotate: false
-  xy: 943, 67
+  xy: 407, 97
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/stone-panel
   rotate: false
-  xy: 409, 1
+  xy: 441, 131
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/stone-plaque
   rotate: false
-  xy: 977, 67
+  xy: 407, 63
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+scenery/wall-candles
+  rotate: false
+  xy: 339, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+scenery/wall-candles
+  rotate: false
+  xy: 373, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+scenery/wall-candles
+  rotate: false
+  xy: 407, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+scenery/wall-candles
+  rotate: false
+  xy: 441, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+scenery/wall-candles
+  rotate: false
+  xy: 475, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+scenery/wall-candles-alt
+  rotate: false
+  xy: 441, 97
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+scenery/wall-candles-alt
+  rotate: false
+  xy: 441, 63
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+scenery/wall-candles-alt
+  rotate: false
+  xy: 237, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+scenery/wall-candles-alt
+  rotate: false
+  xy: 271, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+scenery/wall-candles-alt
+  rotate: false
+  xy: 305, 29
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
 scenery/web-one
   rotate: false
-  xy: 443, 1
+  xy: 475, 97
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/web-two
   rotate: false
-  xy: 477, 1
+  xy: 475, 63
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

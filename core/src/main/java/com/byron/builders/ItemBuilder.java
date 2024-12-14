@@ -13,6 +13,7 @@ import com.byron.components.sprite.AnimableSpriteComponent;
 import com.byron.components.sprite.RefreshSpriteRequirementComponent;
 import com.byron.components.sprite.StackableSpriteComponent;
 import com.byron.components.sprite.StackedSpritesComponent;
+import com.byron.components.visuals.LightComponent;
 import com.byron.factories.SpriteFactory;
 import com.byron.models.item.Item;
 import com.byron.models.sprite.RawAnimationModel;
@@ -55,6 +56,11 @@ public class ItemBuilder {
             .add(new StackedSpritesComponent(rawAnimationModel))
             .add(new RefreshSpriteRequirementComponent())
             .add(new StackableSpriteComponent(SpriteFactory.getItemComplexSprite(spriteName)));
+        return this;
+    }
+
+    public ItemBuilder withLight(Sprite lightSprite, float size) {
+        entity.add(new LightComponent(lightSprite, size));
         return this;
     }
 
