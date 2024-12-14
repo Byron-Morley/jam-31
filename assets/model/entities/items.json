@@ -252,6 +252,7 @@
   },
   "pentagram": {
     "label": "Pentagram",
-    "sprite": "scenery/pentagram"
+    "sprite": "scenery/pentagram",
+    "exit": true
   }
 }

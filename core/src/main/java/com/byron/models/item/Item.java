@@ -7,6 +7,7 @@ public class Item {
     boolean pickupable = false;
     int value = 0;
     boolean isArmor = false;
+    boolean isExit = false;
     String animationModel = "DEFAULT";
 
     public String getLabel() {
@@ -39,5 +40,13 @@ public class Item {
 
     public String getAnimationModel() {
         return animationModel;
+    }
+
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public void setExit(boolean exit) {
+        isExit = exit;
     }
 }

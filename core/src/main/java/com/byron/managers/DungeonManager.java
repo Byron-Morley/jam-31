@@ -26,11 +26,8 @@ public class DungeonManager implements IDungeonManager {
     List<Spawn> spawns;
     Array<Room> rooms;
 
-    public DungeonManager(IItemService itemService, IAgentService agentService) {
+    public DungeonManager(int seed, IItemService itemService, IAgentService agentService) {
         spawns = ModelFactory.getDungeonSpawns();
-
-        Random random = new Random();
-        int seed = random.nextInt(1000000000);
 //        int seed = 22824050;
         System.out.println("seed: "+ seed);
 

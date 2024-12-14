@@ -64,9 +64,13 @@ public class GameScreen extends ScreenAdapter {
 
     private IRenderable gridRenderer;
     private IRenderable lightsRenderer;
+    private int seed;
 
-    public GameScreen() {
+
+    public GameScreen(int seed) {
+
         this.resources = GameResources.get();
+        this.seed = seed;
         initializeLogs();
         initializeStage();
         initializeRenderers();
@@ -75,6 +79,7 @@ public class GameScreen extends ScreenAdapter {
         initializeSystems();
         initGame();
         camera = GameResources.get().getCamera();
+
     }
 
     private void initializeRenderers() {
@@ -106,7 +111,7 @@ public class GameScreen extends ScreenAdapter {
         soundManager = new SoundManager();
         agentManager = new AgentManager();
         itemManager = new ItemManager(agentManager.getAgentFactory());
-        dungeonManager = new DungeonManager(itemManager.getItemService(), agentManager.getAgentService());
+        dungeonManager = new DungeonManager(this.seed, itemManager.getItemService(), agentManager.getAgentService());
         userInterfaceManager = new UserInterfaceManager();
         playerInputManager = new PlayerInputManager(userInterfaceManager.getUiService());
         levelManager = new LevelManager(agentManager.getAgentService(), itemManager.getItemService(), dungeonManager.getDungeonService());
@@ -151,6 +156,13 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+        if (resources.isRestart()) {
+//            GameResources.get().setRestart(false);
+//            resources.getEngine().removeAllEntities();
+//            GameResources.get().getScreenManager().setCurrentScreen(new GameScreen(100000));
+        }
+
         cameraManager.render(delta);
 
         resources.getBatch().setProjectionMatrix(camera.combined);
@@ -172,4 +184,5 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
+
 }
