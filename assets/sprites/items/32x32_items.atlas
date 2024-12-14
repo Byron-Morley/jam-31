@@ -151,7 +151,7 @@ scenery/barrel
   index: -1
 scenery/bricks
   rotate: false
-  xy: 503, 67
+  xy: 569, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -172,14 +172,14 @@ scenery/broken-armor
   index: -1
 scenery/broken-column
   rotate: false
-  xy: 537, 67
+  xy: 603, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/broken-column-large
   rotate: false
-  xy: 231, 35
+  xy: 297, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
@@ -193,7 +193,7 @@ scenery/broken-column-moss
   index: -1
 scenery/broken-stone
   rotate: false
-  xy: 571, 67
+  xy: 637, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -207,14 +207,14 @@ scenery/broken-tile
   index: -1
 scenery/coffin
   rotate: false
-  xy: 265, 35
+  xy: 331, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/crystal
   rotate: false
-  xy: 605, 67
+  xy: 671, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -228,21 +228,21 @@ scenery/crystal-alt
   index: -1
 scenery/crystal-large
   rotate: false
-  xy: 299, 35
+  xy: 365, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/dark-stone-spire
   rotate: false
-  xy: 639, 67
+  xy: 705, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/dark-stone-spire-large
   rotate: false
-  xy: 333, 35
+  xy: 399, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
@@ -256,7 +256,7 @@ scenery/dirt
   index: -1
 scenery/flower
   rotate: false
-  xy: 673, 67
+  xy: 739, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -277,7 +277,7 @@ scenery/grave-stone
   index: -1
 scenery/hole-in-the-wall
   rotate: false
-  xy: 367, 35
+  xy: 433, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
@@ -291,21 +291,21 @@ scenery/hole-in-the-wall-bottom
   index: -1
 scenery/hole-in-the-wall-small
   rotate: false
-  xy: 707, 67
+  xy: 773, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 scenery/idol
   rotate: false
-  xy: 401, 35
+  xy: 467, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/idol-alt
   rotate: false
-  xy: 435, 35
+  xy: 501, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
@@ -319,14 +319,14 @@ scenery/light-stone-spire
   index: -1
 scenery/light-stone-spire-large
   rotate: false
-  xy: 469, 35
+  xy: 535, 35
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 scenery/mushroom
   rotate: false
-  xy: 741, 67
+  xy: 807, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -340,9 +340,16 @@ scenery/mushroom-alt
   index: -1
 scenery/paper
   rotate: false
-  xy: 775, 67
+  xy: 841, 67
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+scenery/pentagram
+  rotate: false
+  xy: 231, 35
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 scenery/pot
@@ -354,7 +361,7 @@ scenery/pot
   index: -1
 scenery/rock-2
   rotate: false
-  xy: 809, 67
+  xy: 875, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -368,7 +375,7 @@ scenery/rocks
   index: -1
 scenery/rubble
   rotate: false
-  xy: 843, 67
+  xy: 909, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -382,7 +389,7 @@ scenery/sad-paper
   index: -1
 scenery/skeleton
   rotate: false
-  xy: 877, 67
+  xy: 943, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -396,7 +403,7 @@ scenery/stone-panel
   index: -1
 scenery/stone-plaque
   rotate: false
-  xy: 911, 67
+  xy: 977, 67
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -410,7 +417,7 @@ scenery/web-one
   index: -1
 scenery/web-two
   rotate: false
-  xy: 945, 67
+  xy: 477, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

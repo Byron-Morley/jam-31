@@ -249,5 +249,9 @@
   "rocks": {
     "label": "Rocks",
     "sprite": "scenery/rocks"
+  },
+  "pentagram": {
+    "label": "Pentagram",
+    "sprite": "scenery/pentagram"
   }
 }

@@ -17,13 +17,6 @@ building/dungeon-wall
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-building/dungeon-wall
-  rotate: false
-  xy: 0, 0
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
   index: 10
 building/dungeon-wall
   rotate: false
@@ -32,6 +25,13 @@ building/dungeon-wall
   orig: 16, 16
   offset: 0, 0
   index: 15
+building/dungeon-wall
+  rotate: false
+  xy: 0, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 5
 building/dungeon-wall
   rotate: false
   xy: 16, 0
