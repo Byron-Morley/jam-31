@@ -59,6 +59,7 @@ public class DungeonService implements IDungeonService {
         occupiedPositions.add(position);
         enemySpawner(playerSpawnPosition);
 //        mapOutRooms(dungeonManager.getRooms());
+        printBitmap(dungeonManager.getDungeon());
     }
 
     private void spawnLoot() {

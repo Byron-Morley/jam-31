@@ -162,20 +162,19 @@ public final class DungeonUtils {
         int height = map[0].length;
 
         for (int x = 1; x < width - 1; x++) {
-            for (int y = 1; y < height - 1; y++) {
-                // Check for horizontal adjacent wall spaces
-                if (map[x][y] == TILE_WALL && map[x + 1][y] == TILE_WALL) {
-                    if (map[x][y - 1] != TILE_WALL && map[x][y + 1] != TILE_WALL &&
-                            map[x + 1][y - 1] != TILE_WALL && map[x + 1][y + 1] != TILE_WALL) {
-                        map[x][y] = TILE_FLOOR;
-                        map[x + 1][y] = TILE_FLOOR;
-                    }
+            for (int y = 1; y < height - 2; y++) {
+                // Check for vertical pattern: floor-wall-wall-floor
+                if (map[x][y] == TILE_FLOOR &&
+                        map[x][y + 1] == TILE_WALL &&
+                        map[x][y + 2] == TILE_WALL &&
+                        map[x][y + 3] == TILE_FLOOR) {
+                    map[x][y + 1] = TILE_FLOOR;
+                    map[x][y + 2] = TILE_FLOOR;
                 }
             }
         }
         return map;
     }
-
 
     private static Array<Room> addRelativeRoomPositions(Array<Room> rooms, int x, int y, int submapSizeX, int submapSizeY) {
         Array<Room> correctedRooms = new Array<>();

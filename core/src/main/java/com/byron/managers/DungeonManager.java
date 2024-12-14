@@ -52,7 +52,6 @@ public class DungeonManager implements IDungeonManager {
 //        dungeon = DungeonUtils.createSimpleDungeon(MAP_WIDTH, MAP_HEIGHT);
         bitmap = new int[MAP_WIDTH * 2][MAP_HEIGHT * 2];
         dungeonService = new DungeonService(this, itemService, agentService);
-
     }
 
     public int[][] getDungeon() {
