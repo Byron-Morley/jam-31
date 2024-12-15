@@ -15,7 +15,6 @@ public class Game extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
     private ScreenManager screenManager;
-    private Music music;
 
     @Override
     public void create() {
@@ -26,8 +25,9 @@ public class Game extends ApplicationAdapter {
         VisUI.load();
         screenManager = new ScreenManager(new GameResources(new Engine(), spriteBatch, shapeRenderer));
         screenManager.loadStartMenu();
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/track_01.ogg"));
-        music.setVolume(0.3f);
+
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/track_01.ogg"));
+        music.setVolume(0.2f);
         music.play();
     }
 
