@@ -34,6 +34,30 @@ public class SoundManager implements ISoundManager, Telegraph {
     private final Map<String, SoundAsset> sounds;
     private final Map<String, Music> musicTracks = new HashMap<>();
     private Music currentMusic;
+    private final String[] randomBGSfx = {"BG_1A_TS",
+        "BG_1B_TS",
+        "BG_1C_TS",
+        "BG_2A_TS",
+        "BG_2B_TS",
+        "BG_2C_LONG_TS",
+        "BG_3A_TS",
+        "BG_3B_TS",
+        "BG_3C_TS",
+        "BG_3D_TS",
+        "BG_3E_TS",
+        "BG_3F_TS",
+        "BG_3G_TS",
+        "BG_4A_LONG_TS",
+        "BG_4B_TS",
+        "BG_4C_TS",
+        "BG_4D_TS",
+        "BG_4E_TS",
+        "BG_4F_TS",
+        "BG_4G_TS",
+        "BG_4H_TS",
+        "BG_4I_TS",
+        "BG_4J_TS",
+        "BG_4K_TS"};
 
     public SoundManager() {
         assetManager = GameResources.get().getAssetManager();
