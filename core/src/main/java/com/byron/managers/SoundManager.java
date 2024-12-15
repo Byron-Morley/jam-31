@@ -34,7 +34,7 @@ public class SoundManager implements ISoundManager, Telegraph {
     private final Map<String, SoundAsset> sounds;
     private final Map<String, Music> musicTracks = new HashMap<>();
     private Music currentMusic;
-    private final String[] randomBGSfx = {"BG_1A_TS",
+    public static final String[] randomBGSfx = {"BG_1A_TS",
         "BG_1B_TS",
         "BG_1C_TS",
         "BG_2A_TS",

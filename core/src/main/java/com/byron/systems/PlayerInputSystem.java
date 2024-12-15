@@ -87,7 +87,7 @@ public class PlayerInputSystem extends IteratingSystem {
                 player.add(new DestinationComponent(target));
             }
             System.out.println("walking message");
-            MessageManager.getInstance().dispatchMessage(PLAY_SOUND, "swoosh");
+            //MessageManager.getInstance().dispatchMessage(PLAY_SOUND, "swoosh");
         }
 
         testScore();

@@ -27,6 +27,7 @@ import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
 import com.byron.systems.AISystem;
+import com.byron.systems.BGSfxSystem;
 import com.byron.systems.CameraFocusSystem;
 import com.byron.systems.CollisionSystem;
 import com.byron.systems.HUDRenderSystem;
@@ -154,6 +155,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new ScoreRenderer());
         engine.addSystem(new ScoreWidgetSpawner());
         engine.addSystem(new LootSystem(agentManager.getAgentService()));
+        engine.addSystem(new BGSfxSystem());
     }
 
     private void initGame() {
