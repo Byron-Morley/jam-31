@@ -1,5 +1,8 @@
 package com.byron.systems.weapons;
 
+import static com.badlogic.gdx.graphics.Color.CLEAR;
+import static com.byron.models.status.Direction.UP;
+import static com.byron.utils.Config.FONT;
 import static com.byron.utils.Messages.PLAY_SOUND;
 
 import com.badlogic.ashley.core.Engine;
@@ -7,15 +10,17 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.components.AgentComponent;
-import com.byron.components.PositionComponent;
-import com.byron.components.StatusComponent;
-import com.byron.components.WeaponComponent;
+import com.byron.components.*;
+import com.byron.components.hud.TextComponent;
 import com.byron.components.player.PlayerComponent;
+import com.byron.components.visuals.ColorInterpComponent;
 import com.byron.components.visuals.PositionInterpComponent;
 import com.byron.components.visuals.RotationInterpComponent;
 import com.byron.engine.GameResources;
@@ -34,6 +39,8 @@ public class WeaponSystem extends IteratingSystem {
     private final IPlayerInputManager playerInputManager;
     private final SpriteBatch spriteBatch;
     IAgentService agentService;
+    BitmapFont bitmapFont;
+    Engine engine;
 
     public WeaponSystem(IAgentService agentService, IPlayerInputManager playerInputManager) {
         super(Family.all(
@@ -45,6 +52,8 @@ public class WeaponSystem extends IteratingSystem {
         this.playerInputManager = playerInputManager;
         this.agentService = agentService;
         spriteBatch = GameResources.get().getBatch();
+        bitmapFont = new BitmapFont(Gdx.files.internal(FONT));
+        this.engine = GameResources.get().getEngine();
     }
 
     @Override
@@ -89,7 +98,7 @@ public class WeaponSystem extends IteratingSystem {
         weapon.add(new RotationInterpComponent(angle, angle - 90f));
     }
 
-    private void applyDamage(Entity wielder, float playerX, float playerY, Vector2 direction) {
+    private void applyDamage(Entity player, float playerX, float playerY, Vector2 direction) {
         if (direction.hasSameDirection(Direction.UP.vector)) {
             for (Entity targetEnemy : enemies) {
                 Vector2 enemyPosition = Mappers.position.get(targetEnemy).position;
@@ -97,9 +106,7 @@ public class WeaponSystem extends IteratingSystem {
                     || (int) enemyPosition.x == (int) playerX - 1
                     || (int) enemyPosition.x == (int) playerX + 1) {
                     if ((int) enemyPosition.y == (int) playerY + 1) {
-                        Stats stats = Mappers.agent.get(wielder).getStats();
-                        stats.setHealth(stats.getHealth() - 50);
-                        if (stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
+                        doAttack(player, targetEnemy, enemyPosition);
                     }
                 }
             }
@@ -111,9 +118,7 @@ public class WeaponSystem extends IteratingSystem {
                     || (int) enemyPosition.x == (int) playerX - 1
                     || (int) enemyPosition.x == (int) playerX + 1) {
                     if ((int) enemyPosition.y == (int) playerY - 1) {
-                        Stats stats = Mappers.agent.get(wielder).getStats();
-                        stats.setHealth(stats.getHealth() - 50);
-                        if (stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
+                        doAttack(player, targetEnemy, enemyPosition);
                     }
                 }
             }
@@ -125,9 +130,7 @@ public class WeaponSystem extends IteratingSystem {
                     || (int) enemyPosition.y == (int) playerY - 1
                     || (int) enemyPosition.y == (int) playerY + 1) {
                     if ((int) enemyPosition.x == (int) playerX - 1) {
-                        Stats stats = Mappers.agent.get(wielder).getStats();
-                        stats.setHealth(stats.getHealth() - 50);
-                        if (stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
+                        doAttack(player, targetEnemy, enemyPosition);
                     }
                 }
             }
@@ -139,12 +142,62 @@ public class WeaponSystem extends IteratingSystem {
                     || (int) enemyPosition.y == (int) playerY - 1
                     || (int) enemyPosition.y == (int) playerY + 1) {
                     if ((int) enemyPosition.x == (int) playerX + 1) {
-                        Stats stats = Mappers.agent.get(wielder).getStats();
-                        stats.setHealth(stats.getHealth() - 50);
-                        if (stats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
+                        doAttack(player, targetEnemy, enemyPosition);
                     }
                 }
             }
         }
+    }
+
+    private void doAttack(Entity player, Entity targetEnemy, Vector2 enemyPosition) {
+        Stats playerStats = Mappers.agent.get(player).getStats();
+        Stats enemyStats = Mappers.agent.get(targetEnemy).getStats();
+
+        targetEnemy.add(new TakeDamageComponent());
+
+        removeFromLifeOrArmor(playerStats.getAttack());
+        showNumbers(enemyPosition, Color.RED, "-" + playerStats.getAttack());
+        enemyStats.setHealth(enemyStats.getHealth() - playerStats.getAttack());
+
+        if (enemyStats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
+    }
+
+    private void removeFromLifeOrArmor(int value) {
+        ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
+
+        Entity LifeEntity = progressBars.get(0);
+        Entity ArmorEntity = progressBars.get(1);
+
+        HUDProgressBarComponent lifeBar = LifeEntity.getComponent(HUDProgressBarComponent.class);
+        HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
+
+        float damageValue = (float) value / 100;
+        float currentArmor = armorBar.getProgress();
+
+        if (currentArmor > 0) {
+            float remainingDamage = damageValue;
+            float newArmorValue = Math.max(0, currentArmor - remainingDamage);
+            armorBar.setProgress(newArmorValue);
+
+            // If there's remaining damage after armor is depleted
+            if (currentArmor < remainingDamage) {
+                float damageToLife = remainingDamage - currentArmor;
+                float newLifeValue = Math.max(0, lifeBar.getProgress() - damageToLife);
+                lifeBar.setProgress(newLifeValue);
+            }
+        } else {
+            // If no armor, damage goes straight to life
+            float newLifeValue = Math.max(0, lifeBar.getProgress() - damageValue);
+            lifeBar.setProgress(newLifeValue);
+        }
+    }
+
+
+    private void showNumbers(Vector2 position, Color color, String text) {
+        Entity damage = new Entity()
+            .add(new ColorInterpComponent(color, CLEAR))
+            .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
+            .add(new TextComponent(bitmapFont, text, 0.05f));
+        getEngine().addEntity(damage);
     }
 }
