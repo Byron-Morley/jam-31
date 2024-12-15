@@ -22,7 +22,7 @@ import static com.badlogic.gdx.graphics.Color.*;
 import static com.byron.models.status.Direction.UP;
 import static com.byron.utils.Config.FONT;
 
-public class LootSystem extends IteratingSystem {
+public class  LootSystem extends IteratingSystem {
 
     IAgentService agentService;
     Engine engine;
@@ -49,14 +49,7 @@ public class LootSystem extends IteratingSystem {
             engine.addEntity(new Entity().add(new ScoreEvent(lootComponent.getValue())));
 
             if (lootComponent.isArmor()) {
-
-                ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
-                Entity ArmorEntity = progressBars.get(1);
-                HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
-
-                float newProgress = Math.min(1, armorBar.getProgress() + (float) lootComponent.getValue() / 100);
-                armorBar.setProgress(newProgress);
-
+                addToArmor(lootComponent.getValue());
                 showNumbers(playerPosition.position, GREEN, "+" + lootComponent.getValue());
             } else {
                 showNumbers(playerPosition.position, GOLD, "" + lootComponent.getValue());
@@ -64,6 +57,15 @@ public class LootSystem extends IteratingSystem {
 
             engine.removeEntity(entity);
         }
+    }
+
+    private void addToArmor(int value) {
+        ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
+        Entity ArmorEntity = progressBars.get(1);
+        HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
+
+        float newProgress = Math.min(1, armorBar.getProgress() + (float) value / 100);
+        armorBar.setProgress(newProgress);
     }
 
     private void showNumbers(Vector2 position, Color color, String text) {

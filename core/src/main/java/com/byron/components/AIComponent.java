@@ -10,14 +10,16 @@ public class AIComponent implements Component {
 
     public State state = State.IDLE;
     public int moveCounter;
+    public final int turnRatio;
 
     public AIComponent(int moveCounter) {
         this.moveCounter = moveCounter;
+        this.turnRatio = moveCounter;
     }
 
     public boolean canMove() {
         if (moveCounter <= 0) {
-            moveCounter = ENEMY_TURN_RATIO;
+            moveCounter = turnRatio;
             return true;
         }
         return false;

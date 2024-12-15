@@ -7,18 +7,19 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 //import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.components.AIComponent;
-import com.byron.components.AgentComponent;
-import com.byron.components.BodyComponent;
+import com.byron.components.*;
 //import com.byron.components.PositionComponent;
-import com.byron.components.DestinationComponent;
-import com.byron.components.PositionComponent;
-import com.byron.components.StatusComponent;
-import com.byron.components.VelocityComponent;
 //import com.byron.components.player.KeyboardComponent;
 //import com.byron.interfaces.ICameraService;
+import com.byron.components.hud.TextComponent;
 import com.byron.components.player.PlayerComponent;
+import com.byron.components.visuals.ColorInterpComponent;
+import com.byron.components.visuals.PositionInterpComponent;
+import com.byron.engine.GameResources;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
 //import com.byron.interfaces.IPlayerInputManager;
@@ -31,8 +32,9 @@ import com.byron.utils.Mappers;
 
 import java.util.Random;
 
-import static com.byron.utils.Config.ENEMY_ATTACK_DISTANCE;
-import static com.byron.utils.Config.PERCENTAGE_CHANCE_ENEMY_MOVES_RANDOM_DIRECTION;
+import static com.badlogic.gdx.graphics.Color.CLEAR;
+import static com.byron.models.status.Direction.UP;
+import static com.byron.utils.Config.*;
 
 public class AISystem extends IteratingSystem {
 
@@ -42,6 +44,8 @@ public class AISystem extends IteratingSystem {
     IDungeonService dungeonService;
     IAgentService agentService;
     Random random;
+    BitmapFont bitmapFont;
+    Engine engine;
 
     public AISystem(IDungeonService dungeonService, IAgentService agentService, IPlayerInputManager playerInputManager) {
         super(Family.all(AIComponent.class).get());
@@ -49,6 +53,8 @@ public class AISystem extends IteratingSystem {
         this.dungeonService = dungeonService;
         this.agentService = agentService;
         random = new Random();
+        bitmapFont = new BitmapFont(Gdx.files.internal(FONT));
+        this.engine = GameResources.get().getEngine();
     }
 
     @Override
@@ -69,7 +75,10 @@ public class AISystem extends IteratingSystem {
 
             aiCanMoveNow = aiComponent.canMove();
             if (aiCanMoveNow) {
-                if (random.nextInt(100) < PERCENTAGE_CHANCE_ENEMY_MOVES_RANDOM_DIRECTION && Mappers.status.get(enemy).getAction() != Action.ENGAGING && aiComponent.state != AIComponent.State.ATTACKING) {
+                if (random.nextInt(100) < PERCENTAGE_CHANCE_ENEMY_MOVES_RANDOM_DIRECTION &&
+                    Mappers.status.get(enemy).getAction() != Action.ENGAGING &&
+                    aiComponent.state != AIComponent.State.ATTACKING
+                ) {
 //                      Move Random Direction
                     // Note from Johnny: don't move if the enemy is already engaged with the player (already added to the condition)
                 } else {
@@ -78,19 +87,73 @@ public class AISystem extends IteratingSystem {
             }
 
             // Attack the player if they're in front if the enemy on their turn
-            if ( aiCanMoveNow &&
+            if (aiCanMoveNow &&
                 (enemyDirection.hasSameDirection(Direction.UP.vector) && (int) enemyPosition.x == (int) playerPosition.x && (int) enemyPosition.y + 1 == (int) playerPosition.y
-                || enemyDirection.hasSameDirection(Direction.DOWN.vector) && (int) enemyPosition.x == (int) playerPosition.x && (int) enemyPosition.y - 1 == (int) playerPosition.y
-                || enemyDirection.hasSameDirection(Direction.LEFT.vector) && (int) enemyPosition.x - 1 == (int) playerPosition.x && (int) enemyPosition.y == (int) playerPosition.y
-                || enemyDirection.hasSameDirection(Direction.RIGHT.vector) && (int) enemyPosition.x + 1 == (int) playerPosition.x && (int) enemyPosition.y == (int) playerPosition.y
-            )) {
+                    || enemyDirection.hasSameDirection(Direction.DOWN.vector) && (int) enemyPosition.x == (int) playerPosition.x && (int) enemyPosition.y - 1 == (int) playerPosition.y
+                    || enemyDirection.hasSameDirection(Direction.LEFT.vector) && (int) enemyPosition.x - 1 == (int) playerPosition.x && (int) enemyPosition.y == (int) playerPosition.y
+                    || enemyDirection.hasSameDirection(Direction.RIGHT.vector) && (int) enemyPosition.x + 1 == (int) playerPosition.x && (int) enemyPosition.y == (int) playerPosition.y
+                )) {
                 aiComponent.state = AIComponent.State.ATTACKING;//Mappers.status.get(enemy).setAction(Action.ENGAGING);
-                AgentComponent agentComponent = player.getComponent(AgentComponent.class);
-                Stats stats = agentComponent.getStats();
-                stats.setHealth(stats.getHealth() - 25);
-                if(stats.getHealth() <= 0) getEngine().removeEntity(player);
+
+                Stats enemyStats = getEntityStats(enemy);
+
+                System.out.println("Attacking");
+                System.out.println("Enemy Stats: " + aiCanMoveNow);
+
+
+                removeFromLifeOrArmor(enemyStats.getAttack());
+                showNumbers(playerPosition, Color.RED, "-" + enemyStats.getAttack());
+                Stats stats = getEntityStats(player);
+                stats.setHealth(stats.getHealth() - enemyStats.getAttack());
+                if (stats.getHealth() <= 0) getEngine().removeEntity(player);
             }
         }
+    }
+
+    private static Stats getEntityStats(Entity player) {
+        AgentComponent agentComponent = player.getComponent(AgentComponent.class);
+        Stats stats = agentComponent.getStats();
+
+        return stats;
+    }
+
+    private void removeFromLifeOrArmor(int value) {
+        ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
+
+        Entity LifeEntity = progressBars.get(0);
+        Entity ArmorEntity = progressBars.get(1);
+
+        HUDProgressBarComponent lifeBar = LifeEntity.getComponent(HUDProgressBarComponent.class);
+        HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
+
+        float damageValue = (float) value / 100;
+        float currentArmor = armorBar.getProgress();
+
+        if (currentArmor > 0) {
+            float remainingDamage = damageValue;
+            float newArmorValue = Math.max(0, currentArmor - remainingDamage);
+            armorBar.setProgress(newArmorValue);
+
+            // If there's remaining damage after armor is depleted
+            if (currentArmor < remainingDamage) {
+                float damageToLife = remainingDamage - currentArmor;
+                float newLifeValue = Math.max(0, lifeBar.getProgress() - damageToLife);
+                lifeBar.setProgress(newLifeValue);
+            }
+        } else {
+            // If no armor, damage goes straight to life
+            float newLifeValue = Math.max(0, lifeBar.getProgress() - damageValue);
+            lifeBar.setProgress(newLifeValue);
+        }
+    }
+
+
+    private void showNumbers(Vector2 position, Color color, String text) {
+        Entity damage = new Entity()
+            .add(new ColorInterpComponent(color, CLEAR))
+            .add(new PositionInterpComponent(position, position.cpy().add(UP.vector)))
+            .add(new TextComponent(bitmapFont, text, 0.05f));
+        getEngine().addEntity(damage);
     }
 
     private void basicFollowMovement(Entity enemy, StatusComponent status, Vector2 playerPosition, Vector2 enemyPosition) {
