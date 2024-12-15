@@ -22,7 +22,7 @@ public class StartMenu extends ScreenAdapter {
 
     private final String START_MESSAGE = "Press any key to start";
     private final String TUTORIAL_MESSAGE = "WASD to move\nSPACE to attack\nR to restart\n" +
-        "Get to the other pentagram\nUpgrade your weapon picking loot\nKeep an eye out for your HP and Armor at the top\n" +
+        "Get to the other pentagram\nGet/Upgrade your weapon by picking loot\nKeep an eye out for your HP and Armor at the top\n" +
         "Made with love by:\nByron\njohnny\nTorey\nGroxar";
 
     private final ScreenManager screenManager;

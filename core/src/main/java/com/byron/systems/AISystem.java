@@ -1,30 +1,36 @@
 package com.byron.systems;
 
+import static com.badlogic.gdx.graphics.Color.CLEAR;
+import static com.byron.models.status.Direction.UP;
+import static com.byron.utils.Config.ENEMY_ATTACK_DISTANCE;
+import static com.byron.utils.Config.FONT;
+import static com.byron.utils.Config.PERCENTAGE_CHANCE_ENEMY_MOVES_RANDOM_DIRECTION;
+
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-//import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.components.*;
-//import com.byron.components.PositionComponent;
-//import com.byron.components.player.KeyboardComponent;
-//import com.byron.interfaces.ICameraService;
+import com.byron.components.AIComponent;
+import com.byron.components.AgentComponent;
+import com.byron.components.DestinationComponent;
+import com.byron.components.HUDProgressBarComponent;
+import com.byron.components.StatusComponent;
+import com.byron.components.TakeDamageComponent;
+import com.byron.components.VelocityComponent;
 import com.byron.components.hud.TextComponent;
-import com.byron.components.player.PlayerComponent;
 import com.byron.components.visuals.ColorInterpComponent;
 import com.byron.components.visuals.PositionInterpComponent;
 import com.byron.engine.GameResources;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
-//import com.byron.interfaces.IPlayerInputManager;
 import com.byron.interfaces.IPlayerInputManager;
-import com.byron.managers.PlayerInputManager;
 import com.byron.models.Stats;
 import com.byron.models.status.Action;
 import com.byron.models.status.Direction;
@@ -32,20 +38,16 @@ import com.byron.utils.Mappers;
 
 import java.util.Random;
 
-import static com.badlogic.gdx.graphics.Color.CLEAR;
-import static com.byron.models.status.Direction.UP;
-import static com.byron.utils.Config.*;
-
 public class AISystem extends IteratingSystem {
 
     private final ComponentMapper<StatusComponent> sm = Mappers.status;
     private final ComponentMapper<VelocityComponent> vm = Mappers.velocity;
-    private IPlayerInputManager playerInputManager;
-    IDungeonService dungeonService;
-    IAgentService agentService;
-    Random random;
-    BitmapFont bitmapFont;
-    Engine engine;
+    private final IPlayerInputManager playerInputManager;
+    private final IDungeonService dungeonService;
+    private final IAgentService agentService;
+    private final Random random;
+    private final BitmapFont bitmapFont;
+    private final Engine engine;
 
     public AISystem(IDungeonService dungeonService, IAgentService agentService, IPlayerInputManager playerInputManager) {
         super(Family.all(AIComponent.class).get());
@@ -59,7 +61,6 @@ public class AISystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity enemy, float deltaTime) {
-
         AIComponent aiComponent = Mappers.ai.get(enemy);
 
         StatusComponent status = sm.get(enemy);
@@ -96,16 +97,12 @@ public class AISystem extends IteratingSystem {
                 )) {
                 aiComponent.state = AIComponent.State.ATTACKING;//Mappers.status.get(enemy).setAction(Action.ENGAGING);
 
-                Stats enemyStats = getEntityStats(enemy);
+                Stats enemyStats = getStats(enemy);
 
                 if (agentComponent.damageTimer <= 0) {
                     player.add(new TakeDamageComponent());
-                    removeFromLifeOrArmor(enemyStats.getAttack());
+                    takeDamage(player, enemyStats.getAttack());
                     showNumbers(playerPosition, Color.RED, "-" + enemyStats.getAttack());
-                    Stats playerStats = getEntityStats(player);
-                    playerStats.setHealth(playerStats.getHealth() - enemyStats.getAttack());
-                    if (playerStats.getHealth() <= 0) getEngine().removeEntity(player);
-
                     agentComponent.damageTimer = 100f;
                 }
             }
@@ -113,14 +110,11 @@ public class AISystem extends IteratingSystem {
         agentComponent.damageTimer -= deltaTime;
     }
 
-    private static Stats getEntityStats(Entity entity) {
-        AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
-        Stats stats = agentComponent.getStats();
-
-        return stats;
+    private static Stats getStats(Entity entity) {
+        return Mappers.agent.get(entity).getStats();
     }
 
-    private void removeFromLifeOrArmor(int value) {
+    private void takeDamage(Entity player, int damage) {
         ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
 
         Entity LifeEntity = progressBars.get(0);
@@ -129,7 +123,7 @@ public class AISystem extends IteratingSystem {
         HUDProgressBarComponent lifeBar = LifeEntity.getComponent(HUDProgressBarComponent.class);
         HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
 
-        float damageValue = (float) value / 100;
+        float damageValue = (float) damage / 100;
         float currentArmor = armorBar.getProgress();
 
         if (currentArmor > 0) {
@@ -148,6 +142,9 @@ public class AISystem extends IteratingSystem {
             float newLifeValue = Math.max(0, lifeBar.getProgress() - damageValue);
             lifeBar.setProgress(newLifeValue);
         }
+        Stats playerStats = getStats(player);
+        playerStats.setHealth((int) MathUtils.map(0f, 1f, 0, 100, lifeBar.progress));
+        if (lifeBar.progress <= 0) getEngine().removeEntity(player);
     }
 
 

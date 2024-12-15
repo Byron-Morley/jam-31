@@ -71,7 +71,6 @@ public class GameScreen extends ScreenAdapter {
     private UserInterfaceManager userInterfaceManager;
 
     private IRenderable gridRenderer;
-    private IRenderable lightsRenderer;
     private int seed;
 
     public GameScreen(int seed) {
@@ -191,5 +190,4 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
-
 }

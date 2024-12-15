@@ -19,7 +19,6 @@ public class TakeDamageSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float v) {
-
         TakeDamageComponent takeDamageComponent = entity.getComponent(TakeDamageComponent.class);
         WearComponent wearComponent = entity.getComponent(WearComponent.class);
 
