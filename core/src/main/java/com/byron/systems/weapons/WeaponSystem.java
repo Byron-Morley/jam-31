@@ -155,7 +155,6 @@ public class WeaponSystem extends IteratingSystem {
 
     private void doAttack(Entity player, Entity targetEnemy, Vector2 enemyPosition) {
         Stats playerStats = Mappers.agent.get(player).getStats();
-        Stats enemyStats = Mappers.agent.get(targetEnemy).getStats();
 
         targetEnemy.add(new TakeDamageComponent());
 
@@ -163,9 +162,11 @@ public class WeaponSystem extends IteratingSystem {
         int damage = playerStats.getAttack() * multiplier;
 
         showNumbers(enemyPosition, Color.RED, "-" + damage);
-        enemyStats.setHealth(enemyStats.getHealth() - damage);
 
-        if (enemyStats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
+        int enemyHealth = Mappers.health.get(targetEnemy).health;
+        Mappers.health.get(targetEnemy).health = enemyHealth - damage;
+
+        if (enemyHealth <= 0) getEngine().removeEntity(targetEnemy);
     }
 
     private void showNumbers(Vector2 position, Color color, String text) {

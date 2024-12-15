@@ -38,8 +38,4 @@ public class Stats {
     public int getMaxArmor() {
         return maxArmor;
     }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
 }

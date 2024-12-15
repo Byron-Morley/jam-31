@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.AIComponent;
 import com.byron.components.AgentComponent;
+import com.byron.components.HealthComponent;
 import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
 import com.byron.components.SpeedComponent;
 import com.byron.components.StatusComponent;
-import com.byron.components.TakeDamageComponent;
 import com.byron.components.VelocityComponent;
 import com.byron.components.player.KeyboardComponent;
 import com.byron.components.player.PlayerComponent;
@@ -43,6 +43,11 @@ public class AgentBuilder {
 
     public AgentBuilder isAI(int movementSpeed) {
         entity.add(new AIComponent(movementSpeed));
+        return this;
+    }
+
+    public AgentBuilder withHealth(int health) {
+        entity.add(new HealthComponent(health));
         return this;
     }
 

@@ -22,7 +22,6 @@ public class AgentFactory {
     public AgentFactory() {
         this.agents = ModelFactory.getAgentsModel();
         this.animationsFactory = new AnimationsFactory();
-
     }
 
     public AgentBuilder create(String agentId) {
@@ -30,6 +29,7 @@ public class AgentFactory {
         RawAnimationModel rawAnimationModel = animationsFactory.get(agent.getAnimationModel());
         Map<EquipSlot, Entity> equipment = buildEquipment(agent.getBody());
         AgentBuilder builder = new AgentBuilder(agent, agentId)
+            .withHealth(agent.getStats().getHealth())
             .withVelocity(new Vector2(agent.getVelocityX(), agent.getVelocityY()))
             .withAnimations(rawAnimationModel)
             .withEquipment(equipment, agent.getSkin())

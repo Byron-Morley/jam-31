@@ -15,7 +15,6 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.byron.components.AIComponent;
 import com.byron.components.AgentComponent;
@@ -142,8 +141,7 @@ public class AISystem extends IteratingSystem {
             float newLifeValue = Math.max(0, lifeBar.getProgress() - damageValue);
             lifeBar.setProgress(newLifeValue);
         }
-        Stats playerStats = getStats(player);
-        playerStats.setHealth((int) MathUtils.map(0f, 1f, 0, 100, lifeBar.progress));
+
         if (lifeBar.progress <= 0) getEngine().removeEntity(player);
     }
 
