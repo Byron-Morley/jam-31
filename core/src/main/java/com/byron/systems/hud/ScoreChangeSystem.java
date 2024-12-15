@@ -75,6 +75,7 @@ public class ScoreChangeSystem extends IteratingSystem {
                 player.add(new WeaponComponent(weapon));
             }
             getEngine().addEntity(new Entity().add(new MilestoneEvent(MINOR)));
+            targetMilestone = (score / 1000) * 1000 + 1000;
         }
     }
 }
