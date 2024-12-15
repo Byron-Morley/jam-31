@@ -25,10 +25,6 @@ public class Game extends ApplicationAdapter {
         VisUI.load();
         screenManager = new ScreenManager(new GameResources(new Engine(), spriteBatch, shapeRenderer));
         screenManager.loadStartMenu();
-
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/track_01.ogg"));
-        music.setVolume(0.2f);
-        music.play();
     }
 
     @Override
