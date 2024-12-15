@@ -281,21 +281,21 @@
     "priority": 4,
     "volume": 0.1
   },
-  "swoosh01": {
-    "id": "swoosh01",
-    "path": "sounds/swoosh01.oggvorbis.ogg",
+  "swoosh": {
+    "id": "swoosh",
+    "path": "sounds/swoosh01.ogg",
     "priority": 4,
     "volume": 0.1
   },
   "track_01": {
     "id": "track_01",
-    "path": "sounds/track_01.oggvorbis.ogg",
+    "path": "sounds/track_01.ogg",
     "priority": 4,
     "volume": 0.1
   },
   "track_02": {
     "id": "track_02",
-    "path": "sounds/track_02.oggvorbis.ogg",
+    "path": "sounds/track_02.ogg",
     "priority": 4,
     "volume": 0.1
   }
