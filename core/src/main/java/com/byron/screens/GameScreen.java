@@ -158,20 +158,20 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) {
 
         if (resources.isRestart()) {
-//            GameResources.get().setRestart(false);
-//            resources.getEngine().removeAllEntities();
-//            GameResources.get().getScreenManager().setCurrentScreen(new GameScreen(100000));
-        }
+            GameResources.get().setRestart(false);
+            resources.getEngine().removeAllEntities();
+            GameResources.get().getScreenManager().setCurrentScreen(new GameScreen(seed));
+        } else {
+            cameraManager.render(delta);
 
-        cameraManager.render(delta);
-
-        resources.getBatch().setProjectionMatrix(camera.combined);
-        resources.getBatch().begin();
-        resources.getEngine().update(delta);
-        resources.getBatch().end();
+            resources.getBatch().setProjectionMatrix(camera.combined);
+            resources.getBatch().begin();
+            resources.getEngine().update(delta);
+            resources.getBatch().end();
 
 //        gridRenderer.render(delta);
-        userInterfaceManager.render(delta);
+            userInterfaceManager.render(delta);
+        }
     }
 
     @Override
