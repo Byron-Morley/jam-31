@@ -4,7 +4,8 @@
     "path": "sounds/track_01.ogg",
     "priority": 1,
     "volume": 0.1,
-    "music": true
+    "music": true,
+    "type": "random"
   },
   "track_02": {
     "id": "track_02",
@@ -12,12 +13,6 @@
     "priority": 1,
     "volume": 0.1,
     "music": true
-  },
-  "explosion": {
-    "id": "explosion",
-    "path": "sounds/effect.ogg",
-    "priority": 3,
-    "volume": 0.1
   },
   "swoosh": {
     "id": "swoosh",

@@ -6,6 +6,15 @@ public class SoundAsset {
     int priority;
     float volume;
     boolean isMusic = false;
+    String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public SoundAsset() {
     }

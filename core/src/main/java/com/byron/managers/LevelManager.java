@@ -25,7 +25,7 @@ public class LevelManager {
     public void init() {
         System.out.println("LevelManager: init()");
 
-//        MessageManager.getInstance().dispatchMessage(PLAY_MUSIC, "track_01");
+//        MessageManager.getInstance().dispatchMessage(PLAY_MUSIC, "track_02");
 //        MessageManager.getInstance().dispatchMessage(PLAY_SOUND, "explosion");
 
     }
