@@ -40,8 +40,7 @@ public class  LootSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float delta) {
         Entity player = agentService.getPlayer();
-        LootComponent lootComponent = entity.getComponent(LootComponent.class);
-
+        LootComponent lootComponent = Mappers.loot.get(entity);
         PositionComponent playerPosition = Mappers.position.get(player);
         PositionComponent lootPosition = Mappers.position.get(entity);
 
@@ -52,7 +51,7 @@ public class  LootSystem extends IteratingSystem {
                 addToArmor(lootComponent.getValue());
                 showNumbers(playerPosition.position, GREEN, "+" + lootComponent.getValue());
             } else {
-                showNumbers(playerPosition.position, GOLD, "" + lootComponent.getValue());
+                showNumbers(playerPosition.position, GOLD, String.valueOf(lootComponent.getValue()));
             }
 
             engine.removeEntity(entity);

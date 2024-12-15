@@ -86,14 +86,6 @@ public class PlayerInputSystem extends IteratingSystem {
         testScore();
         testDamage(position);
         testWeapon(player);
-        testRestart();
-    }
-
-    // TODO: Remove, this is only for testing the restart
-    private void testRestart() {
-        if (Gdx.input.isKeyJustPressed(R)) {
-            GameResources.get().setRestart(true);
-        }
     }
 
     // TODO: Remove, this is only for testing the score widget

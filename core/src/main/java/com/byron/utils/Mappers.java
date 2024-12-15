@@ -6,6 +6,7 @@ import com.byron.components.AgentComponent;
 import com.byron.components.BodyComponent;
 import com.byron.components.DestinationComponent;
 import com.byron.components.HUDProgressBarComponent;
+import com.byron.components.LootComponent;
 import com.byron.components.PositionComponent;
 import com.byron.components.RenderComponent;
 import com.byron.components.ShapeComponent;
@@ -60,4 +61,5 @@ public class Mappers {
     public static final ComponentMapper<WeaponTag> weaponTag = ComponentMapper.getFor(WeaponTag.class);
     public static final ComponentMapper<SpriteComponent> sprite = ComponentMapper.getFor(SpriteComponent.class);
     public static final ComponentMapper<DamageComponent> damage = ComponentMapper.getFor(DamageComponent.class);
+    public static final ComponentMapper<LootComponent> loot = ComponentMapper.getFor(LootComponent.class);
 }

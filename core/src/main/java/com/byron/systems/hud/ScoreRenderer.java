@@ -1,8 +1,11 @@
 package com.byron.systems.hud;
 
+import static com.badlogic.gdx.Input.Keys.R;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -40,5 +43,14 @@ public class ScoreRenderer extends IteratingSystem {
         float fontH = glyphLayout.height;
 
         font.draw(spriteBatch, text, camX - fontW / 2f, camY - camH / 2f + fontH + camH / 25f);
+
+        testRestart();
+    }
+
+    // TODO: Remove, this is only for testing the restart
+    private void testRestart() {
+        if (Gdx.input.isKeyJustPressed(R)) {
+            GameResources.get().setRestart(true);
+        }
     }
 }
