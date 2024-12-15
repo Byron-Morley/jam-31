@@ -17,7 +17,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.byron.components.*;
+import com.byron.components.AgentComponent;
+import com.byron.components.PositionComponent;
+import com.byron.components.StatusComponent;
+import com.byron.components.TakeDamageComponent;
+import com.byron.components.WeaponComponent;
 import com.byron.components.hud.TextComponent;
 import com.byron.components.player.PlayerComponent;
 import com.byron.components.visuals.ColorInterpComponent;
@@ -155,43 +159,14 @@ public class WeaponSystem extends IteratingSystem {
 
         targetEnemy.add(new TakeDamageComponent());
 
-        removeFromLifeOrArmor(playerStats.getAttack());
-        showNumbers(enemyPosition, Color.RED, "-" + playerStats.getAttack());
-        enemyStats.setHealth(enemyStats.getHealth() - playerStats.getAttack());
+        int multiplier = Mappers.damage.get(Mappers.weapon.get(player).weapon).damage;
+        int damage = playerStats.getAttack() * multiplier;
+
+        showNumbers(enemyPosition, Color.RED, "-" + damage);
+        enemyStats.setHealth(enemyStats.getHealth() - damage);
 
         if (enemyStats.getHealth() <= 0) getEngine().removeEntity(targetEnemy);
     }
-
-    private void removeFromLifeOrArmor(int value) {
-        ImmutableArray<Entity> progressBars = engine.getEntitiesFor(Family.all(HUDProgressBarComponent.class).get());
-
-        Entity LifeEntity = progressBars.get(0);
-        Entity ArmorEntity = progressBars.get(1);
-
-        HUDProgressBarComponent lifeBar = LifeEntity.getComponent(HUDProgressBarComponent.class);
-        HUDProgressBarComponent armorBar = ArmorEntity.getComponent(HUDProgressBarComponent.class);
-
-        float damageValue = (float) value / 100;
-        float currentArmor = armorBar.getProgress();
-
-        if (currentArmor > 0) {
-            float remainingDamage = damageValue;
-            float newArmorValue = Math.max(0, currentArmor - remainingDamage);
-            armorBar.setProgress(newArmorValue);
-
-            // If there's remaining damage after armor is depleted
-            if (currentArmor < remainingDamage) {
-                float damageToLife = remainingDamage - currentArmor;
-                float newLifeValue = Math.max(0, lifeBar.getProgress() - damageToLife);
-                lifeBar.setProgress(newLifeValue);
-            }
-        } else {
-            // If no armor, damage goes straight to life
-            float newLifeValue = Math.max(0, lifeBar.getProgress() - damageValue);
-            lifeBar.setProgress(newLifeValue);
-        }
-    }
-
 
     private void showNumbers(Vector2 position, Color color, String text) {
         Entity damage = new Entity()

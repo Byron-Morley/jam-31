@@ -1,5 +1,9 @@
 package com.byron.services;
 
+import static com.byron.utils.Config.ENEMY_ROOM_SPAWN_DENSITY;
+import static com.byron.utils.Config.MAP_HEIGHT;
+import static com.byron.utils.Config.MAP_WIDTH;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,10 +25,12 @@ import com.byron.renderers.strategy.RenderPriority;
 import com.byron.utils.dungeon.DungeonUtils;
 import com.byron.utils.dungeon.Room;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.byron.utils.Config.*;
 
 
 public class DungeonService implements IDungeonService {
@@ -66,8 +72,8 @@ public class DungeonService implements IDungeonService {
 
         // Filter for wall-bottom type items
         List<Spawn> wallSpawns = spawns.stream()
-                .filter(spawn -> "wall-bottom".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "wall-bottom".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         // For each bottom wall position, randomly decide to spawn an item
         for (GridPoint2 wallPos : bottomWalls) {
@@ -89,8 +95,8 @@ public class DungeonService implements IDungeonService {
         List<Spawn> spawns = dungeonManager.getSpawns();
 
         List<Spawn> torchSpawns = spawns.stream()
-                .filter(spawn -> "wall-torch".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "wall-torch".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         Set<GridPoint2> torchPositions = new HashSet<>();
         int spaceCounter = 0;
@@ -120,8 +126,8 @@ public class DungeonService implements IDungeonService {
         List<Spawn> spawns = dungeonManager.getSpawns();
 
         List<Spawn> wallSpawns = spawns.stream()
-                .filter(spawn -> "wall-top".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "wall-top".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         for (GridPoint2 wallPos : topWalls) {
             if (MathUtils.randomBoolean(0.15f) && !occupiedPositions.contains(wallPos)) {
@@ -135,7 +141,6 @@ public class DungeonService implements IDungeonService {
             }
         }
     }
-
 
     private void spawnExit() {
         Array<Room> rooms = dungeonManager.getRooms();
@@ -162,14 +167,13 @@ public class DungeonService implements IDungeonService {
         occupiedPositions.add(new GridPoint2(centerX + 1, centerY + 1));
     }
 
-
     private void spawnLoot() {
         List<Spawn> spawns = dungeonManager.getSpawns();
         Array<Room> rooms = dungeonManager.getRooms();
 
         List<Spawn> lootSpawns = spawns.stream()
-                .filter(spawn -> "loot".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "loot".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         // First ensure each room has at least 1 loot item
         for (Room room : rooms) {
@@ -251,8 +255,8 @@ public class DungeonService implements IDungeonService {
         Array<Room> rooms = dungeonManager.getRooms();
 
         List<Agent> enemyAgents = agents.values().stream()
-                .filter(agent -> "enemy".equals(agent.getFactionId()))
-                .collect(Collectors.toList());
+            .filter(agent -> "enemy".equals(agent.getFactionId()))
+            .collect(Collectors.toList());
 
         for (Room room : rooms) {
             int roomArea = room.getWidth() * room.getHeight();
@@ -269,7 +273,7 @@ public class DungeonService implements IDungeonService {
                     GridPoint2 position = new GridPoint2(randomX, randomY);
 
                     int distance = Math.abs(position.x - playerSpawnPosition.x) +
-                            Math.abs(position.y - playerSpawnPosition.y);
+                        Math.abs(position.y - playerSpawnPosition.y);
 
                     if (!occupiedPositions.contains(position) && !enemyAgents.isEmpty() && distance >= 2) {
                         Agent selectedEnemy = enemyAgents.get(MathUtils.random(enemyAgents.size() - 1));
@@ -307,8 +311,8 @@ public class DungeonService implements IDungeonService {
         Array<Room> rooms = dungeonManager.getRooms();
 
         List<Spawn> clutterSpawns = spawns.stream()
-                .filter(spawn -> "clutter".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "clutter".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         for (Room room : rooms) {
             // Calculate room area and divide by 10 to get number of items
@@ -366,7 +370,7 @@ public class DungeonService implements IDungeonService {
     private void addWalls(int[][] map, int y, int x) {
         if (y < MAP_HEIGHT - 1 && map[x][y + 1] == DungeonUtils.TILE_WALL) {
             if (x < MAP_WIDTH - 1 && map[x + 1][y] != DungeonUtils.TILE_FLOOR
-                    || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+                || map[x + 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("building/wall-right", (float) x, (float) y + 1f);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
@@ -375,7 +379,7 @@ public class DungeonService implements IDungeonService {
 
 
             } else if (y > 0 && x > 0 && map[x - 1][y] != DungeonUtils.TILE_FLOOR
-                    || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
+                || map[x - 1][y + 1] == DungeonUtils.TILE_FLOOR) {
                 spawn("building/wall-left", (float) x, (float) y + 1f);
                 addToBitmap(x, y + 1);
                 addToBitmap(x, y + 2);
@@ -407,16 +411,16 @@ public class DungeonService implements IDungeonService {
 
         // Filter for column type items
         List<Spawn> columnSpawns = spawns.stream()
-                .filter(spawn -> "column".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "column".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         for (Room room : rooms) {
             // Get corner positions for this room
             List<GridPoint2> corners = Arrays.asList(
-                    new GridPoint2(room.getX(), room.getY()),                             // bottom-left
-                    new GridPoint2(room.getX() + room.getWidth() - 1, room.getY()),      // bottom-right
-                    new GridPoint2(room.getX(), room.getY() + room.getHeight() - 1),     // top-left
-                    new GridPoint2(room.getX() + room.getWidth() - 1, room.getY() + room.getHeight() - 1)  // top-right
+                new GridPoint2(room.getX(), room.getY()),                             // bottom-left
+                new GridPoint2(room.getX() + room.getWidth() - 1, room.getY()),      // bottom-right
+                new GridPoint2(room.getX(), room.getY() + room.getHeight() - 1),     // top-left
+                new GridPoint2(room.getX() + room.getWidth() - 1, room.getY() + room.getHeight() - 1)  // top-right
             );
 
             // For each corner, 50% chance to spawn
@@ -440,8 +444,8 @@ public class DungeonService implements IDungeonService {
 
         // Filter for special type items
         List<Spawn> specialSpawns = spawns.stream()
-                .filter(spawn -> "special".equals(spawn.getType()))
-                .collect(Collectors.toList());
+            .filter(spawn -> "special".equals(spawn.getType()))
+            .collect(Collectors.toList());
 
         // Get a random room to place the special item
         if (!rooms.isEmpty() && !specialSpawns.isEmpty()) {
@@ -600,8 +604,8 @@ public class DungeonService implements IDungeonService {
 
     private void spawn(String item, int x, int y) {
         itemService.spawnItem(
-                itemService.getItem(item).build(),
-                new GridPoint2(x, y)
+            itemService.getItem(item).build(),
+            new GridPoint2(x, y)
         );
     }
 

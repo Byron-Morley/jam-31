@@ -13,11 +13,12 @@ import com.byron.utils.Mappers;
 import java.util.Map;
 
 public class ItemFactory {
-    Map<String, Item> models;
+
+    private final Map<String, Item> models;
     ComponentMapper<PositionComponent> pm = Mappers.position;
     ComponentMapper<RenderComponent> rm = Mappers.render;
-    int itemCount = 0;
-    AnimationsFactory animationsFactory;
+    private int itemCount = 0;
+    private final AnimationsFactory animationsFactory;
 
     public ItemFactory(AgentFactory agentFactory) {
         this.animationsFactory = agentFactory.getAnimationsFactory();
@@ -37,11 +38,15 @@ public class ItemFactory {
         ItemBuilder itemBuilder = new ItemBuilder(model, id, name)
             .withAnimations(rawAnimationModel, model.getSprite());
 
+        if (model.isExit()) {
+            itemBuilder.withExit();
+        }
+
         if (model.isPickupable()) {
             itemBuilder.isLoot(model.getValue(), model.isArmor());
         }
 
-        if(model.isLight()){
+        if (model.isLight()) {
             itemBuilder.withLight(SpriteFactory.getSprite("circleGlow"), 5f, LIGHT_COLOR);
         }
 

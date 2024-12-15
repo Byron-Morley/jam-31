@@ -18,6 +18,7 @@ import com.byron.components.hud.TextComponent;
 import com.byron.components.sprite.SpriteComponent;
 import com.byron.components.weapons.DamageComponent;
 import com.byron.components.weapons.WeaponTag;
+import com.byron.engine.GameResources;
 import com.byron.factories.SpriteFactory;
 import com.byron.interfaces.IAgentService;
 import com.byron.utils.Mappers;
@@ -26,16 +27,13 @@ public class ScoreChangeSystem extends IteratingSystem {
 
     private ImmutableArray<Entity> scoreWidgets;
     IAgentService agentService;
-    private int level;
-    private int score;
-    private int pointsToNextLevel;
+    private int targetMilestone;
 
     public ScoreChangeSystem(IAgentService agentService) {
         super(Family.all(ScoreEvent.class).get());
         this.agentService = agentService;
-        level = 0;
-        score = 0;
-        pointsToNextLevel = 1000;
+        int score = GameResources.get().savedScore;
+        targetMilestone = (score / 1000) * 1000 + 1000;
     }
 
     @Override
@@ -54,29 +52,30 @@ public class ScoreChangeSystem extends IteratingSystem {
         int scoreChange = Mappers.scoreEvent.get(entity).scoreChange;
         TextComponent scoreText = Mappers.text.get(scoreWidgets.first());
         int score = Math.max(Integer.parseInt(scoreText.text) + scoreChange, 0);
-        this.score = score;
+        GameResources.get().savedScore = score;
         scoreText.text = String.valueOf(score);
         getEngine().removeEntity(entity);
         return score;
     }
 
     private void checkMilestones(int score) {
-        if (score % 10000 == 0) {
+        if (score >= 10000) {
             getEngine().addEntity(new Entity().add(new MilestoneEvent(MAJOR)));
-        } else if (score >= pointsToNextLevel) {
-            level++;
-            pointsToNextLevel = 1000;
-            getEngine().addEntity(new Entity().add(new MilestoneEvent(MINOR)));
-            Sprite weaponSprite = SpriteFactory.getSprite(REGULAR_SWORD.name);
-            weaponSprite.setOriginCenter();
-            Entity weapon = new Entity()
-                .add(new WeaponTag())
-                .add(new SpriteComponent(weaponSprite))
-                .add(new DamageComponent(REGULAR_SWORD.damage));
-            getEngine().addEntity(weapon);
+        } else if (score >= targetMilestone) {
+            if (targetMilestone == 1000) {
+                Sprite weaponSprite = SpriteFactory.getSprite(REGULAR_SWORD.name);
+                weaponSprite.setOriginCenter();
+                Entity weapon = new Entity()
+                    .add(new WeaponTag())
+                    .add(new SpriteComponent(weaponSprite))
+                    .add(new DamageComponent(REGULAR_SWORD.damage));
+                getEngine().addEntity(weapon);
 
-            Entity player = agentService.getPlayer();
-            player.add(new WeaponComponent(weapon));
+                Entity player = agentService.getPlayer();
+                player.add(new WeaponComponent(weapon));
+            }
+            getEngine().addEntity(new Entity().add(new MilestoneEvent(MINOR)));
+            targetMilestone = (score / 1000) * 1000 + 1000;
         }
     }
 }

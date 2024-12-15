@@ -62,7 +62,7 @@
     },
     "stats": {
       "maxHealth": 200,
-      "health": 100,
+      "health": 200,
       "speed": 5,
       "attack": 60,
       "armor": 0,
@@ -79,7 +79,7 @@
     },
     "stats": {
       "maxHealth": 100,
-      "health": 100,
+      "health": 150,
       "speed": 4,
       "attack": 40,
       "armor": 0,

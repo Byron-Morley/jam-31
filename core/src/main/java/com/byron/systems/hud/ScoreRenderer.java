@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.byron.components.hud.ScoreWidgetComponent;
 import com.byron.components.hud.TextComponent;
 import com.byron.engine.GameResources;
@@ -50,6 +51,8 @@ public class ScoreRenderer extends IteratingSystem {
     // TODO: Remove, this is only for testing the restart
     private void testRestart() {
         if (Gdx.input.isKeyJustPressed(R)) {
+            GameResources.get().savedScore = 0;
+            GameResources.get().sameSeed = MathUtils.randomBoolean();
             GameResources.get().setRestart(true);
         }
     }

@@ -1,5 +1,6 @@
 package com.byron.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.byron.engine.GameResources;
 import com.byron.interfaces.IRenderable;
@@ -33,7 +34,9 @@ public class ScreenManager implements IRenderable {
         System.out.println("Loading Game Screen");
         Random random = new Random();
         int seed = random.nextInt(1000000000);
-        setCurrentScreen(new GameScreen(seed));
+        GameScreen gameScreen = new GameScreen(seed);
+        setCurrentScreen(gameScreen);
+        gameScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     public void loadStartMenu() {
