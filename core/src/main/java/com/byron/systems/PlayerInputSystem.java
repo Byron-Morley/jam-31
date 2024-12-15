@@ -1,6 +1,9 @@
 package com.byron.systems;
 
-import static com.badlogic.gdx.Input.Keys.*;
+import static com.badlogic.gdx.Input.Keys.E;
+import static com.badlogic.gdx.Input.Keys.NUM_1;
+import static com.badlogic.gdx.Input.Keys.NUM_2;
+import static com.badlogic.gdx.Input.Keys.O;
 import static com.badlogic.gdx.graphics.Color.CLEAR;
 import static com.badlogic.gdx.graphics.Color.RED;
 import static com.byron.constants.Weapon.REGULAR_SWORD;
@@ -25,7 +28,6 @@ import com.byron.components.visuals.ColorInterpComponent;
 import com.byron.components.visuals.PositionInterpComponent;
 import com.byron.components.weapons.DamageComponent;
 import com.byron.components.weapons.WeaponTag;
-import com.byron.engine.GameResources;
 import com.byron.factories.SpriteFactory;
 import com.byron.interfaces.IAgentService;
 import com.byron.interfaces.IDungeonService;
@@ -33,7 +35,6 @@ import com.byron.interfaces.IPlayerInputManager;
 import com.byron.models.player.PlayerAction;
 import com.byron.models.status.Action;
 import com.byron.models.status.Direction;
-import com.byron.screens.GameScreen;
 import com.byron.utils.Mappers;
 
 import java.util.Stack;

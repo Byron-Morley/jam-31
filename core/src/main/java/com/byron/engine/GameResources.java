@@ -19,6 +19,8 @@ public class GameResources {
     private Stage stage;
     private final AssetManager assetManager;
     private boolean restart = false;
+    public int savedScore;
+    public boolean sameSeed;
 
     public GameResources(Engine engine, SpriteBatch batch, ShapeRenderer shapeRenderer) {
         this.engine = engine;
@@ -30,6 +32,7 @@ public class GameResources {
         if (instance == null) {
             instance = this;
         }
+        sameSeed = true;
     }
 
     public ScreenManager getScreenManager() {

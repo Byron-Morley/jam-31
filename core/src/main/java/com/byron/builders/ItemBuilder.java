@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.byron.components.ExitComponent;
 import com.byron.components.LootComponent;
 import com.byron.components.RenderComponent;
 import com.byron.components.StatusComponent;
@@ -19,10 +20,8 @@ import com.byron.models.item.Item;
 import com.byron.models.sprite.RawAnimationModel;
 import com.byron.models.status.Action;
 import com.byron.models.status.Direction;
-import com.byron.renderers.strategy.DefaultRenderPositionStrategy;
 import com.byron.renderers.strategy.ItemRenderPositionStrategy;
 import com.byron.renderers.strategy.RenderPriority;
-import com.byron.renderers.strategy.SpriteRenderPositionStrategy;
 
 public class ItemBuilder {
 
@@ -61,6 +60,11 @@ public class ItemBuilder {
 
     public ItemBuilder withLight(Sprite lightSprite, float size) {
         entity.add(new LightComponent(lightSprite, size));
+        return this;
+    }
+
+    public ItemBuilder withExit() {
+        entity.add(new ExitComponent());
         return this;
     }
 

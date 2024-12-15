@@ -52,6 +52,8 @@ import com.byron.systems.weapons.SlashSystem;
 import com.byron.systems.weapons.WeaponAttachSystem;
 import com.byron.systems.weapons.WeaponSystem;
 
+import java.util.Random;
+
 public class GameScreen extends ScreenAdapter {
 
     // Core
@@ -163,10 +165,10 @@ public class GameScreen extends ScreenAdapter {
         if (resources.isRestart()) {
             GameResources.get().setRestart(false);
             resources.getEngine().removeAllEntities();
-            GameScreen gameScreen = new GameScreen(seed);
+            int thisSeed = GameResources.get().sameSeed ? seed : new Random().nextInt(1000000);
+            GameScreen gameScreen = new GameScreen(thisSeed);
             GameResources.get().getScreenManager().setCurrentScreen(gameScreen);
             gameScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
         } else {
             cameraManager.render(delta);
 
