@@ -26,7 +26,15 @@ import com.byron.managers.PlayerInputManager;
 import com.byron.managers.SoundManager;
 import com.byron.managers.ui.UserInterfaceManager;
 import com.byron.renderers.GridRenderer;
-import com.byron.systems.*;
+import com.byron.systems.AISystem;
+import com.byron.systems.CameraFocusSystem;
+import com.byron.systems.CollisionSystem;
+import com.byron.systems.HUDRenderSystem;
+import com.byron.systems.LootSystem;
+import com.byron.systems.PhysicsSystem;
+import com.byron.systems.PlayerInputSystem;
+import com.byron.systems.SmoothMovementSystem;
+import com.byron.systems.TakeDamageSystem;
 import com.byron.systems.debug.DebugOverlaySystem;
 import com.byron.systems.debug.DebugSystem;
 import com.byron.systems.hud.FadingTextSystem;
@@ -66,9 +74,7 @@ public class GameScreen extends ScreenAdapter {
     private IRenderable lightsRenderer;
     private int seed;
 
-
     public GameScreen(int seed) {
-
         this.resources = GameResources.get();
         this.seed = seed;
         initializeLogs();
@@ -79,7 +85,6 @@ public class GameScreen extends ScreenAdapter {
         initializeSystems();
         initGame();
         camera = GameResources.get().getCamera();
-
     }
 
     private void initializeRenderers() {
@@ -156,7 +161,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         if (resources.isRestart()) {
             GameResources.get().setRestart(false);
             resources.getEngine().removeAllEntities();

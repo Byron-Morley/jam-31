@@ -4,7 +4,9 @@ import com.badlogic.gdx.Screen;
 import com.byron.engine.GameResources;
 import com.byron.interfaces.IRenderable;
 import com.byron.screens.GameScreen;
-import  java.util.Random;
+import com.byron.screens.StartMenu;
+
+import java.util.Random;
 
 public class ScreenManager implements IRenderable {
 
@@ -28,10 +30,15 @@ public class ScreenManager implements IRenderable {
     }
 
     public void loadGameScreen() {
-        System.out.println("Loading WorldScreen");
+        System.out.println("Loading Game Screen");
         Random random = new Random();
         int seed = random.nextInt(1000000000);
         setCurrentScreen(new GameScreen(seed));
+    }
+
+    public void loadStartMenu() {
+        System.out.println("Loading Start Menu");
+        setCurrentScreen(new StartMenu(this));
     }
 
     @Override

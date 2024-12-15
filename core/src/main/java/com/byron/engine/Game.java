@@ -23,7 +23,7 @@ public class Game extends ApplicationAdapter {
 
         VisUI.load();
         screenManager = new ScreenManager(new GameResources(new Engine(), spriteBatch, shapeRenderer));
-        screenManager.loadGameScreen();
+        screenManager.loadStartMenu();
     }
 
     @Override
