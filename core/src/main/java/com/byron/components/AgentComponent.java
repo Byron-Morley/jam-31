@@ -6,6 +6,8 @@ import com.byron.models.Stats;
 public class AgentComponent implements Component {
 
     Stats stats;
+    public float damageTimer = 0;
+
 
     public AgentComponent(Stats stats) {
         this.stats = stats;

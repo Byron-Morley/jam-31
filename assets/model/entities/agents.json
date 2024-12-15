@@ -5,7 +5,7 @@
     "player": true,
     "factionId": "player",
     "animationModel": "AGENT",
-    "skin" :"black-knight",
+    "skin": "black-knight",
     "body": {
       "BODY": "agent/black-knight"
     },

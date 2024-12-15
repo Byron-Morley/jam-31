@@ -66,6 +66,7 @@ public class AISystem extends IteratingSystem {
         Vector2 enemyPosition = Mappers.position.get(enemy).position;
 
         Entity player = agentService.getPlayer();
+        AgentComponent agentComponent = player.getComponent(AgentComponent.class);
         Vector2 playerPosition = Mappers.position.get(player).position;
         Vector2 enemyDirection = Mappers.status.get(enemy).getDirection().vector;
         boolean aiCanMoveNow;
@@ -97,21 +98,23 @@ public class AISystem extends IteratingSystem {
 
                 Stats enemyStats = getEntityStats(enemy);
 
-                System.out.println("Attacking");
-                System.out.println("Enemy Stats: " + aiCanMoveNow);
+                if (agentComponent.damageTimer <= 0) {
+                    player.add(new TakeDamageComponent());
+                    removeFromLifeOrArmor(enemyStats.getAttack());
+                    showNumbers(playerPosition, Color.RED, "-" + enemyStats.getAttack());
+                    Stats playerStats = getEntityStats(player);
+                    playerStats.setHealth(playerStats.getHealth() - enemyStats.getAttack());
+                    if (playerStats.getHealth() <= 0) getEngine().removeEntity(player);
 
-
-                removeFromLifeOrArmor(enemyStats.getAttack());
-                showNumbers(playerPosition, Color.RED, "-" + enemyStats.getAttack());
-                Stats stats = getEntityStats(player);
-                stats.setHealth(stats.getHealth() - enemyStats.getAttack());
-                if (stats.getHealth() <= 0) getEngine().removeEntity(player);
+                    agentComponent.damageTimer = 100f;
+                }
             }
         }
+        agentComponent.damageTimer -= deltaTime;
     }
 
-    private static Stats getEntityStats(Entity player) {
-        AgentComponent agentComponent = player.getComponent(AgentComponent.class);
+    private static Stats getEntityStats(Entity entity) {
+        AgentComponent agentComponent = entity.getComponent(AgentComponent.class);
         Stats stats = agentComponent.getStats();
 
         return stats;

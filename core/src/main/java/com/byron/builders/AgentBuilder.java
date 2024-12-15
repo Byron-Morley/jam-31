@@ -38,7 +38,6 @@ public class AgentBuilder {
 
     public AgentBuilder isPlayer() {
         entity.add(new PlayerComponent());
-        entity.add(new TakeDamageComponent());
         return this;
     }
 
