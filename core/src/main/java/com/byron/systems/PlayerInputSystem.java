@@ -11,6 +11,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -37,6 +38,9 @@ import com.byron.screens.GameScreen;
 import com.byron.utils.Mappers;
 
 import java.util.Stack;
+
+import static com.byron.utils.Messages.PLAY_MUSIC;
+import static com.byron.utils.Messages.PLAY_SOUND;
 
 public class PlayerInputSystem extends IteratingSystem {
 
@@ -81,6 +85,8 @@ public class PlayerInputSystem extends IteratingSystem {
                 status.setAction(Action.WALKING);
                 player.add(new DestinationComponent(target));
             }
+            System.out.println("walking message");
+            MessageManager.getInstance().dispatchMessage(PLAY_SOUND, "swoosh");
         }
 
         testScore();
