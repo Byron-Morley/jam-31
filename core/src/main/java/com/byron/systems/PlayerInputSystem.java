@@ -91,7 +91,7 @@ public class PlayerInputSystem extends IteratingSystem {
 
     // TODO: Remove, this is only for testing the restart
     private void testRestart() {
-        if (Gdx.input.isKeyJustPressed(ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(R)) {
             GameResources.get().setRestart(true);
         }
     }

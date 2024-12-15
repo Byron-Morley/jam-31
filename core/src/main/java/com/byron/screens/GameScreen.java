@@ -164,7 +164,10 @@ public class GameScreen extends ScreenAdapter {
         if (resources.isRestart()) {
             GameResources.get().setRestart(false);
             resources.getEngine().removeAllEntities();
-            GameResources.get().getScreenManager().setCurrentScreen(new GameScreen(seed));
+            GameScreen gameScreen = new GameScreen(seed);
+            GameResources.get().getScreenManager().setCurrentScreen(gameScreen);
+            gameScreen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         } else {
             cameraManager.render(delta);
 
