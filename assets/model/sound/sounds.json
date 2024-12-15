@@ -3,283 +3,283 @@
     "id": "BG_1A_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_1A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_1B_TS": {
     "id": "BG_1B_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_1B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_1C_TS": {
     "id": "BG_1C_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_1C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_2A_TS": {
     "id": "BG_2A_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_2A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_2B_TS": {
     "id": "BG_2B_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_2B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_2C_LONG_TS": {
     "id": "BG_2C_LONG_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_2C_LONG_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3A_TS": {
     "id": "BG_3A_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3B_TS": {
     "id": "BG_3B_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3C_TS": {
     "id": "BG_3C_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3D_TS": {
     "id": "BG_3D_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3D_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3E_TS": {
     "id": "BG_3E_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3E_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3F_TS": {
     "id": "BG_3F_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3F_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_3G_TS": {
     "id": "BG_3G_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_3G_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4A_LONG_TS": {
     "id": "BG_4A_LONG_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4A_LONG_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4B_TS": {
     "id": "BG_4B_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4C_TS": {
     "id": "BG_4C_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4D_TS": {
     "id": "BG_4D_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4D_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4E_TS": {
     "id": "BG_4E_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4E_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4F_TS": {
     "id": "BG_4F_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4F_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4G_TS": {
     "id": "BG_4G_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4G_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4H_TS": {
     "id": "BG_4H_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4H_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4I_TS": {
     "id": "BG_4I_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4I_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4J_TS": {
     "id": "BG_4J_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4J_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "BG_4K_TS": {
     "id": "BG_4K_TS",
     "path": "sounds/DUNGEON BACKGROUND SFX_4K_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DMG_1A_TS": {
     "id": "DMG_1A_TS",
     "path": "sounds/ENEMY DAMAGED_1A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DMG_1B_TS": {
     "id": "DMG_1B_TS",
     "path": "sounds/ENEMY DAMAGED_1B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DMG_1C_TS": {
     "id": "DMG_1C_TS",
     "path": "sounds/ENEMY DAMAGED_1C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1A_TS": {
     "id": "DEATH_1A_TS",
     "path": "sounds/ENEMY DEATH_1A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1B_TS": {
     "id": "DEATH_1B_TS",
     "path": "sounds/ENEMY DEATH_1B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1C_TS": {
     "id": "DEATH_1C_TS",
     "path": "sounds/ENEMY DEATH_1C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1D_TS": {
     "id": "DEATH_1D_TS",
     "path": "sounds/ENEMY DEATH_1D_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1E_TS": {
     "id": "DEATH_1E_TS",
     "path": "sounds/ENEMY DEATH_1E_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1F_TS": {
     "id": "DEATH_1F_TS",
     "path": "sounds/ENEMY DEATH_1F_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1G_TS": {
     "id": "DEATH_1G_TS",
     "path": "sounds/ENEMY DEATH_1G_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_1H_TS": {
     "id": "DEATH_1H_TS",
     "path": "sounds/ENEMY DEATH_1H_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_2A_TS": {
     "id": "DEATH_2A_TS",
     "path": "sounds/ENEMY DEATH_2A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_2B_TS": {
     "id": "DEATH_2B_TS",
     "path": "sounds/ENEMY DEATH_2B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_2C_TS": {
     "id": "DEATH_2C_TS",
     "path": "sounds/ENEMY DEATH_2C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "DEATH_2D_TS": {
     "id": "DEATH_2D_TS",
     "path": "sounds/ENEMY DEATH_2D_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1A_TS": {
     "id": "FS_1A_TS",
     "path": "sounds/ENEMY FOOTSTEP_1A_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1B_TS": {
     "id": "FS_1B_TS",
     "path": "sounds/ENEMY FOOTSTEP_1B_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1C_TS": {
     "id": "FS_1C_TS",
     "path": "sounds/ENEMY FOOTSTEP_1C_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1D_TS": {
     "id": "FS_1D_TS",
     "path": "sounds/ENEMY FOOTSTEP_1D_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1E_TS": {
     "id": "FS_1E_TS",
     "path": "sounds/ENEMY FOOTSTEP_1E_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1F_TS": {
     "id": "FS_1F_TS",
     "path": "sounds/ENEMY FOOTSTEP_1F_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1G_TS": {
     "id": "FS_1G_TS",
     "path": "sounds/ENEMY FOOTSTEP_1G_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "FS_1H_TS": {
     "id": "FS_1H_TS",
     "path": "sounds/ENEMY FOOTSTEP_1H_TS.oggvorbis.ogg",
     "priority": 4,
-    "volume": 0.1
+    "volume": 1
   },
   "swoosh": {
     "id": "swoosh",

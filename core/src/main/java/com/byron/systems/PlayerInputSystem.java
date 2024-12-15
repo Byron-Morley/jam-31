@@ -8,6 +8,7 @@ import static com.badlogic.gdx.graphics.Color.CLEAR;
 import static com.badlogic.gdx.graphics.Color.RED;
 import static com.byron.constants.Weapon.REGULAR_SWORD;
 import static com.byron.models.status.Direction.UP;
+import static com.byron.utils.Messages.PLAY_SOUND;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -39,9 +40,6 @@ import com.byron.models.status.Direction;
 import com.byron.utils.Mappers;
 
 import java.util.Stack;
-
-import static com.byron.utils.Messages.PLAY_MUSIC;
-import static com.byron.utils.Messages.PLAY_SOUND;
 
 public class PlayerInputSystem extends IteratingSystem {
 

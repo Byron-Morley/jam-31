@@ -21,6 +21,7 @@ public class BGSfxSystem extends EntitySystem {
         if (timer >= 3) {
             int randomindex = MathUtils.random(23);
             MessageManager.getInstance().dispatchMessage(PLAY_SOUND, SoundManager.randomBGSfx[randomindex]);
+            MessageManager.getInstance().dispatchMessage(PLAY_SOUND, SoundManager.randomBGSfx[randomindex]);
             timer = 0;
         }
     }
