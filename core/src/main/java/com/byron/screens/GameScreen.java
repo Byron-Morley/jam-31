@@ -143,7 +143,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new LightingSystem());
         engine.addSystem(new HUDRenderSystem());
         engine.addSystem(new TakeDamageSystem());
-        engine.addSystem(new ScoreChangeSystem());
+        engine.addSystem(new ScoreChangeSystem(agentManager.getAgentService()));
         engine.addSystem(new FadingTextSystem());
         engine.addSystem(new ScoreRenderer());
         engine.addSystem(new ScoreWidgetSpawner());
