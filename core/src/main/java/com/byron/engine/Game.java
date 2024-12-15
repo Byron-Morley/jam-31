@@ -3,6 +3,7 @@ package com.byron.engine;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,6 +15,7 @@ public class Game extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
     private ScreenManager screenManager;
+    private Music music;
 
     @Override
     public void create() {
@@ -24,6 +26,9 @@ public class Game extends ApplicationAdapter {
         VisUI.load();
         screenManager = new ScreenManager(new GameResources(new Engine(), spriteBatch, shapeRenderer));
         screenManager.loadStartMenu();
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/track_01.ogg"));
+        music.setVolume(0.3f);
+        music.play();
     }
 
     @Override
