@@ -66,7 +66,7 @@ public class ModelFactory {
     private static Object readModel(String modelPath, TypeReference typeRef) {
         if (!cache.containsKey(modelPath)) {
             try {
-                Object o = mapper.readValue(Gdx.files.internal(modelPath).file(), typeRef);
+                Object o = mapper.readValue(Gdx.files.internal(modelPath).read(), typeRef);
                 cache.put(modelPath, o);
             } catch (IOException e) {
                 e.printStackTrace();
